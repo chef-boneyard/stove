@@ -14,6 +14,8 @@ module Stove
 
       raise Stove::InvalidVersionError unless valid_version?(options[:new_version])
 
+      Stove::Logger.set_level(options.delete(:log_level))
+
       Stove::Cookbook.new(options).release!
       @kernel.exit(0)
     rescue => e
@@ -106,26 +108,6 @@ module Stove
       # @return [Boolean]
       def valid_version?(version)
         version.to_s =~ /^\d+\.\d+\.\d+$/
-      end
-
-      # Convert a string to it's logger constant.
-      #
-      # @return [Object]
-      def level_to_constant(level)
-        case level.to_s.strip.downcase.to_sym
-          when :fatal
-            ::Logger::FATAL
-          when :error
-            ::Logger::ERROR
-          when :warn
-            ::Logger::WARN
-          when :info
-            ::Logger::INFO
-          when :debug
-            ::Logger::DEBUG
-          else
-            ::Logger::INFO
-          end
       end
   end
 end
