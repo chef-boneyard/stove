@@ -14,6 +14,12 @@ Aruba::InProcess.main_class = Stove::Cli
 Aruba.process = Aruba::InProcess
 
 Stove.set_formatter(:silent)
+Stove::Config.instance_variable_set(:@instance, {
+  'jira_username'    => 'default',
+  'jira_password'    => 'default',
+  'opscode_username' => 'stove',
+  'opscode_pem_file' => File.expand_path(File.join(__FILE__, '..', 'stove.pem')),
+})
 Stove::RSpec::CommunitySite.start(port: 3390)
 Stove::CommunitySite.base_uri(Stove::RSpec::CommunitySite.server_url)
 Stove::CommunitySite.http_uri(Stove::RSpec::CommunitySite.server_url)

@@ -11,7 +11,7 @@ module Stove
 
       private
         def load!
-          JSON.parse(File.read(File.expand_path("~/.stove")))
+          JSON.parse(File.read(File.expand_path('~/.stove'))) rescue {}
         end
     end
   end
