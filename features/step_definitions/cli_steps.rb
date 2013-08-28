@@ -3,8 +3,9 @@ Given /^the environment variable (.+) is "(.+)"$/ do |variable, value|
 end
 
 Then /^the exit status will be "(.+)"$/ do |error|
-  code = Stove.const_get(error).exit_code
-  assert_exit_status(code)
+  # Ruby 1.9.3 sucks
+  klass = error.split('::').inject(Stove) { |c, n| c.const_get(n) }
+  assert_exit_status(klass.exit_code)
 end
 
 When /^the CLI options are all off$/ do
