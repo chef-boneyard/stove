@@ -1,5 +1,8 @@
 rvm:
   - 1.9.3
   - 2.0.0
+before_script:
+  - git config --global user.email "ci@traivs-ci.org"
+  - git config --global user.name "Travis CI"
 script:
   - bundle exec cucumber --color --format progress --strict
