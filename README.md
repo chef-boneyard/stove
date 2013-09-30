@@ -77,6 +77,20 @@ Usage: bake x.y.z
 ```
 
 
+Rake Task
+---------
+Stove also includes a Rake task you can include in your Rakefile:
+
+```ruby
+require 'stove/rake_task'
+
+Stove::RakeTask.new do |stove|
+  stove.git = true
+  stove.devodd = true
+end
+```
+
+
 Contributing
 ------------
 1. Fork it
