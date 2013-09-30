@@ -101,11 +101,15 @@ module Stove
         Dir.chdir(path) do
           git "add metadata.rb"
           git "add CHANGELOG.md"
-          git "commit -m 'Version bump to v#{version}'"
+          git "commit -m 'Version bump to #{tag_version}'"
           git "push #{options[:remote]} #{options[:branch]}"
 
-          git "tag v#{version}"
-          git "push #{options[:remote]} v#{version}"
+          if options[:github]
+            Stove::GitHub.new(self).publish_release!
+          else
+            git "tag #{tag_version}"
+            git "push #{options[:remote]} #{tag_version}"
+          end
         end
       end
 
@@ -127,17 +131,84 @@ module Stove
         if options[:git]
           Dir.chdir(path) do
             git "add metadata.rb"
-            git "commit -m 'Version bump to v#{version}'"
+            git "commit -m 'Version bump to #{tag_version}'"
             git "push #{options[:remote]} #{options[:branch]}"
           end
         end
       end
     end
 
+    def tag_version
+      "v#{version}"
+    end
+
+    # So there's this really really crazy bug that the tmp directory could
+    # be deleted mid-request...
+    #
+    # @return [File]
+    def tarball
+      return @tarball if @tarball && File.exists?(@tarball)
+
+      begin
+        @tarball = Stove::Packager.new(self).package_path
+      end until File.exists?(@tarball)
+      @tarball
+    end
+
     #
     def upload
-      return true unless options[:upload]
       Stove::Uploader.new(self).upload!
+    end
+
+    # The URL for this repository on GitHub. This method automatically
+    # translates SSH and git:// URLs to https:// URLs.
+    #
+    # @return [String]
+    def repository_url
+      @repository_url ||= git("config --get remote.#{options[:remote]}.url")
+                            .strip
+                            .gsub(/\.git$/, '')
+                            .gsub(':', '/')
+                            .gsub('@', '://')
+                            .gsub('git://', 'https://')
+    end
+
+    # The set of changes for this diff/patch in markdown format.
+    #
+    # @return [String]
+    def changeset
+      return @changeset if @changeset
+
+      contents = []
+      contents << "v#{version}"
+      contents << '-'*(version.length+1)
+
+      if options[:jira]
+        by_type = unreleased_tickets.inject({}) do |hash, ticket|
+          issue_type = ticket.fields.current['issuetype']['name']
+          hash[issue_type] ||= []
+          hash[issue_type] << {
+            number:  ticket.jira_key,
+            details: ticket.fields.current['summary'],
+          }
+
+          hash
+        end
+
+        by_type.each do |issue_type, tickets|
+          contents << "### #{issue_type}"
+          tickets.sort { |a,b| b[:number].to_i <=> a[:number].to_i }.each do |ticket|
+            contents << "- **[#{ticket[:number]}](#{Stove::JIRA::JIRA_URL}/browse/#{ticket[:number]})** - #{ticket[:details]}"
+          end
+          contents << ""
+        end
+      else
+        contents << "_Enter CHANGELOG for #{name} (#{version}) here_"
+        contents << ""
+      end
+
+      @changeset = contents.join("\n")
+      @changeset
     end
 
     private
@@ -159,42 +230,15 @@ module Stove
       end
       alias_method :reload_metadata!, :load_metadata!
 
-      # Create a new CHANGELOG in markdown format.
-      #
-      # @example given a cookbook named bacon
-      #   cookbook.create_changelog #=> <<EOH
-      # bacon Cookbook CHANGELOG
-      # ------------------------
-      # EOH
-      #
-      # @return [String]
-      #   the path to the new CHANGELOG
-      def create_changelog
-        destination = File.join(path, 'CHANGELOG.md')
-
-        # Be idempotent :)
-        return destination if File.exists?(destination)
-
-        header  = "#{name} Cookbook CHANGELOG\n"
-        header << "#{'='*header.length}\n"
-        header << "This file is used to list changes made in each version of the #{cookbook.name} cookbook.\n\n"
-
-        File.open(destination, 'wb') do |file|
-          file.write(header)
-        end
-
-        destination
-      end
-
       # Update the CHANGELOG with the new contents, but inserting
       # the newest version's CHANGELOG at the top of the file (after
       # the header)
       def update_changelog
-        changelog = create_changelog
+        changelog = File.join(path, 'CHANGELOG.md')
         contents  = File.readlines(changelog)
 
         index = contents.find_index { |line| line =~ /(--)+/ } - 2
-        contents.insert(index, "\n" + generate_changelog)
+        contents.insert(index, "\n" + changeset)
 
         Dir.mktmpdir do |dir|
           tmpfile = File.join(dir, 'CHANGELOG.md')
@@ -210,44 +254,6 @@ module Stove
         end
       rescue SystemExit, Interrupt
         raise Stove::UserCanceledError
-      end
-
-      # Generate a CHANGELOG in markdown format.
-      #
-      # @param [String] version
-      #   the version string in x.y.z format
-      #
-      # @return [String]
-      def generate_changelog
-        contents = []
-        contents << "v#{version}"
-        contents << '-'*(version.length+1)
-
-        if options[:jira]
-          by_type = unreleased_tickets.inject({}) do |hash, ticket|
-            issue_type = ticket.fields.current['issuetype']['name']
-            hash[issue_type] ||= []
-            hash[issue_type] << {
-              number:  ticket.jira_key,
-              details: ticket.fields.current['summary'],
-            }
-
-            hash
-          end
-
-          by_type.each do |issue_type, tickets|
-            contents << "### #{issue_type}"
-            tickets.sort { |a,b| b[:number].to_i <=> a[:number].to_i }.each do |ticket|
-              contents << "- **[#{ticket[:number]}](#{Stove::JIRA::JIRA_URL}/browse/#{ticket[:number]})** - #{ticket[:details]}"
-            end
-            contents << ""
-          end
-        else
-          contents << "_Enter CHANGELOG for #{name} (#{version}) here_"
-          contents << ""
-        end
-
-        contents.join("\n")
       end
 
       # Bump the version in the metdata.rb to the specified

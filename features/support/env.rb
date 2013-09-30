@@ -14,6 +14,8 @@ Stove.set_formatter(:silent)
 Stove::Config.instance_variable_set(:@instance, {
   'jira_username'    => 'default',
   'jira_password'    => 'default',
+  'github_usernmae'  => 'default',
+  'github_password'  => 'default',
   'opscode_username' => 'stove',
   'opscode_pem_file' => File.expand_path(File.join(__FILE__, '..', 'stove.pem')),
 })

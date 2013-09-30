@@ -24,7 +24,7 @@ module Stove
       response = self.class.post(upload_url, {
         :headers => headers,
         :query   => {
-          :tarball  => File.new(tarball),
+          :tarball  => File.new(cookbook.tarball),
           :cookbook => { category: cookbook.category }.to_json,
         },
       })
@@ -45,17 +45,8 @@ module Stove
           :timestamp   => Time.now.utc.iso8601,
           :user_id     => username,
           :path        => URI.parse(upload_url).path,
-          :file        => File.new(tarball),
+          :file        => File.new(cookbook.tarball),
         }).sign(pem_file))
-      end
-
-      # So there's this really really crazy bug that the tmp directory could
-      # be deleted mid-request...
-      def tarball
-        begin
-          tgz = Stove::Packager.new(cookbook).package_path
-        end until File.exists?(tgz)
-        tgz
       end
 
       def pem_file
