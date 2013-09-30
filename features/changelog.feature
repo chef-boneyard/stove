@@ -1,8 +1,4 @@
 Feature: Changelog
-  As a stove user
-  In order to have a human-readable changeset
-  I want to automatically generate a Changelog
-
   Background:
     * the CLI options are all off
     * I have a cookbook named "bacon"

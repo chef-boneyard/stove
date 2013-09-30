@@ -1,8 +1,4 @@
 Feature: Upload
-  As a stove user
-  In order to upload cookbooks
-  I want to tar and push to a Community Site
-
   Background:
     * I have a cookbook named "bacon"
     * the CLI options are all off

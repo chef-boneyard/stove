@@ -88,6 +88,7 @@ module Stove
       if options[:git]
         validate_git_repo!
         validate_git_clean!
+        validate_remote_updated!
       end
 
       version_bump
@@ -274,6 +275,16 @@ module Stove
       def validate_git_clean!
         Dir.chdir(path) do
           raise Stove::GitError::DirtyRepo unless git_repo_clean?
+        end
+      end
+
+      # Validate that the remote git repository is up to date.
+      #
+      # @raise [Stove::GitError::OutOfSync]
+      #   if the current git repo is not up to date with the remote
+      def validate_remote_updated!
+        Dir.chdir(path) do
+          raise Stove::GitError::OutOfSync unless git_remote_uptodate?(options)
         end
       end
   end

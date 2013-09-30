@@ -70,6 +70,14 @@ module Stove
         'You have untracked files!'
       end
     end
+
+    class OutOfSync < GitError
+      set_exit_code 133
+
+      def message
+        'Your remote repository is out of sync!'
+      end
+    end
   end
 
   class UploadError < Error

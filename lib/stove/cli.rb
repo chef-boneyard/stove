@@ -92,14 +92,14 @@ module Stove
       # @return [Hash]
       def options
         @options ||= {
-          :path      => Dir.pwd,
-          :git       => true,
-          :remote    => 'origin',
-          :branch    => 'master',
-          :jira      => false,
-          :upload    => true,
-          :changelog => true,
-          :log_level => :warn,
+          path:      Dir.pwd,
+          git:       true,
+          remote:    'origin',
+          branch:    'master',
+          jira:      false,
+          upload:    true,
+          changelog: true,
+          log_level: :warn,
         }
       end
 
