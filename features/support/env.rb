@@ -10,9 +10,6 @@ require_relative '../../spec/support/git'
 World(Aruba::Api)
 World(Stove::RSpec::Git)
 
-Aruba::InProcess.main_class = Stove::Cli
-Aruba.process = Aruba::InProcess
-
 Stove.set_formatter(:silent)
 Stove::Config.instance_variable_set(:@instance, {
   'jira_username'    => 'default',
@@ -27,6 +24,15 @@ Stove::CommunitySite.http_uri(Stove::RSpec::CommunitySite.server_url)
 Before do
   @dirs = [Dir.mktmpdir]
   Stove::RSpec::CommunitySite.reset!
+end
+
+Before('~@spawn') do
+  Aruba::InProcess.main_class = Stove::Cli
+  Aruba.process = Aruba::InProcess
+end
+
+Before('@spawn') do
+  Aruba.process = Aruba::SpawnProcess
 end
 
 # The path to Aruba's "stuff"
