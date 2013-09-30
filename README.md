@@ -11,7 +11,8 @@ A utility for releasing and managing Chef Cookbooks. It will:
 - Create a CHANGELOG from JIRA tickets
 - Commit and push these changes to git
 - Create a git tag and push those changes to git
-- Upload the cookbook to the Opscode community site
+- Publish a release to GitHub releases
+- Upload the cookbook to the Opscode Community Site
 - Resolve (close) the JIRA tickets
 
 
@@ -39,9 +40,16 @@ Create a special JIRA credentials file at '~/.stove' that has the following JSON
   "jira_username": "JIRA_USERNAME",
   "jira_password": "JIRA_PASSWORD",
   "opscode_username": "OPSCODE_USERNAME",
-  "opscode_pem_file": "OPSCODE_PEM_FILE"
+  "opscode_pem_file": "OPSCODE_PEM_FILE",
+  "github_access_token": "PERSONAL_API_TOKEN"
 }
 ```
+
+- `jira_username` - The username used to login to Opscode's JIRA
+- `jira_password` - The password used to login to Opscode's JIRA
+- `opscode_username` - The username used to login to Opscode's Community Site
+- `opscode_password` - The password used to login to Opscode's Community Site
+- `github_access_token` - Your personal access token for the GitHub API
 
 For example:
 
@@ -50,7 +58,8 @@ For example:
   "jira_username": "sethvargo",
   "jira_password": "bAc0ñ",
   "opscode_username": "sethvargo",
-  "opscode_pem_file": "~/.chef/sethvargo.pem"
+  "opscode_pem_file": "~/.chef/sethvargo.pem",
+  "github_access_token": "abcdefg1234567"
 }
 ```
 
@@ -67,8 +76,10 @@ Usage: bake x.y.z
     -c, --category [CATEGORY]        The category for the cookbook (optional for existing cookbooks)
     -p, --path [PATH]                The path to the cookbook to release (default: PWD)
         --[no-]git                   Automatically tag and push to git (default: true)
+        --[no-]github                Automatically release to GitHub (default: true)
     -r, --remote                     The name of the git remote to push to
     -b, --branch                     The name of the git branch to push to
+        --[no-]devodd                Automatically bump the metadata for devodd releases
         --[no-]jira                  Automatically populate the CHANGELOG from JIRA tickets and close them (default: false)
         --[no-]upload                Upload the cookbook to the Opscode Community Site (default: true)
         --[no-]changelog             Automatically generate a CHANGELOG (default: true)

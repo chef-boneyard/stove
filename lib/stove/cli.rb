@@ -54,6 +54,11 @@ module Stove
             options[:git] = v
           end
 
+          opts.on('--[no-]github', 'Automatically release to GitHub (default: true)') do |v|
+            options[:git] = v if v
+            options[:github] = v
+          end
+
           opts.on('-r', '--remote', String, 'The name of the git remote to push to') do |v|
             options[:remote] = v
           end
@@ -98,6 +103,7 @@ module Stove
         @options ||= {
           path:      Dir.pwd,
           git:       true,
+          github:    true,
           devodd:    false,
           remote:    'origin',
           branch:    'master',

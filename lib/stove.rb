@@ -8,6 +8,7 @@ module Stove
   require_relative 'stove/cookbook'
   require_relative 'stove/error'
   require_relative 'stove/formatter'
+  require_relative 'stove/github'
   require_relative 'stove/jira'
   require_relative 'stove/mash'
   require_relative 'stove/packager'

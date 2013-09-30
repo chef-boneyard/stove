@@ -15,6 +15,7 @@ When /^the CLI options are all off$/ do
         @options ||= {
           path:      Dir.pwd,
           git:       false,
+          github:    false,
           devodd:    false,
           remote:    'origin',
           branch:    'master',
