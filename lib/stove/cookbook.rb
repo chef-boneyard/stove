@@ -102,10 +102,10 @@ module Stove
           git "add metadata.rb"
           git "add CHANGELOG.md"
           git "commit -m 'Version bump to v#{version}'"
-          git "push #{options[:remote] || 'origin'} #{options[:branch] || 'master'}"
+          git "push #{options[:remote]} #{options[:branch]}"
 
           git "tag v#{version}"
-          git "push #{options[:remote] || 'origin'} v#{version}"
+          git "push #{options[:remote]} v#{version}"
         end
       end
 
@@ -115,6 +115,22 @@ module Stove
 
       if options[:jira]
         resolve_jira_issues
+      end
+
+      if options[:devodd]
+        split = version.split('.').map(&:to_i)
+        split[2] += 1
+        devodd = split.join('.')
+
+        version_bump(devodd)
+
+        if options[:git]
+          Dir.chdir(path) do
+            git "add metadata.rb"
+            git "commit -m 'Version bump to v#{version}'"
+            git "push #{options[:remote]} #{options[:branch]}"
+          end
+        end
       end
     end
 
@@ -239,13 +255,13 @@ module Stove
       #
       # @return [String]
       #   the new version string
-      def version_bump
-        return true if new_version.to_s == version.to_s
+      def version_bump(bump_version = new_version)
+        return true if bump_version.to_s == version.to_s
 
         metadata_path = File.join(path, 'metadata.rb')
         contents      = File.read(metadata_path)
 
-        contents.sub!(/^version(\s+)('|")#{version.to_s}('|")/, "version\\1\\2#{new_version.to_s}\\3")
+        contents.sub!(/^version(\s+)('|")#{version.to_s}('|")/, "version\\1\\2#{bump_version.to_s}\\3")
 
         File.open(metadata_path, 'w') { |f| f.write(contents) }
         reload_metadata!
