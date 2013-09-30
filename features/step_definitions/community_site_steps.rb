@@ -4,8 +4,8 @@ Given /^the Community Site has the cookbooks?:$/ do |table|
     category ||= 'Other'
 
     CommunityZero::Cookbook.create({
-      name: name,
-      version: version,
+      name:     name,
+      version:  version,
       category: category,
     })
   end

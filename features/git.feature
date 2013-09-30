@@ -1,8 +1,4 @@
 Feature: Git
-  As a stove user
-  In order to have a useful git tree
-  I want to automatically tag and push to git
-
   Background:
     * the CLI options are all off
 
@@ -30,3 +26,9 @@ Feature: Git
     * I have a cookbook named "bacon"
     * I run `bake 1.0.0 --git`
     * the exit status will be "GitError::NotARepo"
+
+  Scenario: Remote repository out of sync
+    * I have a cookbook named "bacon" with git support
+    * the remote repository has additional commits
+    * I run `bake 1.0.0 --git`
+    * the exit status will be "GitError::OutOfSync"

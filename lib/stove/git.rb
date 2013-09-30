@@ -44,6 +44,14 @@ module Stove
       false
     end
 
+    def git_remote_uptodate?(options = {})
+      git('fetch')
+      local  = git("rev-parse #{options[:branch]}").strip
+      remote = git("rev-parse #{options[:remote]}/#{options[:branch]}").strip
+
+      local == remote
+    end
+
     def shellout(command)
       out, err = Tempfile.new('shellout.stdout'), Tempfile.new('shellout.stderr')
 

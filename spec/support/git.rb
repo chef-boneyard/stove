@@ -11,6 +11,7 @@ module Stove
           git 'add --all'
           git 'commit --message "Initial commit"'
           git 'remote add origin file://' + fake_git_remote
+          git 'push origin master'
         end
       end
 

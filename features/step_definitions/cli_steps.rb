@@ -13,11 +13,14 @@ When /^the CLI options are all off$/ do
     private
       def options
         @options ||= {
-          :git       => false,
-          :jira      => false,
-          :upload    => false,
-          :changelog => false,
-          :log_level => :debug,
+          path:      Dir.pwd,
+          git:       false,
+          remote:    'origin',
+          branch:    'master',
+          jira:      false,
+          upload:    false,
+          changelog: false,
+          log_level: :fatal,
         }
       end
   end
