@@ -62,6 +62,10 @@ module Stove
             options[:branch] = v
           end
 
+          opts.on('--[no-]devodd', 'Automatically bump the metadata for devodd releases') do |v|
+            options[:devodd] = v
+          end
+
           opts.on('--[no-]jira', 'Automatically populate the CHANGELOG from JIRA tickets and close them (default: false)') do |v|
             options[:jira] = v
           end
@@ -94,6 +98,7 @@ module Stove
         @options ||= {
           path:      Dir.pwd,
           git:       true,
+          devodd:    false,
           remote:    'origin',
           branch:    'master',
           jira:      false,
