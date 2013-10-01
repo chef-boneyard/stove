@@ -59,11 +59,11 @@ module Stove
             options[:github] = v
           end
 
-          opts.on('-r', '--remote', String, 'The name of the git remote to push to') do |v|
+          opts.on('-r', '--remote [REMOTE]', String, 'The name of the git remote to push to') do |v|
             options[:remote] = v
           end
 
-          opts.on('-b', '--branch', String, 'The name of the git branch to push to') do |v|
+          opts.on('-b', '--branch [BRANCH]', String, 'The name of the git branch to push to') do |v|
             options[:branch] = v
           end
 
