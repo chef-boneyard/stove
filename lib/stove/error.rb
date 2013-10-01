@@ -89,7 +89,7 @@ module Stove
 
     def message
       "The following errors occured when uploading:\n" <<
-        @response.parsed_response['error_messages'].map do |error|
+        (@response.parsed_response['error_messages'] || []).map do |error|
           "  - #{error}"
         end.join("\n")
     end
