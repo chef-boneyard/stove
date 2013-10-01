@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'retryable'
 require 'time'
 
 module Stove
@@ -122,7 +123,9 @@ module Stove
 
       if options[:upload]
         Stove::Logger.info "Uploading cookbook"
-        upload
+        retryable(tries: 3) do
+          upload
+        end
       end
 
       if options[:jira]
