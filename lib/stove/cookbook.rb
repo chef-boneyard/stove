@@ -86,27 +86,34 @@ module Stove
     #
     def release!
       if options[:git]
+        Stove::Logger.info "Running validations"
         validate_git_repo!
         validate_git_clean!
         validate_remote_updated!
       end
 
+      Stove::Logger.info "Bumping version"
       version_bump
 
       if options[:changelog]
+        Stove::Logger.info "Updating changelog"
         update_changelog
       end
 
       if options[:git]
         Dir.chdir(path) do
+          Stove::Logger.info "Committing git changes in '#{path}'"
+
           git "add metadata.rb"
           git "add CHANGELOG.md"
           git "commit -m 'Version bump to #{tag_version}'"
           git "push #{options[:remote]} #{options[:branch]}"
 
           if options[:github]
+            Stove::Logger.info "Pushing release to GitHub"
             Stove::GitHub.new(self).publish_release!
           else
+            Stove::Logger.info "Tagging a release"
             git "tag #{tag_version}"
             git "push #{options[:remote]} #{tag_version}"
           end
@@ -114,14 +121,17 @@ module Stove
       end
 
       if options[:upload]
+        Stove::Logger.info "Uploading cookbook"
         upload
       end
 
       if options[:jira]
+        Stove::Logger.info "Resolving JIRA issues"
         resolve_jira_issues
       end
 
       if options[:devodd]
+        Stove::Logger.info "Bumping devodd release"
         split = version.split('.').map(&:to_i)
         split[2] += 1
         devodd = split.join('.')
