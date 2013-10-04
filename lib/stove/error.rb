@@ -111,4 +111,8 @@ module Stove
   class AbstractFunction < Error
     set_exit_code 160
   end
+
+  class InvalidChangelogFormat < Error
+    set_exit_code 170
+  end
 end

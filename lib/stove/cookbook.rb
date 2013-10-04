@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'retryable'
+require 'tempfile'
 require 'time'
 
 module Stove
@@ -249,24 +250,35 @@ module Stove
       def update_changelog
         changelog = File.join(path, 'CHANGELOG.md')
         contents  = File.readlines(changelog)
+        index     = contents.find_index { |line| line =~ /(--)+/ }
 
-        index = contents.find_index { |line| line =~ /(--)+/ } - 2
-        contents.insert(index, "\n" + changeset)
-
-        Dir.mktmpdir do |dir|
-          tmpfile = File.join(dir, 'CHANGELOG.md')
-          File.open(tmpfile, 'w') { |f| f.write(contents.join('')) }
-          response = shellout("$EDITOR #{tmpfile}")
-
-          unless response.success?
-            Stove::Logger.debug response.stderr
-            raise Stove::Error, response.stderr
-          end
-
-          FileUtils.mv(tmpfile, File.join(path, 'CHANGELOG.md'))
+        if index.nil?
+          raise Stove::InvalidChangelogError, "Your CHANGELOG does not exist" \
+            " or is not in a valid format!"
         end
+
+        tmpfile  = Tempfile.new(['changes', '.md'])
+        tmpfile.write(changeset)
+        tmpfile.rewind
+        response = shellout("$EDITOR #{tmpfile.path}")
+
+        unless response.success?
+          Stove::Logger.debug response.stdout
+          Stove::Logger.debug response.stderr
+          raise Stove::Error, response.stderr
+        end
+
+        @changeset = File.read(tmpfile.path).strip
+
+        contents.insert(index - 2, "\n" + @changeset + "\n\n")
+        File.open(changelog, 'w') { |f| f.write(contents.join('')) }
       rescue SystemExit, Interrupt
         raise Stove::UserCanceledError
+      ensure
+        if defined?(tmpfile)
+          tmpfile.close
+          tmpfile.unlink
+        end
       end
 
       # Bump the version in the metdata.rb to the specified
