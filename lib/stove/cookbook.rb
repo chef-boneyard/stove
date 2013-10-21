@@ -108,7 +108,7 @@ module Stove
 
           git "add metadata.rb"
           git "add CHANGELOG.md"
-          git "commit -m 'Version bump to #{tag_version}'"
+          git "commit -m \"Version bump to #{tag_version}\""
           git "push #{options[:remote]} #{options[:branch]}"
 
           if options[:github]
@@ -145,7 +145,7 @@ module Stove
         if options[:git]
           Dir.chdir(path) do
             git "add metadata.rb"
-            git "commit -m 'Version bump to #{tag_version}'"
+            git "commit -m \"Version bump to #{tag_version}\""
             git "push #{options[:remote]} #{options[:branch]}"
           end
         end
