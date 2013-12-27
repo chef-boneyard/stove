@@ -1,4 +1,3 @@
-@spawn
 Feature: Rake Task
   Background:
     * I have a cookbook named "bacon"
@@ -12,5 +11,5 @@ Feature: Rake Task
     * I successfully run `rake -T`
     * the output should contain:
       """
-      rake publish  # Publish this cookbook
+      rake publish[version]  # Publish this cookbook
       """

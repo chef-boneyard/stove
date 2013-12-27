@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
 
-$:.unshift(File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib')))
-require 'stove/cli'
+require 'stove'
 Stove::Cli.new(ARGV.dup).execute!

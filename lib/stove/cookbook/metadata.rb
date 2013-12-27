@@ -134,7 +134,7 @@ module Stove
           self.instance_eval(IO.read(path), path, 1)
           self
         else
-          raise Stove::MetadataNotFound.new(path)
+          raise Error::MetadataNotFound.new(path: path)
         end
       end
 
@@ -144,9 +144,13 @@ module Stove
         end
       end
 
-      def version(arg = nil)
-        @version = Solve::Version.new(arg) if arg
-        @version.to_s
+      def version(arg = UNSET_VALUE)
+        if arg == UNSET_VALUE
+          @version.to_s
+        else
+          @version = Solve::Version.new(arg)
+          @version.to_s
+        end
       end
 
       def to_hash
@@ -176,15 +180,16 @@ module Stove
       end
 
       private
-        def set_or_return(symbol, arg)
-          iv_symbol = "@#{symbol.to_s}".to_sym
 
-          if arg.nil? && self.instance_variable_defined?(iv_symbol)
-            self.instance_variable_get(iv_symbol)
-          else
-            self.instance_variable_set(iv_symbol, arg)
-          end
+      def set_or_return(symbol, arg)
+        iv_symbol = "@#{symbol.to_s}".to_sym
+
+        if arg.nil? && self.instance_variable_defined?(iv_symbol)
+          self.instance_variable_get(iv_symbol)
+        else
+          self.instance_variable_set(iv_symbol, arg)
         end
+      end
     end
   end
 end

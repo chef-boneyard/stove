@@ -49,34 +49,35 @@ module Stove
     end
 
     private
-      def pack!
-        destination = Tempfile.new(cookbook.name).path
 
-        # Sandbox
-        sandbox = Dir.mktmpdir
-        FileUtils.mkdir_p(sandbox)
+    def pack!
+      destination = Tempfile.new(cookbook.name).path
 
-        # Containing folder
-        container = File.join(sandbox, cookbook.name)
-        FileUtils.mkdir_p(container)
+      # Sandbox
+      sandbox = Dir.mktmpdir
+      FileUtils.mkdir_p(sandbox)
 
-        # Copy filles
-        FileUtils.cp_r(cookbook_files, container)
+      # Containing folder
+      container = File.join(sandbox, cookbook.name)
+      FileUtils.mkdir_p(container)
 
-        # Generate metadata
-        File.open(File.join(container, 'metadata.json'), 'w') do |f|
-          f.write(cookbook.metadata.to_json)
-        end
+      # Copy filles
+      FileUtils.cp_r(cookbook_files, container)
 
-        Dir.chdir(sandbox) do |dir|
-          # This is super fucking annoying. The community site should really
-          # be better at reading tarballs
-          relative_path = container.gsub(sandbox + '/', '') + '/'
-          tgz = Zlib::GzipWriter.new(File.open(destination, 'wb'))
-          Archive::Tar::Minitar.pack(relative_path, tgz)
-        end
-
-        return destination
+      # Generate metadata
+      File.open(File.join(container, 'metadata.json'), 'w') do |f|
+        f.write(cookbook.metadata.to_json)
       end
+
+      Dir.chdir(sandbox) do |dir|
+        # This is super fucking annoying. The community site should really
+        # be better at reading tarballs
+        relative_path = container.gsub(sandbox + '/', '') + '/'
+        tgz = Zlib::GzipWriter.new(File.open(destination, 'wb'))
+        Archive::Tar::Minitar.pack(relative_path, tgz)
+      end
+
+      return destination
+    end
   end
 end
