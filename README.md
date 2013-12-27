@@ -33,35 +33,37 @@ Alternatively, you may install it as a gem:
 
     $ gem install stove
 
-Create a special JIRA credentials file at '~/.stove' that has the following JSON:
+The use of some plugins (such as GitHub and JIRA) require a Stove configuration file. The Stove config is a JSON file stored at `~/.stove` on your local hard drive. The schema looks like this:
 
 ```javascript
 {
-  "jira_username": "JIRA_USERNAME",
-  "jira_password": "JIRA_PASSWORD",
-  "opscode_username": "OPSCODE_USERNAME",
-  "opscode_pem_file": "OPSCODE_PEM_FILE",
-  "github_access_token": "PERSONAL_API_TOKEN"
+  "field": {
+    "option": "value"
+  }
 }
 ```
 
-- `jira_username` - The username used to login to Opscode's JIRA
-- `jira_password` - The password used to login to Opscode's JIRA
-- `opscode_username` - The username used to login to Opscode's Community Site
-- `opscode_password` - The password used to login to Opscode's Community Site
-- `github_access_token` - Your personal access token for the GitHub API
-
-For example:
+For example, my local Stove configuration looks like this:
 
 ```javascript
 {
-  "jira_username": "sethvargo",
-  "jira_password": "bAc0ñ",
-  "opscode_username": "sethvargo",
-  "opscode_pem_file": "~/.chef/sethvargo.pem",
-  "github_access_token": "abcdefg1234567"
+  "community": {
+    "username": "sethvargo",
+    "key": "~/.chef/sethvargo.pem"
+  },
+  "github": {
+    "access_token": "..."
+  },
+  "jira": {
+    "username": "sethvargo",
+    "password": "..."
+  }
 }
 ```
+
+If you are using Stove 1.0, you need to update your configuration file syntax.
+
+**It is recommended that the permissions on this file be 0600 to prevent unauthorized reading!**
 
 
 Usage
@@ -70,19 +72,29 @@ The gem is packaged as a binary. It should be run from _inside the cookbook to r
 
     (~/cookbooks/bacon) $ bake 1.2.3
 
+You can always use the `--help` flag to get information:
+
 ```text
 Usage: bake x.y.z
-    -l, --log-level [LEVEL]          Ruby log level
-    -c, --category [CATEGORY]        The category for the cookbook (optional for existing cookbooks)
-    -p, --path [PATH]                The path to the cookbook to release (default: PWD)
-        --[no-]git                   Automatically tag and push to git (default: true)
-        --[no-]github                Automatically release to GitHub (default: true)
-    -r, --remote                     The name of the git remote to push to
-    -b, --branch                     The name of the git branch to push to
-        --[no-]devodd                Automatically bump the metadata for devodd releases
-        --[no-]jira                  Automatically populate the CHANGELOG from JIRA tickets and close them (default: false)
-        --[no-]upload                Upload the cookbook to the Opscode Community Site (default: true)
-        --[no-]changelog             Automatically generate a CHANGELOG (default: true)
+
+Actions:
+        --no-bump                    Perform a version bump the local version automatically
+        --no-changelog               Generate and prompt for a CHANGELOG
+        --no-dev                     Bump a minor version release for development purposes
+        --no-upload                  Upload the cookbook to the community site
+
+Plugins:
+        --no-git                     Tag and push to a git remote
+        --no-github                  Publish the release to GitHub
+        --no-jira                    Resolve JIRA issues
+
+Global Options:
+        --locale [LANGUAGE]          Change the language to output messages
+        --log-level [LEVEL]          Set the log verbosity
+        --category [CATEGORY]        Set category for the cookbook
+        --path [PATH]                Change the path to a cookbook
+        --remote [REMOTE]            The name of the git remote to push to
+        --branch [BRANCH]            The name of the git branch to push to
     -h, --help                       Show this message
     -v, --version                    Show version
 ```
