@@ -1,63 +1,82 @@
 require 'rake'
 require 'rake/tasklib'
+require 'stove'
 
+#
+# @todo Most of these options are duplicated from the CLI, can we unify?
+#
 module Stove
-  #
-  # Run Stove tasks from your +Rakefile+.
-  #
-  # @example
-  #   desc "Run stove tasks"
-  #   Stove::RakeTask.new(:release) do |stove|
-  #     stove.git = true
-  #     stove.devodd = true
-  #   end
-  #
-  class RakeTask < ::Rake::TaskLib
+  class RakeTask < Rake::TaskLib
+    include Mixin::Loggable
+
     class << self
       #
       # Define a CLI option.
       #
       # @param [Symbol] option
       #
-      def cli_option(option)
+      def option(option)
         define_method("#{option}=".to_sym) do |value|
-          options[option] = value
-        end
-
-        define_method(option.to_sym) do
-          options[option]
+          log.debug("Setting #{option} = #{value.inspect}")
+          options[option.to_sym] = value
         end
       end
     end
 
-    # @return [Symbol]
-    attr_accessor :name
+    # Actions
+    Action.constants.map(&Action.method(:const_get)).select(&:id).each do |action|
+      option action.id
+    end
 
-    # @return [Hash]
-    attr_reader :options
+    # Plugins
+    Plugin.constants.map(&Plugin.method(:const_get)).select(&:id).each do |plugin|
+      option plugin.id
+    end
 
-    def initialize(task_name = nil)
-      @options = {}
-      @name    = (task_name || :publish).to_sym
+    option :category
+    option :path
+    option :remote
+    option :branch
 
+    def initialize(name = nil)
       yield self if block_given?
 
       desc 'Publish this cookbook' unless ::Rake.application.last_comment
-      task name do |t, args|
-        require 'stove'
-        Stove::Cookbook.new(options).release!
+      task(name || :publish, :version) do |t, args|
+        log.info("Options: #{options.inspect}")
+
+        cookbook = Cookbook.new(options[:path])
+        options[:version] = args[:version] || minor_bump(cookbook.version)
+        Runner.run(cookbook, options)
       end
     end
 
-    cli_option :branch
-    cli_option :category
-    cli_option :changelog
-    cli_option :devodd
-    cli_option :git
-    cli_option :jira
-    cli_option :log_level
-    cli_option :path
-    cli_option :remote
-    cli_option :upload
+    def locale=(locale)
+      log.debug("Setting locale = #{locale.inspect}")
+      I18n.locale = locale
+    end
+
+    def log_level=(level)
+      log.debug("Setting log_level = #{level.inspect}")
+      Stove.log_level = level
+    end
+
+    private
+
+    def minor_bump(version)
+      split = version.split('.').map(&:to_i)
+      split[2] += 1
+      split.join('.')
+    end
+
+    def options
+      @options ||= Hash.new(true).tap do |h|
+        h[:path] = Dir.pwd
+        h[:jira] = false
+
+        h[:remote]    = 'origin'
+        h[:branch]    = 'master'
+      end
+    end
   end
 end

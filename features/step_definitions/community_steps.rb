@@ -1,19 +1,23 @@
-Given /^the Community Site has the cookbooks?:$/ do |table|
+Given /^I am using the community server$/ do
+  set_env('COMMUNITY_URL', CommunityZero::RSpec.url)
+end
+
+Given /^the community server has the cookbooks?:$/ do |table|
   table.raw.each do |name, version, category|
     version  ||= '0.0.0'
     category ||= 'Other'
 
-    CommunityZero::Cookbook.create({
+    CommunityZero::RSpec.store.add(CommunityZero::Cookbook.new(
       name:     name,
       version:  version,
       category: category,
-    })
+    ))
   end
 end
 
-Then /^the Community Site will( not)? have the cookbooks?:$/ do |negate, table|
+Then /^the community server will( not)? have the cookbooks?:$/ do |negate, table|
   table.raw.each do |name, version, category|
-    cookbook = CommunityZero::Store.find(name, version)
+    cookbook = CommunityZero::RSpec.store.find(name, version)
 
     if negate
       expect(cookbook).to be_nil

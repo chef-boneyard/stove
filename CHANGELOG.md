@@ -2,6 +2,22 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v2.0.0 (unreleased)
+-------------------
+- Completely refactor the runner for speed optimizations
+- Introduce a new configuration file format
+- Add i18n support
+- Add Filters and validations that execute before any commands are run
+- Autoload plugins and actions
+- Improve help output by grouping options
+- Trap Signal interrupts cleanly
+- Remove formatters
+- Switch to log4r
+- Introduce significantly more logging and log levels
+- Remove HTTParty & Jiralicious in favor or Faraday
+- Improve rake task to automatically perfom a minor bump when no version if given
+- Persist data across the cookbook object
+- Use singleton classes to save memory and loadtime
 
 v1.1.0
 ------
