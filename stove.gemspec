@@ -22,7 +22,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday',               '~> 0.8'
   spec.add_dependency 'faraday_middleware',    '~> 0.9'
   spec.add_dependency 'i18n',                  '~> 0.6'
-  spec.add_dependency 'log4r',                 '~> 1.1'
+
+  # Because log4r doesn't know the meaning of fucking NON-BREAKING bug fixes
+  # in patch releases.
+  spec.add_dependency 'log4r',                 '~> 1.1', '< 1.1.11'
   spec.add_dependency 'minitar',               '~> 0.5'
   spec.add_dependency 'mixlib-authentication', '~> 1.3'
   spec.add_dependency 'octokit',               '~> 2.7'
