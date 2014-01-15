@@ -8,7 +8,7 @@ module Stove
     end
 
     validate(:incremented) do
-      version = Gem::Version.new(options[:version])
+      version = Gem::Version.new(options[:version].dup)
       Gem::Requirement.new("> #{cookbook.version}").satisfied_by?(version)
     end
 
