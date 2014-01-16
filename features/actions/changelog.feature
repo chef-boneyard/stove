@@ -32,6 +32,13 @@ Feature: Changelog
     * I successfully run `bake 1.0.0 --changelog --bump`
     * the file "CHANGELOG.md" should contain "v1.0.0"
 
+  Scenario: With a hyphenated cookbook name
+    * I have a cookbook named "bacon-maple-bars"
+    * the environment variable "EDITOR" is "cat"
+    * I successfully run `bake 1.0.0 --changelog --bump`
+    * the file "CHANGELOG.md" should contain "bacon-maple-bars Changelog"
+    * the file "CHANGELOG.md" should contain "v1.0.0"
+
   Scenario: With the git plugin
     * I have a cookbook named "bacon" with git support
     * the environment variable "EDITOR" is "cat"

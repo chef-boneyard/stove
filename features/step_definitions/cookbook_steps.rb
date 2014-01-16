@@ -1,12 +1,12 @@
-Given /^I have a cookbook named "(\w+)" at version "([\d\.]+)"$/ do |name, version|
+Given /^I have a cookbook named "([\w\-]+)" at version "([\d\.]+)"$/ do |name, version|
   create_cookbook(name, version)
 end
 
-Given /^I have a cookbook named "(\w+)"$/ do |name|
+Given /^I have a cookbook named "([\w\-]+)"$/ do |name|
   create_cookbook(name, '0.0.0')
 end
 
-Given /^I have a cookbook named "(\w+)" with git support$/ do |name|
+Given /^I have a cookbook named "([\w\-]+)" with git support$/ do |name|
   create_cookbook(name, '0.0.0', git: true)
 end
 
@@ -23,8 +23,8 @@ def create_cookbook(name, version, options = {})
   cd(name)
 
   write_file('CHANGELOG.md', <<-EOH.gsub(/^ {4}/, ''))
-    Changelog
-    =========
+    #{name} Changelog
+    =================
 
     v#{version} (#{Time.now.to_date})
     ----------------------------

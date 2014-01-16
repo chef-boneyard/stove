@@ -9,7 +9,7 @@ module Stove
 
     validate(:format) do
       lines = File.read('CHANGELOG.md')
-      lines.match(/^[\w\s]+\n=+(.*\n)+v[0-9\.]+(\ \(.+\))?\n\-+/)
+      lines.match(/^[\w\s\-]+\n=+(.*\n)+v[0-9\.]+(\ \(.+\))?\n\-+/)
     end
 
     validate(:editor) do
