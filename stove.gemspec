@@ -19,8 +19,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # Runtime dependencies
-  spec.add_dependency 'faraday',               '~> 0.8'
-  spec.add_dependency 'faraday_middleware',    '~> 0.9'
+  spec.add_dependency 'faraday',               '~> 0.8.9'
+  spec.add_dependency 'faraday_middleware',    '~> 0.9.0'
   spec.add_dependency 'i18n',                  '~> 0.6'
 
   # Because log4r doesn't know the meaning of fucking NON-BREAKING bug fixes
