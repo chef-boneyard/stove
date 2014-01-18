@@ -36,6 +36,11 @@ module Stove
       # no cookbook at the given path
       cookbook = Cookbook.new(options[:path])
 
+      # Set the category on the cookbook object if one was given
+      if category = options.delete(:category)
+        cookbook.category = category
+      end
+
       # Now execute the actual runners (validations and errors might occur)
       Runner.run(cookbook, options)
 

@@ -38,6 +38,14 @@ module Stove
     attr_reader :metadata
 
     #
+    # Set the category for this cookbook
+    #
+    # @param [String]
+    #   the name of the category (values are restricted by the Community Site)
+    #
+    attr_writer :category
+
+    #
     # The changeset for this cookbook. This is written by the changelog
     # generator and read by various plugins.
     #
