@@ -55,7 +55,7 @@ module Stove
         if value.is_a?(Hash)
           [key, sanitize(value)]
         else
-          if key =~ /acecss|token|password/
+          if key =~ /access|token|password/
             [key, '[FILTERED]']
           else
             [key, value]
