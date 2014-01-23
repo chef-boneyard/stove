@@ -78,15 +78,16 @@ You can always use the `--help` flag to get information:
 Usage: bake x.y.z
 
 Actions:
-        --no-bump                    Perform a version bump the local version automatically
-        --no-changelog               Generate and prompt for a CHANGELOG
-        --no-dev                     Bump a minor version release for development purposes
-        --no-upload                  Upload the cookbook to the community site
+        --[no-]bump                  [Don't] Perform a version bump the local version automatically
+        --[no-]changelog             [Don't] Generate and prompt for a CHANGELOG
+        --[no-]dev                   [Don't] Bump a minor version release for development purposes
+        --[no-]upload                [Don't] Execute upload stages of enabled plugins
 
 Plugins:
-        --no-git                     Tag and push to a git remote
-        --no-github                  Publish the release to GitHub
-        --no-jira                    Resolve JIRA issues
+        --[no-]community             [Don't] Upload to the community site
+        --[no-]git                   [Don't] Tag and push to a git remote
+        --[no-]github                [Don't] Publish the release to GitHub
+        --[no-]jira                  [Don't] Resolve JIRA issues
 
 Global Options:
         --locale [LANGUAGE]          Change the language to output messages

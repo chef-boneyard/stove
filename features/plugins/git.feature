@@ -22,3 +22,8 @@ Feature: git Plugin
     * the remote repository has additional commits
     * I run `bake --git`
     * it should fail with "out of sync with the remote repository"
+
+  Scenario: When a git upload should be done
+    * I have a cookbook named "bacon" with git support
+    * I successfully run `bake --upload --git`
+    * the git remote should have the tag "v0.0.0"
