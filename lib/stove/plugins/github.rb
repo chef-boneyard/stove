@@ -99,8 +99,7 @@ module Stove
       @repo_url = $1.to_s
                     .strip
                     .gsub(/\.git$/, '')
-                    .gsub(':', '/')
-                    .gsub('@', '://')
+                    .gsub(/^\S+@(\S+):/, 'https://\1/')
                     .gsub('git://', 'https://')
       @repo_url
     end
