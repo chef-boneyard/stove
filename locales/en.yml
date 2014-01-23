@@ -179,10 +179,9 @@ en:
                 }
               }
 
-
-      # Upload validations
+      # Community validations
       # ---------------------
-      upload:
+      community:
         configuration: >
           The Stove configuration for the Chef community site does not exist! In
           order to perform operations against the Chef community site, you must
