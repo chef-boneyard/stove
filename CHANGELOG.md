@@ -18,6 +18,7 @@ v2.0.0 (unreleased)
 - Improve rake task to automatically perfom a minor bump when no version if given
 - Persist data across the cookbook object
 - Use singleton classes to save memory and loadtime
+- Force a non-broken version of log4r
 
 v1.1.0
 ------
