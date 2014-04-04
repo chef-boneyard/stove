@@ -2,7 +2,7 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
-v2.0.0 (unreleased)
+v2.0.0 (2014-04-04)
 -------------------
 - Completely refactor the runner for speed optimizations
 - Introduce a new configuration file format
@@ -12,13 +12,12 @@ v2.0.0 (unreleased)
 - Improve help output by grouping options
 - Trap Signal interrupts cleanly
 - Remove formatters
-- Switch to log4r
+- Switch to logify
 - Introduce significantly more logging and log levels
 - Remove HTTParty & Jiralicious in favor or Faraday
 - Improve rake task to automatically perfom a minor bump when no version if given
 - Persist data across the cookbook object
 - Use singleton classes to save memory and loadtime
-- Force a non-broken version of log4r
 
 v1.1.0
 ------
