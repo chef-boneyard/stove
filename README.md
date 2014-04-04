@@ -1,9 +1,16 @@
 Stove
 =====
-[![Gem Version](https://badge.fury.io/rb/stove.png)](http://badge.fury.io/rb/stove)
-[![Build Status](https://travis-ci.org/sethvargo/stove.png?branch=master)](https://travis-ci.org/sethvargo/stove)
-[![Dependency Status](https://gemnasium.com/sethvargo/stove.png)](https://gemnasium.com/sethvargo/stove)
-[![Code Climate](https://codeclimate.com/github/sethvargo/stove.png)](https://codeclimate.com/github/sethvargo/stove)
+[![Gem Version](http://img.shields.io/gem/v/stove.svg)][gem]
+[![Build Status](http://img.shields.io/travis/sethvargo/stove.svg)][travis]
+[![Dependency Status](http://img.shields.io/gemnasium/sethvargo/stove.svg)][gemnasium]
+[![Code Climate](http://img.shields.io/codeclimate/github/sethvargo/stove.svg)][codeclimate]
+[![Gittip](http://img.shields.io/gittip/sethvargo.svg)][gittip]
+
+[gem]: https://rubygems.org/gems/stove
+[travis]: http://travis-ci.org/sethvargo/stove
+[gemnasium]: https://gemnasium.com/sethvargo/stove
+[codeclimate]: https://codeclimate.com/githubsethvargo/stove
+[gittip]: https://www.gittip.com/sethvargo
 
 A utility for releasing and managing Chef Cookbooks. It will:
 

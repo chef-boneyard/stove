@@ -3,7 +3,7 @@ require 'json'
 module Stove
   class Config
     include Mixin::Instanceable
-    include Mixin::Loggable
+    include Logify
 
     #
     # Create a new configuration object. If a configuration file does not

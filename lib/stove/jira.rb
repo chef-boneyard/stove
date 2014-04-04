@@ -4,7 +4,7 @@ require 'faraday_middleware'
 module Stove
   class JIRA
     include Mixin::Instanceable
-    include Mixin::Loggable
+    include Logify
     include Mixin::Optionable
 
     option :base_url,

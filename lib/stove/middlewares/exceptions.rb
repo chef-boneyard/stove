@@ -1,6 +1,6 @@
 module Stove
   class Middleware::Exceptions < Faraday::Middleware
-    include Mixin::Loggable
+    include Logify
 
     def call(env)
       begin

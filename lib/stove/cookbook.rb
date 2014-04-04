@@ -4,7 +4,7 @@ require 'time'
 
 module Stove
   class Cookbook
-    include Mixin::Loggable
+    include Logify
 
     require_relative 'cookbook/metadata'
 

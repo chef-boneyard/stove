@@ -7,7 +7,7 @@ require 'stove'
 #
 module Stove
   class RakeTask < Rake::TaskLib
-    include Mixin::Loggable
+    include Logify
 
     class << self
       #

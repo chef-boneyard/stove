@@ -4,8 +4,8 @@ require 'faraday_middleware'
 module Stove
   class Community
     include Mixin::Instanceable
-    include Mixin::Loggable
     include Mixin::Optionable
+    include Logify
 
     option :base_url,
       ENV['COMMUNITY_URL'] || 'https://cookbooks.opscode.com/api/v1'

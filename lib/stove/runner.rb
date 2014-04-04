@@ -1,7 +1,7 @@
 module Stove
   class Runner
     include Mixin::Instanceable
-    include Mixin::Loggable
+    include Logify
     include Mixin::Optionable
 
     class << self

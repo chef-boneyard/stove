@@ -1,7 +1,5 @@
+require 'logify'
 require 'pathname'
-
-require 'log4r'
-Log4r.define_levels(*Log4r::Log4rConfig::LogLevels)
 
 module Stove
   autoload :Config,     'stove/config'
@@ -37,7 +35,6 @@ module Stove
     autoload :Filterable,   'stove/mixins/filterable'
     autoload :Insideable,   'stove/mixins/insideable'
     autoload :Instanceable, 'stove/mixins/instanceable'
-    autoload :Loggable,     'stove/mixins/loggable'
     autoload :Optionable,   'stove/mixins/optionable'
     autoload :Validatable,  'stove/mixins/validatable'
   end
@@ -78,30 +75,25 @@ module Stove
     end
 
     #
-    # The current log level for the entire application.
+    # Set the log level.
     #
-    # @return [Integer]
+    # @example Set the log level to :info
+    #   ChefAPI.log_level = :info
     #
-    def log_level
-      Log4r::Logger.global.level
+    # @param [Symbol] level
+    #   the log level to set
+    #
+    def log_level=(level)
+      Logify.level = level
     end
 
     #
-    # Set the global log level.
+    # Get the current log level.
     #
-    # @example Set the log level to warn
-    #   Stove.log_level = :warn
+    # @return [Symbol]
     #
-    # @param [String, Symbol] id
-    #   the log level to set
-    #
-    def log_level=(id)
-      level = Log4r.const_get(id.to_s.upcase)
-      raise NameError unless level.is_a?(Integer)
-
-      Log4r::Logger.global.level = level
-    rescue NameError
-      $stderr.puts "ERROR `#{id}' is not a valid Log Level!"
+    def log_level
+      Logify.level
     end
   end
 end
