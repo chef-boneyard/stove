@@ -1,6 +1,6 @@
 module Stove
   class Action::Base
-    extend Mixin::Loggable
+    include Logify
     extend Mixin::Optionable
     extend Mixin::Validatable
 

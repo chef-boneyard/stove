@@ -1,7 +1,7 @@
 module Stove
   class Plugin::Base
     extend Mixin::Filterable
-    extend Mixin::Loggable
+    include Logify
     extend Mixin::Optionable
     extend Mixin::Validatable
 
