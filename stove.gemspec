@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'log4r',                 '~> 1.1', '< 1.1.11'
   spec.add_dependency 'minitar',               '~> 0.5'
   spec.add_dependency 'mixlib-authentication', '~> 1.3'
-  spec.add_dependency 'octokit',               '~> 2.7'
+  spec.add_dependency 'octokit',               '~> 3.0'
   spec.add_dependency 'solve',                 '~> 0.8'
 
   spec.add_development_dependency 'aruba',          '~> 0.5'
