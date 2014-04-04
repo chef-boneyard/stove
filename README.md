@@ -9,7 +9,7 @@ Stove
 [gem]: https://rubygems.org/gems/stove
 [travis]: http://travis-ci.org/sethvargo/stove
 [gemnasium]: https://gemnasium.com/sethvargo/stove
-[codeclimate]: https://codeclimate.com/githubsethvargo/stove
+[codeclimate]: https://codeclimate.com/github/sethvargo/stove
 [gittip]: https://www.gittip.com/sethvargo
 
 A utility for releasing and managing Chef Cookbooks. It will:
