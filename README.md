@@ -30,13 +30,7 @@ Existing tools to package cookbooks (such as [Knife Community](https://github.co
 
 Installation
 ------------
-It is highly recommended that you include `stove` in your cookbook's Gemfile:
-
-```ruby
-gem 'stove'
-```
-
-Alternatively, you may install it as a gem:
+Install stove as a gem:
 
     $ gem install stove
 
