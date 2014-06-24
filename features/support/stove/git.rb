@@ -44,5 +44,9 @@ module Stove
     def git_tags(path)
       %x|cd "#{path}" && git tag --list|.split("\n").map(&:strip) rescue []
     end
+
+    def git_tag_signature?(path, tag)
+      %x|cd "#{path}" && git show --show-signature #{tag}|.include?('BEGIN PGP SIGNATURE') rescue false
+    end
   end
 end
