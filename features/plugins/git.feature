@@ -27,3 +27,11 @@ Feature: git Plugin
     * I have a cookbook named "bacon" with git support
     * I successfully run `bake --upload --git`
     * the git remote should have the tag "v0.0.0"
+
+  Scenario: When using signed tags
+    * I have a cookbook named "bacon" with git support
+    * the Stove config at "git.sign_tags" is "true"
+    * a GPG key exists
+    * I successfully run `bake --upload --git`
+    * the git remote should have the signed tag "v0.0.0"
+

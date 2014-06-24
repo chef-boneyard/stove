@@ -33,7 +33,8 @@ module Stove
     end
 
     before(:upload, 'Tagging new release') do
-      git %|tag #{cookbook.tag_version}|
+      annotation_type = (Config[:git] && Config[:git][:sign_tags]) ? '-s' : '-a'
+      git %|tag #{annotation_type} #{cookbook.tag_version} -m "Release #{cookbook.tag_version}"|
       git %|push #{options[:remote]} #{cookbook.tag_version}|
     end
 
