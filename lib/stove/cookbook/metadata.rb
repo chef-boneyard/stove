@@ -1,5 +1,4 @@
 require 'json'
-require 'solve'
 
 module Stove
   class Cookbook
@@ -41,7 +40,7 @@ module Stove
           class_eval <<-EOM, __FILE__, __LINE__ + 1
             def #{field}(thing, *args)
               version = args.first
-              @#{instance_variable}[thing] = Solve::Constraint.new(version).to_s
+              @#{instance_variable}[thing] = version.to_s
               @#{instance_variable}[thing]
             end
           EOM
@@ -146,10 +145,9 @@ module Stove
 
       def version(arg = UNSET_VALUE)
         if arg == UNSET_VALUE
-          @version.to_s
+          @version
         else
-          @version = Solve::Version.new(arg)
-          @version.to_s
+          @version = arg.to_s
         end
       end
 
