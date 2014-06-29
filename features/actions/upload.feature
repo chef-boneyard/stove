@@ -20,7 +20,4 @@ Feature: Upload
     * the git remote should not have the tag "v0.0.0"
 
   @wip
-  Scenario: With the GitHub plugin
-
-  @wip
   Scenario: With the JIRA plugin

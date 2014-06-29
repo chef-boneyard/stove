@@ -247,53 +247,6 @@ module Stove::Error
     end
   end
 
-  describe GithubAccessTokenValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The Stove configuration for GitHub does not contain an access token. In order to use the GitHub plugin, you must set an access token in the GitHub section of the `~/.stove' file:
-
-              {
-                "github": {
-                  "access_token": "YOUR_ACCESS_TOKEN"
-                }
-              }
-
-          You can generate an access token for GitHub by following the instructions at: https://help.github.com/articles/creating-an-access-token-for-command-line-use.
-        EOH
-      }
-    end
-  end
-
-  describe GithubConfigurationValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The Stove configuration for GitHub does not exist! In order to use the GitHub plugin, you must set your GitHub information in the `~/.stove' file:
-
-              {
-                "github": {
-                  "access_token": "YOUR_ACCESS_TOKEN"
-                }
-              }
-        EOH
-      }
-    end
-  end
-
-  describe GithubGitValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          In order to use the GitHub plugin, you must also activate the `git' plugin.
-        EOH
-      }
-    end
-  end
-
   describe JiraConfigurationValidationFailed do
     it 'raises an exception with the correct message' do
       expect { raise described_class }.to raise_error { |error|

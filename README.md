@@ -18,7 +18,6 @@ A utility for releasing and managing Chef Cookbooks. It will:
 - Create a CHANGELOG from JIRA tickets
 - Commit and push these changes to git
 - Create a git tag and push those changes to git
-- Publish a release to GitHub releases
 - Upload the cookbook to the Opscode Community Site
 - Resolve (close) the JIRA tickets
 
@@ -34,7 +33,7 @@ Install stove as a gem:
 
     $ gem install stove
 
-The use of some plugins (such as GitHub and JIRA) require a Stove configuration file. The Stove config is a JSON file stored at `~/.stove` on your local hard drive. The schema looks like this:
+The use of some plugins (such as JIRA) require a Stove configuration file. The Stove config is a JSON file stored at `~/.stove` on your local hard drive. The schema looks like this:
 
 ```javascript
 {
@@ -51,9 +50,6 @@ For example, my local Stove configuration looks like this:
   "community": {
     "username": "sethvargo",
     "key": "~/.chef/sethvargo.pem"
-  },
-  "github": {
-    "access_token": "..."
   },
   "jira": {
     "username": "sethvargo",
@@ -87,7 +83,6 @@ Actions:
 Plugins:
         --[no-]community             [Don't] Upload to the community site
         --[no-]git                   [Don't] Tag and push to a git remote
-        --[no-]github                [Don't] Publish the release to GitHub
         --[no-]jira                  [Don't] Resolve JIRA issues
 
 Global Options:

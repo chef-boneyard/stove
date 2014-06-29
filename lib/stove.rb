@@ -43,7 +43,6 @@ module Stove
     autoload :Base,      'stove/plugins/base'
     autoload :Community, 'stove/plugins/community'
     autoload :Git,       'stove/plugins/git'
-    autoload :GitHub,    'stove/plugins/github'
     autoload :JIRA,      'stove/plugins/jira'
   end
 
