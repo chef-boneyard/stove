@@ -133,7 +133,6 @@ module Stove
         h[:log_level] = :warn
 
         # Default actions/plugins
-        h[:jira]      = false
         h[:start]     = true
         h[:finish]    = true
 

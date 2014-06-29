@@ -55,8 +55,5 @@ module Stove
     class GitCleanValidationFailed < ValidationFailed; end
     class GitRepositoryValidationFailed < ValidationFailed; end
     class GitUpToDateValidationFailed < ValidationFailed; end
-    class JiraConfigurationValidationFailed < ValidationFailed; end
-    class JiraPasswordValidationFailed < ValidationFailed; end
-    class JiraUsernameValidationFailed < ValidationFailed; end
   end
 end

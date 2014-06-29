@@ -18,6 +18,3 @@ Feature: Upload
     * I have a cookbook named "bacon" with git support
     * I successfully run `bake --git --no-upload`
     * the git remote should not have the tag "v0.0.0"
-
-  @wip
-  Scenario: With the JIRA plugin

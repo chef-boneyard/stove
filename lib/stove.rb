@@ -8,7 +8,6 @@ module Stove
   autoload :Cli,        'stove/cli'
   autoload :Error,      'stove/error'
   autoload :Filter,     'stove/filter'
-  autoload :JIRA,       'stove/jira'
   autoload :Mash,       'stove/mash'
   autoload :Packager,   'stove/packager'
   autoload :Runner,     'stove/runner'
@@ -43,7 +42,6 @@ module Stove
     autoload :Base,      'stove/plugins/base'
     autoload :Community, 'stove/plugins/community'
     autoload :Git,       'stove/plugins/git'
-    autoload :JIRA,      'stove/plugins/jira'
   end
 
   #

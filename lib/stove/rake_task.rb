@@ -67,7 +67,6 @@ module Stove
     def options
       @options ||= Hash.new(true).tap do |h|
         h[:path] = Dir.pwd
-        h[:jira] = false
 
         h[:remote]    = 'origin'
         h[:branch]    = 'master'

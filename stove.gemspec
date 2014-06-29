@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Stove::VERSION
   spec.authors       = ['Seth Vargo']
   spec.email         = ['sethvargo@gmail.com']
-  spec.description   = %q|A simple gem for packaging, releasing, and sanity-checking a community cookbook|
-  spec.summary       = %q|A simple gem for packaging, releasing, and sanity-checking an Opscode community cookbook. This gem automatically packages the appropiate files, syncs with JIRA issues (if applicable), and automatically generates CHANGELOGs.|
+  spec.description   = "A utility for releasing Chef community cookbooks"
+  spec.summary       = "A command-line utility for releasing Chef community cookbooks"
   spec.homepage      = 'https://github.com/sethvargo/stove'
   spec.license       = 'Apache 2.0'
 

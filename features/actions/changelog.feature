@@ -44,6 +44,3 @@ Feature: Changelog
     * the environment variable "EDITOR" is "cat"
     * I successfully run `bake --changelog --git`
     * the git remote should have the commit "Publish 0.0.0 Changelog"
-
-  @wip
-  Scenario: With the JIRA plugin
