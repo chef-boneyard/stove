@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   # Runtime dependencies
   spec.add_dependency 'faraday',               '~> 0.8.9'
   spec.add_dependency 'faraday_middleware',    '~> 0.9.0'
-  spec.add_dependency 'i18n',                  '~> 0.6'
 
   spec.add_dependency 'logify',                '~> 0.2'
   spec.add_dependency 'minitar',               '~> 0.5'

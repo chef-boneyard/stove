@@ -51,11 +51,6 @@ module Stove
       end
     end
 
-    def locale=(locale)
-      log.debug("Setting locale = #{locale.inspect}")
-      I18n.locale = locale
-    end
-
     def log_level=(level)
       log.debug("Setting log_level = #{level.inspect}")
       Stove.log_level = level

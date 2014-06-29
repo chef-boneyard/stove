@@ -1,24 +1,65 @@
+require 'erb'
+
 module Stove
   module Error
-    class StoveError < StandardError
+    class ErrorBinding
       def initialize(options = {})
-        return super(options[:_message]) if options[:_message]
+        options.each do |key, value|
+          instance_variable_set(:"@#{key}", value)
+        end
+      end
 
-        class_name = self.class.to_s.split('::').last
-        error_key  = Util.underscore(class_name)
-
-        super I18n.t("stove.errors.#{error_key}", options)
+      def get_binding
+        binding
       end
     end
 
-    class ValidationFailed < StoveError
-      def initialize(klass, id, options = {})
-        super _message: I18n.t("stove.validations.#{klass}.#{id}", options)
+    class StoveError < StandardError
+      def initialize(options = {})
+        @options  = options
+        @filename = options.delete(:_template)
+
+        super()
+      end
+
+      def message
+        erb = ERB.new(File.read(template))
+        erb.result(ErrorBinding.new(@options).get_binding)
+      end
+      alias_method :to_s, :message
+
+      private
+
+      def template
+        class_name = self.class.to_s.split('::').last
+        filename   = @filename || Util.underscore(class_name)
+        Stove.root.join('templates', 'errors', "#{filename}.erb")
       end
     end
 
     class GitFailed < StoveError; end
     class MetadataNotFound < StoveError; end
     class ServerUnavailable < StoveError; end
+
+    # Validations
+    class ValidationFailed < StoveError; end
+    class BumpChangedValidationFailed < ValidationFailed; end
+    class BumpIncrementedValidationFailed < ValidationFailed; end
+    class ChangelogEditorValidationFailed < ValidationFailed; end
+    class ChangelogExistsValidationFailed < ValidationFailed; end
+    class ChangelogFormatValidationFailed < ValidationFailed; end
+    class CommunityCategoryValidationFailed < ValidationFailed; end
+    class CommunityConfigurationValidationFailed < ValidationFailed; end
+    class CommunityKeyValidationFailed < ValidationFailed; end
+    class CommunityUsernameValidationFailed < ValidationFailed; end
+    class GitCleanValidationFailed < ValidationFailed; end
+    class GitRepositoryValidationFailed < ValidationFailed; end
+    class GitUpToDateValidationFailed < ValidationFailed; end
+    class GithubAccessTokenValidationFailed < ValidationFailed; end
+    class GithubConfigurationValidationFailed < ValidationFailed; end
+    class GithubGitValidationFailed < ValidationFailed; end
+    class JiraConfigurationValidationFailed < ValidationFailed; end
+    class JiraPasswordValidationFailed < ValidationFailed; end
+    class JiraUsernameValidationFailed < ValidationFailed; end
   end
 end

@@ -91,7 +91,6 @@ Plugins:
         --[no-]jira                  [Don't] Resolve JIRA issues
 
 Global Options:
-        --locale [LANGUAGE]          Change the language to output messages
         --log-level [LEVEL]          Set the log verbosity
         --category [CATEGORY]        Set category for the cookbook
         --path [PATH]                Change the path to a cookbook

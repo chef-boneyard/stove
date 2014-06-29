@@ -97,7 +97,3 @@ module Stove
     end
   end
 end
-
-require 'i18n'
-I18n.enforce_available_locales = true
-I18n.load_path << Dir[Stove.root.join('locales', '*.yml').to_s]

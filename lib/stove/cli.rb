@@ -91,10 +91,6 @@ module Stove
         opts.separator ''
         opts.separator 'Global Options:'
 
-        opts.on('--locale [LANGUAGE]', 'Change the language to output messages') do |locale|
-          I18n.locale = locale
-        end
-
         opts.on('--log-level [LEVEL]', 'Set the log verbosity') do |v|
           options[:log_level] = v
         end

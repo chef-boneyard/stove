@@ -54,10 +54,10 @@ module Stove
         instance = klass.new(cookbook, options)
         unless result = instance.instance_eval(&block)
           log.debug("Validation failed, result: #{result.inspect}")
-          raise Error::ValidationFailed.new(klass.id, id,
-            path:   Dir.pwd,
-            result: result,
-          )
+
+          # Convert the class and id to their magical equivalents
+          error = Error.const_get("#{Util.camelize(klass.id)}#{Util.camelize(id)}ValidationFailed")
+          raise error.new(path: Dir.pwd, result: result)
         end
       end
 
