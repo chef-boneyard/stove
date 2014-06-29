@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
 
+$stderr.puts "The `bake' command is deprecated. Please use `stove' instead!"
+
 require 'stove'
 Stove::Cli.new(ARGV.dup).execute!

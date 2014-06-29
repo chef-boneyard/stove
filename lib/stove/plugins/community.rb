@@ -3,23 +3,19 @@ module Stove
     id 'community'
     description 'Publish the release to the Chef community site'
 
-    validate(:configuration) do
-      Config.has_key?(:community)
-    end
-
     validate(:username) do
-      Config[:community].has_key?(:username)
+      options[:username]
     end
 
     validate(:key) do
-      Config[:community].has_key?(:key)
+      options[:key]
     end
 
     validate(:category) do
       !cookbook.category.nil?
     end
 
-    after(:upload, 'Publishing the release to the Chef community site') do
+    run('Publishing the release to the Chef community site') do
       Community.upload(cookbook)
     end
   end

@@ -7,70 +7,19 @@ require 'stove'
 #
 module Stove
   class RakeTask < Rake::TaskLib
-    include Logify
-
-    class << self
-      #
-      # Define a CLI option.
-      #
-      # @param [Symbol] option
-      #
-      def option(option)
-        define_method("#{option}=".to_sym) do |value|
-          log.debug("Setting #{option} = #{value.inspect}")
-          options[option.to_sym] = value
-        end
-      end
-    end
-
-    # Actions
-    Action.constants.map(&Action.method(:const_get)).select(&:id).each do |action|
-      option action.id
-    end
-
-    # Plugins
-    Plugin.constants.map(&Plugin.method(:const_get)).select(&:id).each do |plugin|
-      option plugin.id
-    end
-
-    option :category
-    option :path
-    option :remote
-    option :branch
+    attr_accessor :stove_opts
 
     def initialize(name = nil)
       yield self if block_given?
 
       desc 'Publish this cookbook' unless ::Rake.application.last_comment
-      task(name || :publish, :version) do |t, args|
-        log.info("Options: #{options.inspect}")
-
-        cookbook = Cookbook.new(options[:path])
-        options[:version] = args[:version] || minor_bump(cookbook.version)
-        Runner.run(cookbook, options)
+      task(name || :publish) do |t, args|
+        Cli.new(stove_opts || []).execute!
       end
     end
 
     def log_level=(level)
-      log.debug("Setting log_level = #{level.inspect}")
       Stove.log_level = level
-    end
-
-    private
-
-    def minor_bump(version)
-      split = version.split('.').map(&:to_i)
-      split[2] += 1
-      split.join('.')
-    end
-
-    def options
-      @options ||= Hash.new(true).tap do |h|
-        h[:path] = Dir.pwd
-
-        h[:remote]    = 'origin'
-        h[:branch]    = 'master'
-      end
     end
   end
 end

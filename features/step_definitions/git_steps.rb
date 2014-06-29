@@ -10,7 +10,7 @@ Given /^the remote repository has additional commits/ do
 end
 
 Given /^a GPG key exists/ do
-  gpg_home = File.join(tmp_path, '.gnupg')
+  gpg_home = File.join(scratch_dir, '.gnupg')
   set_env('GNUPGHOME', gpg_home)
   Dir.mkdir(gpg_home)
   File.chmod(0700, gpg_home)

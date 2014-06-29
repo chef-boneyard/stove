@@ -2,8 +2,8 @@ require 'logify'
 require 'pathname'
 
 module Stove
-  autoload :Config,     'stove/config'
   autoload :Community,  'stove/community'
+  autoload :Config,     'stove/config'
   autoload :Cookbook,   'stove/cookbook'
   autoload :Cli,        'stove/cli'
   autoload :Error,      'stove/error'
@@ -15,23 +15,12 @@ module Stove
   autoload :Validator,  'stove/validator'
   autoload :VERSION,    'stove/version'
 
-  module Action
-    autoload :Base,      'stove/actions/base'
-    autoload :Bump,      'stove/actions/bump'
-    autoload :Changelog, 'stove/actions/changelog'
-    autoload :Dev,       'stove/actions/dev'
-    autoload :Finish,    'stove/actions/finish'
-    autoload :Start,     'stove/actions/start'
-    autoload :Upload,    'stove/actions/upload'
-  end
-
   module Middleware
     autoload :ChefAuthentication, 'stove/middlewares/chef_authentication'
     autoload :Exceptions,         'stove/middlewares/exceptions'
   end
 
   module Mixin
-    autoload :Filterable,   'stove/mixins/filterable'
     autoload :Insideable,   'stove/mixins/insideable'
     autoload :Instanceable, 'stove/mixins/instanceable'
     autoload :Optionable,   'stove/mixins/optionable'
@@ -77,11 +66,11 @@ module Stove
     # @example Set the log level to :info
     #   ChefAPI.log_level = :info
     #
-    # @param [Symbol] level
+    # @param [#to_sym] level
     #   the log level to set
     #
     def log_level=(level)
-      Logify.level = level
+      Logify.level = level.to_sym
     end
 
     #

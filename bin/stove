@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'stove'
+Stove::Cli.new(ARGV.dup).execute!

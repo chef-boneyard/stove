@@ -1,11 +1,11 @@
 Feature: git Plugin
   Background:
-    * the Stove config is empty
-    * the CLI options are all off
     * I have a cookbook named "bacon"
+    * the community server has the cookbooks:
+      | bacon | 1.0.0 | Application |
 
   Scenario: When the directory is not a git repository
-    * I run `bake --git`
+    * I run `bake`
     * it should fail with "does not appear to be a valid git repository"
 
   Scenario: When the directory is dirty
@@ -14,24 +14,27 @@ Feature: git Plugin
      """
      This is new content
      """
-    * I run `bake --git`
+    * I run `bake`
     * it should fail with "has untracked files"
 
   Scenario: When the local is out of date with the remote
     * I have a cookbook named "bacon" with git support
     * the remote repository has additional commits
-    * I run `bake --git`
+    * I run `bake -l debug`
     * it should fail with "out of sync with the remote repository"
 
   Scenario: When a git upload should be done
     * I have a cookbook named "bacon" with git support
-    * I successfully run `bake --upload --git`
+    * I successfully run `bake`
     * the git remote should have the tag "v0.0.0"
 
   Scenario: When using signed tags
     * I have a cookbook named "bacon" with git support
-    * the Stove config at "git.sign_tags" is "true"
     * a GPG key exists
-    * I successfully run `bake --upload --git`
+    * I successfully run `bake --sign`
     * the git remote should have the signed tag "v0.0.0"
 
+  Scenario: With the git plugin disabled
+    * I have a cookbook named "bacon" with git support
+    * I successfully run `bake --no-git`
+    * the git remote should not have the tag "v0.0.0"

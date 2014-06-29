@@ -139,36 +139,14 @@ module Stove::Error
     end
   end
 
-  describe CommunityConfigurationValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The Stove configuration for the Chef community site does not exist! In order to perform operations against the Chef community site, you must set your username and path to your client key in the community section of the `~/.stove' file:
-
-              {
-                "community": {
-                  "username": "YOUR_USERNAME",
-                  "key": "YOUR_KEY_PATH"
-                }
-              }
-        EOH
-      }
-    end
-  end
-
   describe CommunityKeyValidationFailed do
     it 'raises an exception with the correct message' do
       expect { raise described_class }.to raise_error { |error|
         expect(error).to be_a(described_class)
         expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The Stove configuration for the Chef community site does not contain a key. In order to use the Chef community site features, you must set the path to your key the community section of the `~/.stove' file:
+          You did not specify the path to a private key! The Chef community site requires a private key for authentication:
 
-              {
-                "community": {
-                  "key": "YOUR_KEY_PATH"
-                }
-              }
+              bake x.y.z --key ~/.chef/sethvargo.pem
         EOH
       }
     end
@@ -179,13 +157,9 @@ module Stove::Error
       expect { raise described_class }.to raise_error { |error|
         expect(error).to be_a(described_class)
         expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The Stove configuration for the Chef community site does not contain a username. In order to use the Chef community site features, you must set a username the community section of the `~/.stove' file:
+          You did not specify the username to authenticate with! The Chef community site requires a username for authentication:
 
-              {
-                "community": {
-                  "username": "YOUR_USERNAME"
-                }
-              }
+              bake x.y.z --username sethvargo
         EOH
       }
     end

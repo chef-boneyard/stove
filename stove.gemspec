@@ -21,12 +21,9 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 1.9'
 
   # Runtime dependencies
-  spec.add_dependency 'faraday',               '~> 0.8.9'
-  spec.add_dependency 'faraday_middleware',    '~> 0.9.0'
-
-  spec.add_dependency 'logify',                '~> 0.2'
-  spec.add_dependency 'minitar',               '~> 0.5'
-  spec.add_dependency 'mixlib-authentication', '~> 1.3'
+  spec.add_dependency 'chef-api', '~> 0.3'
+  spec.add_dependency 'logify',   '~> 0.2'
+  spec.add_dependency 'minitar',  '~> 0.5'
 
   spec.add_development_dependency 'aruba',          '~> 0.5'
   spec.add_development_dependency 'bundler',        '~> 1.3'

@@ -1,5 +1,7 @@
 Given /^I am using the community server$/ do
-  set_env('COMMUNITY_URL', CommunityZero::RSpec.url)
+  set_env('STOVE_ENDPOINT', CommunityZero::RSpec.url)
+  set_env('STOVE_CLIENT', 'stove')
+  set_env('STOVE_KEY', File.expand_path('../../support/stove.pem', __FILE__))
 end
 
 Given /^the community server has the cookbooks?:$/ do |table|

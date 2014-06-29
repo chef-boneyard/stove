@@ -1,7 +1,3 @@
-The Stove configuration for the Chef community site does not contain a key. In order to use the Chef community site features, you must set the path to your key the community section of the `~/.stove' file:
+You did not specify the path to a private key! The Chef community site requires a private key for authentication:
 
-    {
-      "community": {
-        "key": "YOUR_KEY_PATH"
-      }
-    }
+    bake x.y.z --key ~/.chef/sethvargo.pem

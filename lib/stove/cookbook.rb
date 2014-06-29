@@ -72,18 +72,9 @@ module Stove
     #
     def category
       @category ||= Community.cookbook(name)['category']
-    rescue Faraday::Error::ResourceNotFound
+    rescue ChefAPI::Error::HTTPError
       log.warn("Cookbook `#{name}' not found on the Chef community site")
       nil
-    end
-
-    #
-    # The URL for the cookbook on the Community Site.
-    #
-    # @return [String]
-    #
-    def url
-      URI.join(Community.base_url, 'cookbooks', name)
     end
 
     #
@@ -113,16 +104,8 @@ module Stove
     def released?
       Community.cookbook(name, version)
       true
-    rescue Faraday::Error::ResourceNotFound
+    rescue ChefAPI::Error::HTTPNotFound
       false
-    end
-
-    #
-    def release!
-      if options[:changelog]
-        log.info('Updating changelog')
-        update_changelog
-      end
     end
 
     #

@@ -1,15 +1,18 @@
-require 'bundler/setup'
+require 'stove'
 
-require 'aruba/api'
+require 'aruba'
 require 'aruba/cucumber'
+require 'aruba/in_process'
+
 require 'cucumber/rspec/doubles'
 require 'rspec/expectations'
+
+Aruba::InProcess.main_class = Stove::Cli
+Aruba.process = Aruba::InProcess
 
 require 'community_zero/rspec'
 CommunityZero::RSpec.start
 Before { CommunityZero::RSpec.reset! }
-
-require 'stove'
 
 require File.expand_path('../stove/git', __FILE__)
 
@@ -17,11 +20,17 @@ World(Aruba::Api)
 World(Stove::Git)
 
 Before do
-  FileUtils.rm_rf(tmp_path)
-  @aruba_timeout_seconds = 15
+  Stove::Config.endpoint = CommunityZero::RSpec.url
+  Stove::Config.username = 'stove'
+  Stove::Config.key      = File.expand_path('../stove.pem', __FILE__)
 end
 
-# The path to Aruba's "stuff"
-def tmp_path
-  File.expand_path(@dirs.first.to_s)
+Before do
+  FileUtils.rm_rf(scratch_dir)
+  FileUtils.mkdir_p(scratch_dir)
+end
+
+# The scratch directory
+def scratch_dir
+  @scratch_dir ||= File.expand_path('tmp/aruba/scratch')
 end

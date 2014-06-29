@@ -15,6 +15,24 @@ module Stove
       # Parse the options hash
       option_parser.parse!(@argv)
 
+      # Stupid special use cases
+      if @argv.first == 'login'
+        if options[:username].nil? || options[:username].to_s.strip.empty?
+          raise "Missing argument `--username'!"
+        end
+
+        if options[:key].nil? || options[:key].to_s.strip.empty?
+          raise "Missing argument `--key'!"
+        end
+
+        Config.username = options[:username]
+        Config.key      = options[:key]
+        Config.save
+
+        @stdout.puts "Successfully saved config to `#{Config.__path__}'!"
+        return
+      end
+
       # Set the log level
       Stove.log_level = options[:log_level]
 
@@ -42,7 +60,8 @@ module Stove
       end
 
       # Now execute the actual runners (validations and errors might occur)
-      Runner.run(cookbook, options)
+      runner = Runner.new(cookbook, options)
+      runner.run
 
       # If we got this far, everything was successful :)
       @kernel.exit(0)
@@ -69,23 +88,44 @@ module Stove
         opts.banner = 'Usage: bake x.y.z'
 
         opts.separator ''
-        opts.separator 'Actions:'
+        opts.separator 'Plugins:'
 
-        actions = Action.constants.map(&Action.method(:const_get))
-        actions.select(&:id).each do |action|
-          opts.on("--[no-]#{action.id}", action.description) do |v|
-            options[action.id.to_sym] = v
-          end
+        opts.on('--no-git', 'Do not use the git plugin') do
+          options[:no_git] = true
         end
 
         opts.separator ''
-        opts.separator 'Plugins:'
+        opts.separator 'Upload Options:'
 
-        plugins = Plugin.constants.map(&Plugin.method(:const_get))
-        plugins.select(&:id).each do |plugin|
-          opts.on("--[no-]#{plugin.id}", plugin.description) do |v|
-            options[plugin.id.to_sym] = v
-          end
+        opts.on('--endpoint [URL]', 'Upload URL endpoint') do |v|
+          options[:endpoint] = v
+        end
+
+        opts.on('--username [USERNAME]', 'Username to authenticate with') do |v|
+          options[:username] = v
+        end
+
+        opts.on('--key [PATH]', 'Path to the private key on disk') do |v|
+          options[:key] = v
+        end
+
+        opts.on('--category [CATEGORY]', 'Category for the cookbook') do |v|
+          options[:category] = v
+        end
+
+        opts.separator ''
+        opts.separator 'Git Options:'
+
+        opts.on('--remote [REMOTE]', 'Name of the git remote') do |v|
+          options[:remote] = v
+        end
+
+        opts.on('--branch [BRANCH]', 'Name of the git branch') do |v|
+          options[:branch] = v
+        end
+
+        opts.on('--sign', 'Sign git tags') do
+          options[:sign] = true
         end
 
         opts.separator ''
@@ -95,20 +135,8 @@ module Stove
           options[:log_level] = v
         end
 
-        opts.on('--category [CATEGORY]', 'Set category for the cookbook') do |v|
-          options[:category] = v
-        end
-
         opts.on('--path [PATH]', 'Change the path to a cookbook') do |v|
           options[:path] = v
-        end
-
-        opts.on('--remote [REMOTE]', 'The name of the git remote to push to') do |v|
-          options[:remote] = v
-        end
-
-        opts.on('--branch [BRANCH]', 'The name of the git branch to push to') do |v|
-          options[:branch] = v
         end
 
         opts.on_tail('-h', '--help', 'Show this message') do
@@ -128,25 +156,22 @@ module Stove
     #
     # @return [Hash]
     def options
-      @options ||= Hash.new(default_value).tap do |h|
-        h[:path]      = Dir.pwd
-        h[:log_level] = :warn
+      @options ||= {
+        # Upload options
+        :endpoint => nil,
+        :username => Config.username,
+        :key      => Config.key,
+        :category => nil,
 
-        # Default actions/plugins
-        h[:start]     = true
-        h[:finish]    = true
+        # Git options
+        :remote => 'origin',
+        :branch => 'master',
+        :sign   => false,
 
-        h[:remote]    = 'origin'
-        h[:branch]    = 'master'
-      end
-    end
-
-    def default_value
-      @default_value ||= if ENV['CLI_DEFAULT']
-        !!(ENV['CLI_DEFAULT'] =~ /^(true|t|yes|y|1)$/i)
-      else
-        true
-      end
+        # Global options
+        :log_level => :warn,
+        :path      => Dir.pwd,
+      }
     end
   end
 end

@@ -2,6 +2,9 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1
+
 before_script:
   - git config --global user.email "ci@traivs-ci.org"
   - git config --global user.name "Travis CI"
+
+script: bundle exec rake

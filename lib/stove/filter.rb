@@ -1,7 +1,8 @@
 module Stove
   class Filter
-    include Mixin::Insideable
     include Logify
+
+    include Mixin::Insideable
 
     #
     # The class that created this filter.

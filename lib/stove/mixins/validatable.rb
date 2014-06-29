@@ -1,7 +1,11 @@
 module Stove
   module Mixin::Validatable
     def validate(id, &block)
-      Runner.validations << Validator.new(self, id, &block)
+      validations[id] = Validator.new(self, id, &block)
+    end
+
+    def validations
+      @validations ||= {}
     end
   end
 end

@@ -1,67 +1,76 @@
+require 'fileutils'
 require 'json'
 
 module Stove
   class Config
-    include Mixin::Instanceable
     include Logify
+    include Mixin::Instanceable
 
-    #
-    # Create a new configuration object. If a configuration file does not
-    # exist, this method will output a warning to the UI and use an empty
-    # hash as the data structure.
-    #
-    def initialize
-      log.debug("Reading from config at `#{__path__}'")
-
-      contents = File.read(__path__)
-      data = JSON.parse(contents, symbolize_names: true)
-
-      log.debug("Config:\n#{JSON.pretty_generate(sanitize(data))}")
-
-      @data = data
-    rescue Errno::ENOENT
-      log.warn(<<-EOH.gsub(/^ {8}/, ''))
-        No Stove configuration file found at `#{__path__}'. Stove will assume an
-        empty configuration, which may cause problems with some plugins. It is
-        recommended that you create a Stove configuration file as documented:
-
-            https://github.com/sethvargo/stove#installation
-      EOH
-
-      @data = {}
+    def method_missing(m, *args, &block)
+      if m.to_s.end_with?('=')
+        __set__(m.to_s.chomp('='), args.first)
+      else
+        __get__(m)
+      end
     end
 
-    #
-    # This is a special key that tells me where stove lives. If you actually
-    # have a key in your config called +__path__+, then it sucks to be you.
-    #
-    # @return [String]
-    #
+    def respond_to_missing?(m, include_private = false)
+      __has__?(m) || super
+    end
+
+    def save
+      FileUtils.mkdir_p(File.dirname(__path__))
+      File.open(__path__, 'w') do |f|
+        f.write(JSON.fast_generate(__raw__))
+      end
+    end
+
+    def to_s
+      "#<#{self.class.name} #{__raw__.to_s}>"
+    end
+
+    def inspect
+      "#<#{self.class.name} #{__raw__.inspect}>"
+    end
+
+    def __get__(key)
+      __raw__[key.to_sym]
+    end
+
+    def __has__?(key)
+      __raw__.key?(key.to_sym)
+    end
+
+    def __set__(key, value)
+      __raw__[key.to_sym] = value
+    end
+
+    def __unset__(key)
+      __raw__.delete(key.to_sym)
+    end
+
     def __path__
       @path ||= File.expand_path(ENV['STOVE_CONFIG'] || '~/.stove')
     end
 
-    #
-    # Deletegate all method calls to the underlyng hash.
-    #
-    def method_missing(m, *args, &block)
-      @data.send(m, *args, &block)
-    end
+    def __raw__
+      return @__raw__ if @__raw__
 
-    private
+      @__raw__ = JSON.parse(File.read(__path__), symbolize_names: true)
 
-    def sanitize(data)
-      Hash[*data.map do |key, value|
-        if value.is_a?(Hash)
-          [key, sanitize(value)]
-        else
-          if key =~ /access|token|password/
-            [key, '[FILTERED]']
-          else
-            [key, value]
-          end
-        end
-      end.flatten(1)]
+      if @__raw__.key?(:community)
+        $stderr.puts "Detected old Stove configuration file, converting..."
+
+        @__raw__ = {
+          :username => @__raw__[:community][:username],
+          :key      => @__raw__[:community][:key],
+        }
+      end
+
+      @__raw__
+    rescue Errno::ENOENT => e
+      log.warn { "No config file found at `#{__path__}'!" }
+      @__raw__ = {}
     end
   end
 end

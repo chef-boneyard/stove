@@ -1,7 +1,8 @@
 module Stove
   class Validator
-    include Mixin::Insideable
     include Logify
+
+    include Mixin::Insideable
 
     #
     # The class that created this validator.
@@ -48,7 +49,7 @@ module Stove
     #   the cookbook to run this validation against
     #
     def run(cookbook, options = {})
-      log.info("Running validations for #{klass.id}.#{id}")
+      log.info("Running validations for `#{klass.id}.#{id}'")
 
       inside(cookbook) do
         instance = klass.new(cookbook, options)

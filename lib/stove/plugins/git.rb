@@ -13,49 +13,37 @@ module Stove
 
     validate(:up_to_date) do
       git_null('fetch')
-      local  = git_null("rev-parse #{options[:branch]}").strip
-      remote = git_null("rev-parse #{options[:remote]}/#{options[:branch]}").strip
+      local_sha  = git_null("rev-parse #{branch}").strip
+      remote_sha = git_null("rev-parse #{remote}/#{branch}").strip
 
-      log.debug("Local SHA: #{local}")
-      log.debug("Remote SHA: #{remote}")
+      log.debug("Local SHA: #{local_sha}")
+      log.debug("Remote SHA: #{remote_sha}")
 
-      local == remote
+      local_sha == remote_sha
     end
 
-    after(:bump, 'Performing version bump') do
-      git %|add metadata.rb|
-      git %|commit -m "Version bump to #{cookbook.version}"|
+    run('Tagging new release') do
+      annotation_type = options[:sign] ? '-s' : '-a'
+      tag = cookbook.tag_version
+
+      git %|tag #{annotation_type} #{tag} -m "Release #{tag}"|
+      git %|push #{remote} #{branch}|
+      git %|push #{remote} #{tag}|
     end
 
-    after(:changelog, 'Committing CHANGELOG') do
-      git %|add CHANGELOG.md|
-      git %|commit -m "Publish #{cookbook.version} Changelog"|
-    end
-
-    before(:upload, 'Tagging new release') do
-      annotation_type = (Config[:git] && Config[:git][:sign_tags]) ? '-s' : '-a'
-      git %|tag #{annotation_type} #{cookbook.tag_version} -m "Release #{cookbook.tag_version}"|
-      git %|push #{options[:remote]} #{cookbook.tag_version}|
-    end
-
-    after(:dev, 'Bumping devodd release') do
-      git %|add metadata.rb|
-      git %|commit -m "Version bump to #{cookbook.version} (for development)"|
-    end
-
-    before(:finish, 'Pushing to git remote(s)') do
-      git %|push #{options[:remote]} #{options[:branch]}|
-    end
+    private
 
     def git(command, errors = true)
       log.debug("Running `git #{command}', errors: #{errors}")
-      response = %x|cd "#{cookbook.path}" && git #{command}|
+      Dir.chdir(cookbook.path) do
+        response = %x|git #{command}|
 
-      if errors && !$?.success?
-        raise Error::GitFailed.new(command: command)
+        if errors && !$?.success?
+          raise Error::GitFailed.new(command: command)
+        end
+
+        response
       end
-
-      response
     end
 
     def git_null(command)
@@ -67,6 +55,14 @@ module Stove
              end
 
       git("#{command} 2>#{null}", false)
+    end
+
+    def remote
+      options[:remote]
+    end
+
+    def branch
+      options[:branch]
     end
   end
 end

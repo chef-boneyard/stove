@@ -31,30 +31,26 @@ Install stove as a gem:
 
     $ gem install stove
 
-The use of some plugins (such publishing to the community site) require a Stove configuration file. The Stove config is a JSON file stored at `~/.stove` on your local hard drive. The schema looks like this:
+The use of some plugins requires you set some environment variables. It is recommended that you set these environment variables in your `~/.bashrc`, `~/.zshrc`, or similar:
 
-```javascript
-{
-  "field": {
-    "option": "value"
-  }
-}
+```shell
+# The "client name" for Chef. Typically this is your Chef username.
+export STOVE_CLIENT=<...>
+
+# The full path to the Chef client pem file on disk.
+export STOVE_KEY=<...>
 ```
 
-For example, my local Stove configuration looks like this:
+The following environment variables are optional:
 
-```javascript
-{
-  "community": {
-    "username": "sethvargo",
-    "key": "~/.chef/sethvargo.pem"
-  }
-}
+```shell
+# The endpoint to publish cookbooks. The default value is the Chef community
+# site. If you are running an internal supermarket service, please override this
+# value to point at your instance.
+export STOVE_ENDPOINT=<...>
 ```
 
-If you are using Stove 1.0, you need to update your configuration file syntax.
-
-**It is recommended that the permissions on this file be 0600 to prevent unauthorized reading!**
+If you are using Stove 1.0 or 2.0, the `~/.stove` configuration file is officially deprecated and should be removed from the system.
 
 
 Usage
