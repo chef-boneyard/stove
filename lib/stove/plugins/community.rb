@@ -4,11 +4,11 @@ module Stove
     description 'Publish the release to the Chef community site'
 
     validate(:username) do
-      options[:username]
+      Config.username
     end
 
     validate(:key) do
-      options[:key]
+      Config.key
     end
 
     validate(:category) do

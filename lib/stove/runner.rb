@@ -7,10 +7,7 @@ module Stove
 
     def initialize(cookbook, options = {})
       @cookbook = cookbook
-      @options  = {
-        :username => Config.username,
-        :key      => Config.key,
-      }.merge(options)
+      @options  = options
     end
 
     def run

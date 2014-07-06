@@ -33,6 +33,11 @@ module Stove
         return
       end
 
+      # Override configs
+      Config.endpoint = options[:endpoint] if options[:endpoint]
+      Config.username = options[:username] if options[:username]
+      Config.key      = options[:key]      if options[:key]
+
       # Set the log level
       Stove.log_level = options[:log_level]
 
