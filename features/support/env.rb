@@ -4,9 +4,6 @@ require 'aruba'
 require 'aruba/cucumber'
 require 'aruba/in_process'
 
-require 'cucumber/rspec/doubles'
-require 'rspec/expectations'
-
 Aruba::InProcess.main_class = Stove::Cli
 Aruba.process = Aruba::InProcess
 

@@ -62,6 +62,6 @@ Then /^the git remote should( not)? have the( signed)? tag "(.+)"$/ do |negate, 
     expect(tags).to_not include(tag)
   else
     expect(tags).to include(tag)
-    expect(git_tag_signature?(fake_git_remote, tag)).to be_true if signed
+    expect(git_tag_signature?(fake_git_remote, tag)).to be_truthy if signed
   end
 end
