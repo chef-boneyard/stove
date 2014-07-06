@@ -18,7 +18,14 @@ module Stove
       'recipes',
       'resources',
       'templates',
-    ]
+    ].freeze
+
+    ACCEPTABLE_FILES_LIST = ACCEPTABLE_FILES.join(',').freeze
+
+    TMP_FILES = [
+      /^(?:.*[\\\/])?\.[^\\\/]+\.sw[p-z]$/,
+      /~$/,
+    ].freeze
 
     # The cookbook to package.
     #
@@ -38,7 +45,8 @@ module Stove
     # @return [Array]
     #   the array of file paths
     def cookbook_files
-      Dir.glob("#{File.expand_path(cookbook.path)}/{#{ACCEPTABLE_FILES.join(',')}}")
+      path = File.expand_path("#{cookbook.path}/{#{ACCEPTABLE_FILES_LIST}}")
+      Dir[path].reject { |f| TMP_FILES.any? { |regex| f.match(regex) } }
     end
 
     # The path to the tar.gz package in the temporary directory.
