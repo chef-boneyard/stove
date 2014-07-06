@@ -43,11 +43,7 @@ module Stove
 
     # Validations
     class ValidationFailed < StoveError; end
-    class ChangelogEditorValidationFailed < ValidationFailed; end
-    class ChangelogExistsValidationFailed < ValidationFailed; end
-    class ChangelogFormatValidationFailed < ValidationFailed; end
     class CommunityCategoryValidationFailed < ValidationFailed; end
-    class CommunityConfigurationValidationFailed < ValidationFailed; end
     class CommunityKeyValidationFailed < ValidationFailed; end
     class CommunityUsernameValidationFailed < ValidationFailed; end
     class GitCleanValidationFailed < ValidationFailed; end

@@ -49,59 +49,6 @@ module Stove::Error
     end
   end
 
-  describe ChangelogEditorValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The `$EDITOR' environment variable is not set. In order to use the Changelog plugin, you must set a default editor for Stove to open when generating the CHANGLEOG. You can set the editor like this:
-
-              export EDITOR=vi
-        EOH
-      }
-    end
-  end
-
-  describe ChangelogExistsValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class.new(path: '/path') }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          There is no `CHANGELOG.md' found at `/path'. In order to use the Changelog plugin, you must have a changelog in markdown format at the root of your cookbook. You can also skip the Changelog plugin by specifying the `--no-changelog' option:
-
-              bake x.y.z --no-changelog
-        EOH
-      }
-    end
-  end
-
-  describe ChangelogFormatValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class.new(path: '/path') }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The changelog at `/path' does not appear to be a valid format. The changelog must be in the following format:
-
-              [Cookbook Name]
-              ===============
-
-              v[version] ([release date])
-              ---------------------------
-              - [Release point]
-
-          For example:
-
-              Apache 2
-              ========
-
-              v1.0.0 (2013-04-05)
-              -------------------
-              - Initial release
-        EOH
-      }
-    end
-  end
-
   describe CommunityCategoryValidationFailed do
     it 'raises an exception with the correct message' do
       expect { raise described_class }.to raise_error { |error|
