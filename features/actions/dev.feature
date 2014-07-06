@@ -11,6 +11,7 @@ Feature: Dev
   Scenario: With bump
     * I successfully run `bake 2.0.0 --bump --dev`
     * the file "metadata.rb" should contain "2.0.1"
+    * the file "metadata.rb" should match /^version .* # development version$/
 
   Scenario: With the git plugin
     * I have a cookbook named "bacon" with git support

@@ -146,17 +146,22 @@ module Stove
     #
     # @param [String] new_version
     #   the version to bump to
+    # @param [String] commant
+    #   a comment to add to the version
     #
     # @return [String]
     #   the new version string
     #
-    def bump(new_version)
+    def bump(new_version, comment = nil)
       return true if new_version.to_s == version.to_s
 
       metadata_path = path.join('metadata.rb')
       contents      = File.read(metadata_path)
 
-      contents.sub!(/^version(\s+)('|")#{version}('|")/, "version\\1\\2#{new_version}\\3")
+      contents.sub!(
+        /^version(\s+)('|")#{version}('|").*$/,
+        "version\\1\\2#{new_version}\\3#{comment.gsub(/^/, ' # ') if comment.kind_of?(String)}"
+      )
 
       File.open(metadata_path, 'w') { |f| f.write(contents) }
       reload_metadata!
