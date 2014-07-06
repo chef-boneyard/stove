@@ -2,9 +2,6 @@ require 'rake'
 require 'rake/tasklib'
 require 'stove'
 
-#
-# @todo Most of these options are duplicated from the CLI, can we unify?
-#
 module Stove
   class RakeTask < Rake::TaskLib
     attr_accessor :stove_opts

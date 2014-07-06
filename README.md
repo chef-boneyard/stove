@@ -14,10 +14,8 @@ Stove
 
 A utility for releasing and managing Chef Cookbooks. It will:
 
-- Edit the `metadata.rb` and insert the proper version
-- Commit and push these changes to git
-- Create a git tag and push those changes to git
-- Upload the cookbook to the Opscode Community Site
+- Tag and push a new release to git
+- Upload the cookbook to a cookbook share (such as Supermarket)
 
 
 Why?
@@ -27,75 +25,51 @@ Existing tools to package cookbooks (such as [Knife Community](https://github.co
 
 Installation
 ------------
-Install stove as a gem:
+1. Add Stove to your project's Gemfile:
 
-    $ gem install stove
+        gem 'stove'
 
-The use of some plugins requires you set some environment variables. It is recommended that you set these environment variables in your `~/.bashrc`, `~/.zshrc`, or similar:
+2. Run the `bundle` command to install:
 
-```shell
-# The "client name" for Chef. Typically this is your Chef username.
-export STOVE_CLIENT=<...>
+        $ bundle install --binstubs
 
-# The full path to the Chef client pem file on disk.
-export STOVE_KEY=<...>
+
+Configuration
+-------------
+Stove requires your username and private key to upload a cookbook. You can pass these to each command call, or you can set them Stove:
+
+```bash
+$ stove login --username sethvargo --key ~/.chef/sethvargo.pem
 ```
 
-The following environment variables are optional:
-
-```shell
-# The endpoint to publish cookbooks. The default value is the Chef community
-# site. If you are running an internal supermarket service, please override this
-# value to point at your instance.
-export STOVE_ENDPOINT=<...>
-```
-
-If you are using Stove 1.0 or 2.0, the `~/.stove` configuration file is officially deprecated and should be removed from the system.
+These values will be saved in Stove's configuration file and persisted across your workstation.
 
 
 Usage
 -----
-The gem is packaged as a binary. It should be run from _inside the cookbook to release_:
+There are two ways to use Stove. You can either use the `stove` command directly or use the embedded rake task.
 
-    (~/cookbooks/bacon) $ bake 1.2.3
+### Command
+Execute the `stove` command from inside the root of a cookbook:
 
-You can always use the `--help` flag to get information:
-
-```text
-Usage: bake x.y.z
-
-Actions:
-        --[no-]bump                  [Don't] Perform a version bump the local version automatically
-        --[no-]changelog             [Don't] Generate and prompt for a CHANGELOG
-        --[no-]dev                   [Don't] Bump a minor version release for development purposes
-        --[no-]upload                [Don't] Execute upload stages of enabled plugins
-
-Plugins:
-        --[no-]community             [Don't] Upload to the community site
-        --[no-]git                   [Don't] Tag and push to a git remote
-
-Global Options:
-        --log-level [LEVEL]          Set the log verbosity
-        --category [CATEGORY]        Set category for the cookbook
-        --path [PATH]                Change the path to a cookbook
-        --remote [REMOTE]            The name of the git remote to push to
-        --branch [BRANCH]            The name of the git branch to push to
-    -h, --help                       Show this message
-    -v, --version                    Show version
+```bash
+$ bin/stove
 ```
 
+This will package (as a tarball) the cookbook in the current working directory, tag a new version, push to git, and publish to a cookbook share.
 
-Rake Task
----------
-Stove also includes a Rake task you can include in your Rakefile:
+### Rake task
+If you are familiar with the Bundler approach to publishing Ruby gems, this approach will feel very familiar. Simply add the following to your `Rakefile`:
 
 ```ruby
 require 'stove/rake_task'
+Stove::RakeTask.new
+```
 
-Stove::RakeTask.new do |stove|
-  stove.git = true
-  stove.devodd = true
-end
+And then use rake to publish the cookbook:
+
+```bash
+$ bin/rake publish
 ```
 
 
@@ -106,9 +80,6 @@ Contributing
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-TODO:
-- Secure the authentication file
 
 
 See Also
@@ -122,8 +93,8 @@ License & Authors
 - Author: Seth Vargo (sethvargo@gmail.com)
 
 ```text
-Copyright 2013 Seth Vargo <sethvargo@gmail.com>
-Copyright 2013 Opscode, Inc
+Copyright 2013-2014 Seth Vargo <sethvargo@gmail.com>
+Copyright 2013-2014 Chef Software, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

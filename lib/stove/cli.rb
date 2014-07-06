@@ -79,7 +79,7 @@ module Stove
     #
     def option_parser
       @option_parser ||= OptionParser.new do |opts|
-        opts.banner = 'Usage: bake x.y.z'
+        opts.banner = 'Usage: stove [OPTIONS]'
 
         opts.separator ''
         opts.separator 'Plugins:'
