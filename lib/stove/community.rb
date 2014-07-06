@@ -57,7 +57,7 @@ module Stove
       # )
 
       connection.post('cookbooks', {
-        'tarball'  => File.new(cookbook.tarball),
+        'tarball'  => File.open(cookbook.tarball, 'rb'),
         'cookbook' => { 'category' => cookbook.category }.to_json,
       })
     end
