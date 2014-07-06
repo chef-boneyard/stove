@@ -8,7 +8,7 @@ module Stove
       log.debug("Version is currently #{cookbook.version}")
       log.debug("Bumped version is #{dev_version}")
 
-      cookbook.bump(dev_version)
+      cookbook.bump(dev_version, 'development version')
 
       log.debug("Version is now #{cookbook.version}")
     end

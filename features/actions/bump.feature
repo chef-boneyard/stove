@@ -15,6 +15,7 @@ Feature: Bump
   Scenario: In isolation
     * I successfully run `bake 2.0.0 --bump`
     * the file "metadata.rb" should contain "2.0.0"
+    * the file "metadata.rb" should not contain "# development version"
 
   Scenario: With the git plugin
     * I have a cookbook named "bacon" with git support
