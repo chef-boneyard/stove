@@ -56,7 +56,7 @@ module Stove::Error
         expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
           You did not specify a category! The Chef community site requires all cookbooks belong to a category. For existing cookboks, Stove can query the Chef community site API and automatically complete the category for you. However, for new cookbooks, you must specify the `--category' flag at runtime:
 
-              bake x.y.z --category Utilities
+              stove --category Utilities
 
           For a complete listing of categories, please see the Chef community site.
         EOH
@@ -71,7 +71,7 @@ module Stove::Error
         expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
           You did not specify the path to a private key! The Chef community site requires a private key for authentication:
 
-              bake x.y.z --key ~/.chef/sethvargo.pem
+              stove --key ~/.chef/sethvargo.pem
         EOH
       }
     end
@@ -84,7 +84,7 @@ module Stove::Error
         expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
           You did not specify the username to authenticate with! The Chef community site requires a username for authentication:
 
-              bake x.y.z --username sethvargo
+              stove --username sethvargo
         EOH
       }
     end
