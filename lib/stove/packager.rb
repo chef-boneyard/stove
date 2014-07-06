@@ -51,7 +51,7 @@ module Stove
     private
 
     def pack!
-      destination = Tempfile.new(cookbook.name).path
+      destination = Tempfile.new([cookbook.name, '.tar.gz']).path
 
       # Sandbox
       sandbox = Dir.mktmpdir
