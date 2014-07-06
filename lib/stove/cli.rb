@@ -44,12 +44,6 @@ module Stove
       log.info("Options: #{options.inspect}")
       log.info("ARGV: #{@argv.inspect}")
 
-      # Unless the user specified --no-bump, version is a required argument, so
-      # blow up if we don't get it or if it's not a nice version string
-      if options[:bump]
-        raise OptionParser::MissingArgument.new(:version) unless options[:version]
-      end
-
       # Make a new cookbook object - this will raise an exception if there is
       # no cookbook at the given path
       cookbook = Cookbook.new(options[:path])

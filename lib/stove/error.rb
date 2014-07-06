@@ -43,8 +43,6 @@ module Stove
 
     # Validations
     class ValidationFailed < StoveError; end
-    class BumpChangedValidationFailed < ValidationFailed; end
-    class BumpIncrementedValidationFailed < ValidationFailed; end
     class ChangelogEditorValidationFailed < ValidationFailed; end
     class ChangelogExistsValidationFailed < ValidationFailed; end
     class ChangelogFormatValidationFailed < ValidationFailed; end

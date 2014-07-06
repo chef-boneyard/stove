@@ -123,28 +123,6 @@ module Stove
       @tarball
     end
 
-    #
-    # Bump the version in the metdata.rb to the specified
-    # parameter.
-    #
-    # @param [String] new_version
-    #   the version to bump to
-    #
-    # @return [String]
-    #   the new version string
-    #
-    def bump(new_version)
-      return true if new_version.to_s == version.to_s
-
-      metadata_path = path.join('metadata.rb')
-      contents      = File.read(metadata_path)
-
-      contents.sub!(/^version(\s+)('|")#{version}('|")/, "version\\1\\2#{new_version}\\3")
-
-      File.open(metadata_path, 'w') { |f| f.write(contents) }
-      reload_metadata!
-    end
-
     private
       # Load the metadata and set the @metadata instance variable.
       #

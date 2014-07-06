@@ -49,28 +49,6 @@ module Stove::Error
     end
   end
 
-  describe BumpChangedValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The version you are trying to bump already exists! You must specify a new version.
-        EOH
-      }
-    end
-  end
-
-  describe BumpIncrementedValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          The cookbook version you are attempting to bump to is less than the existing version. You cannot (re-)release a previous version of the same cookbook. Please specify a higher version.
-        EOH
-      }
-    end
-  end
-
   describe ChangelogEditorValidationFailed do
     it 'raises an exception with the correct message' do
       expect { raise described_class }.to raise_error { |error|
