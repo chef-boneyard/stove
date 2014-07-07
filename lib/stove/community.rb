@@ -51,11 +51,6 @@ module Stove
     #   the cookbook to upload
     #
     def upload(cookbook)
-      # body = Net::HTTP::Post::Multipart.new('cookbooks',
-      #   'tarball'  => UploadIO.new(cookbook.tarball, 'application/x-compressed', "#{cookbook.name}.tar.gz"),
-      #   'cookbook' => { 'category' => cookbook.category }.to_json,
-      # )
-
       connection.post('cookbooks', {
         'tarball'  => File.open(cookbook.tarball, 'rb'),
         'cookbook' => { 'category' => cookbook.category }.to_json,
