@@ -65,7 +65,7 @@ module Stove
     def connection
       @connection ||= ChefAPI::Connection.new do |conn|
         conn.endpoint = ENV['STOVE_ENDPOINT'] || Config.endpoint || DEFAULT_ENDPOINT
-        conn.client   = ENV['STOVE_CLIENT']   || Config.client
+        conn.client   = ENV['STOVE_USERNAME'] || Config.username
         conn.key      = ENV['STOVE_KEY']      || Config.key
       end
     end
