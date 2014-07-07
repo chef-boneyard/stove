@@ -44,6 +44,12 @@ $ stove login --username sethvargo --key ~/.chef/sethvargo.pem
 
 These values will be saved in Stove's configuration file and persisted across your workstation.
 
+The default publishing endpoint is the [Chef Supermarket](https://supermarket.getchef.com), but this is configurable. If you want to publish to an internal community site, you can specify the `--endpoint` value:
+
+```bash
+$ stove --endpoint https://internal-cookbook-store.example.com
+```
+
 
 Usage
 -----
