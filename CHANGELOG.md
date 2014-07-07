@@ -2,6 +2,26 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.0.0 (2014-07-07)
+-------------------
+- Add support for signed git tags
+- Require Ruby 1.9+
+- Remove i18n in favor of ERB
+- Remove solve gem
+- Remove GitHub functionality
+- Remove JIRA functionality
+- Remove bump and devodd functionality
+- Clear up confusion on Gemfile vs not Gemfile
+- Always read tarball objects as binary
+- End tempfiles in the correct extension (needed to detect mime_types)
+- Bump required version of ChefAPI gem
+- Remove unused errors and code
+- Improved documentation
+- Remove editor files (`.swp`, etc) before packaging
+- Upgrade to RSpec 3
+- Improve test coverage
+- Publish to Supermarket by default
+
 v2.0.0 (2014-04-04)
 -------------------
 - Completely refactor the runner for speed optimizations
