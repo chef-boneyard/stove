@@ -2,6 +2,15 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.1.0 (2014-07-10)
+-------------------
+- Use the generated tempfile directly (instead of writing to disk and creating File objects)
+- Add a default version constraint ('>= 0.0.0')
+- Only package Ruby files under `recipes/` and similar directories
+- Dynamically generate the metadata.json in memory (save disk IO)
+- Use Rubygem's TarWrtier instead of minitar (removed dependency)
+- Bump version of Chef API to support tempfile IO objects
+
 v3.0.0 (2014-07-07)
 -------------------
 - Add support for signed git tags
