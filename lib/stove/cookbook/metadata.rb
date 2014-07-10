@@ -40,7 +40,7 @@ module Stove
           class_eval <<-EOM, __FILE__, __LINE__ + 1
             def #{field}(thing, *args)
               version = args.first
-              @#{instance_variable}[thing] = version.to_s
+              @#{instance_variable}[thing] = version || DEFAULT_VERSION
               @#{instance_variable}[thing]
             end
           EOM
@@ -55,6 +55,8 @@ module Stove
           EOM
         end
       end
+
+      DEFAULT_VERSION = '>= 0.0.0'.freeze
 
       COMPARISON_FIELDS = [
         :name, :description, :long_description, :maintainer,
