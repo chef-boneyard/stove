@@ -1,7 +1,6 @@
 Feature: Community
   Background:
     * I have a cookbook named "bacon"
-    * I am using the community server
 
   Scenario: When the username does not exist
     * the Stove config at "username" is unset
