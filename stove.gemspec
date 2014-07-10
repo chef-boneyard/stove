@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   # Runtime dependencies
   spec.add_dependency 'chef-api', '~> 0.4'
   spec.add_dependency 'logify',   '~> 0.2'
-  spec.add_dependency 'minitar',  '~> 0.5'
 
   spec.add_development_dependency 'aruba',          '~> 0.6'
   spec.add_development_dependency 'bundler',        '~> 1.6'

@@ -61,7 +61,7 @@ module Stove
     #   the relative or absolute path to the cookbook on disk
     #
     def initialize(path)
-      @path = Pathname.new(path).expand_path
+      @path = File.expand_path(path)
       load_metadata!
     end
 
@@ -115,12 +115,7 @@ module Stove
     # @return [File]
     #
     def tarball
-      return @tarball if @tarball && File.exists?(@tarball)
-
-      begin
-        @tarball = Stove::Packager.new(self).package_path
-      end until File.exists?(@tarball)
-      @tarball
+      @tarball ||= Packager.new(self).tarball
     end
 
     private
@@ -132,7 +127,7 @@ module Stove
       # @return [String]
       #   the path to the metadata file
       def load_metadata!
-        metadata_path = path.join('metadata.rb')
+        metadata_path = File.join(path, 'metadata.rb')
 
         @metadata = Stove::Cookbook::Metadata.from_file(metadata_path)
         @name     = @metadata.name
