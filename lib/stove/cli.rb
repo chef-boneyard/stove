@@ -41,9 +41,6 @@ module Stove
       # Set the log level
       Stove.log_level = options[:log_level]
 
-      # Parse out the version from ARGV
-      options[:version] = @argv.shift
-
       # Useful debugging output for when people type the wrong fucking command
       # and then open an issue like it's somehow my fault
       log.info("Options: #{options.inspect}")
