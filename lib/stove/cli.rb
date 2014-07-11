@@ -53,11 +53,6 @@ module Stove
       # no cookbook at the given path
       cookbook = Cookbook.new(options[:path])
 
-      # Set the category on the cookbook object if one was given
-      if category = options.delete(:category)
-        cookbook.category = category
-      end
-
       # Now execute the actual runners (validations and errors might occur)
       runner = Runner.new(cookbook, options)
       runner.run
@@ -108,10 +103,6 @@ module Stove
           options[:key] = v
         end
 
-        opts.on('--category [CATEGORY]', 'Category for the cookbook') do |v|
-          options[:category] = v
-        end
-
         opts.separator ''
         opts.separator 'Git Options:'
 
@@ -160,7 +151,6 @@ module Stove
         :endpoint => nil,
         :username => Config.username,
         :key      => Config.key,
-        :category => nil,
 
         # Git options
         :remote => 'origin',

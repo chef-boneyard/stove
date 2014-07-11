@@ -49,21 +49,6 @@ module Stove::Error
     end
   end
 
-  describe CommunityCategoryValidationFailed do
-    it 'raises an exception with the correct message' do
-      expect { raise described_class }.to raise_error { |error|
-        expect(error).to be_a(described_class)
-        expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          You did not specify a category! The Chef community site requires all cookbooks belong to a category. For existing cookboks, Stove can query the Chef community site API and automatically complete the category for you. However, for new cookbooks, you must specify the `--category' flag at runtime:
-
-              stove --category Utilities
-
-          For a complete listing of categories, please see the Chef community site.
-        EOH
-      }
-    end
-  end
-
   describe CommunityKeyValidationFailed do
     it 'raises an exception with the correct message' do
       expect { raise described_class }.to raise_error { |error|

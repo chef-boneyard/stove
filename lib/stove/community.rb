@@ -53,7 +53,12 @@ module Stove
     def upload(cookbook)
       connection.post('cookbooks', {
         'tarball'  => cookbook.tarball,
-        'cookbook' => { 'category' => cookbook.category }.to_json,
+
+        # This is for legacy, backwards-compatability reasons. The new
+        # Supermarket site does not require a category, but many of the testing
+        # tools still assume a cookbook category is present. We juse hardcode
+        # "Other" here.
+        'cookbook' => { 'category' => 'Other' }.to_json,
       })
     end
 

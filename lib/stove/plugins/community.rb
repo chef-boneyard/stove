@@ -11,10 +11,6 @@ module Stove
       Config.key
     end
 
-    validate(:category) do
-      !cookbook.category.nil?
-    end
-
     run('Publishing the release to the Chef community site') do
       Community.upload(cookbook)
     end

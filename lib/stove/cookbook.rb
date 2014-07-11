@@ -38,14 +38,6 @@ module Stove
     attr_reader :metadata
 
     #
-    # Set the category for this cookbook
-    #
-    # @param [String]
-    #   the name of the category (values are restricted by the Community Site)
-    #
-    attr_writer :category
-
-    #
     # The changeset for this cookbook. This is written by the changelog
     # generator and read by various plugins.
     #
@@ -63,18 +55,6 @@ module Stove
     def initialize(path)
       @path = File.expand_path(path)
       load_metadata!
-    end
-
-    #
-    # The category for this cookbook on the community site.
-    #
-    # @return [String]
-    #
-    def category
-      @category ||= Community.cookbook(name)['category']
-    rescue ChefAPI::Error::HTTPError
-      log.warn("Cookbook `#{name}' not found on the Chef community site")
-      nil
     end
 
     #
