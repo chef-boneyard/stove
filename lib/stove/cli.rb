@@ -15,7 +15,7 @@ module Stove
       # Parse the options hash
       option_parser.parse!(@argv)
 
-      # Stupid special use cases
+      # Login command
       if @argv.first == 'login'
         if options[:username].nil? || options[:username].to_s.strip.empty?
           raise "Missing argument `--username'!"
@@ -30,6 +30,7 @@ module Stove
         Config.save
 
         @stdout.puts "Successfully saved config to `#{Config.__path__}'!"
+        @kernel.exit(0)
         return
       end
 
@@ -45,6 +46,21 @@ module Stove
       # and then open an issue like it's somehow my fault
       log.info("Options: #{options.inspect}")
       log.info("ARGV: #{@argv.inspect}")
+
+      # Yank command
+      if @argv.first == 'yank'
+        name = @argv[1] || Cookbook.new(options[:path]).name
+
+        if Community.yank(name)
+          @stdout.puts "Successfully yanked #{name}!"
+          @kernel.exit(0)
+        else
+          @stderr.puts "I could not find a cookbook named #{name}!"
+          @kernel.exit(1)
+        end
+
+        return
+      end
 
       # Make a new cookbook object - this will raise an exception if there is
       # no cookbook at the given path

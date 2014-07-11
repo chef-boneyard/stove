@@ -18,3 +18,24 @@ Feature: Community
     * I successfully run `stove --no-git`
     * the community server will have the cookbooks:
       | bacon | 0.0.0 |
+
+  Scenario: Yanking a cookbook
+    * the community server has the cookbooks:
+      | bacon | 1.2.3 |
+    * I successfully run `stove yank -l debug`
+    * the community server will not have the cookbooks:
+      | bacon | 1.2.3 |
+    * the output should contain "Successfully yanked bacon!"
+
+  Scenario: Yanking a cookbook by name
+    * the community server has the cookbooks:
+      | eggs | 4.5.6 |
+    * I successfully run `stove yank eggs`
+    * the community server will not have the cookbooks:
+      | eggs | 4.5.6 |
+    * the output should not contain "Successfully yanked bacon!"
+    * the output should contain "Successfully yanked eggs!"
+
+  Scenario: Yanking a non-existent cookbook
+    * I run `stove yank ham`
+    * it should fail with "I could not find a cookbook named ham"

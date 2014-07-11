@@ -62,6 +62,23 @@ module Stove
       })
     end
 
+    #
+    # Delete the given cookbook from the communit site.
+    #
+    # @param [String] name
+    #   the name of the cookbook to delete
+    #
+    # @return [true, false]
+    #   true if the cookbook was deleted, false otherwise
+    #
+    def yank(name)
+      connection.delete("/cookbooks/#{name}")
+      true
+    rescue ChefAPI::Error::HTTPBadRequest,
+           ChefAPI::Error::HTTPNotFound,
+      false
+    end
+
     private
 
     #
