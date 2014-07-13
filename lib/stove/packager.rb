@@ -41,14 +41,43 @@ module Stove
       @cookbook = cookbook
     end
 
-    # The list of files that should actually be uploaded.
+    # A map from physical file path to tarball file path
     #
-    # @return [Array]
-    #   the array of file paths
-    def cookbook_files
+    # @example
+    #   # Assuming +cookbook.name+ is 'apt'
+    #
+    #   {
+    #     '/home/user/apt-cookbook/metadata.json' => 'apt/metadata.json',
+    #     '/home/user/apt-cookbook/README.md' => 'apt/README.md'
+    #   }
+    #
+    # @return [Hash<String, String>]
+    #   the map of file paths
+    def packaging_slip
+      root = File.dirname(cookbook.path)
       path = File.expand_path("#{cookbook.path}/{#{ACCEPTABLE_FILES_LIST}}")
+
       Dir[path].reject do |filepath|
         TMP_FILES.any? { |regex| filepath.match(regex) }
+      end.map do |cookbook_file|
+        [
+          cookbook_file,
+          cookbook_file.sub(/^#{Regexp.escape(root)}\/?/, '')
+        ]
+      end.map do |cookbook_file, relative_file|
+        [
+          cookbook_file,
+          relative_file,
+          Regexp.escape(File.dirname(relative_file))
+        ]
+      end.map do |cookbook_file, relative_file, relative_base_dir|
+        [
+          cookbook_file,
+          relative_file.sub(/^#{relative_base_dir}/, cookbook.name)
+        ]
+      end.reduce({}) do |map, (cookbook_file, tarball_file)|
+        map[cookbook_file] = tarball_file
+        map
       end
     end
 
@@ -59,7 +88,7 @@ module Stove
         file.write(cookbook.metadata.to_json)
       end
 
-      io  = tar(File.dirname(cookbook.path), cookbook_files)
+      io  = tar(File.dirname(cookbook.path), packaging_slip)
       tgz = gzip(io)
 
       tempfile = Tempfile.new([cookbook.name, '.tar.gz'])
@@ -77,30 +106,27 @@ module Stove
     end
 
     #
-    # Create a tar file from the given root and list of files.
+    # Create a tar file from the given root and packaging slip
     #
     # @param [String] root
     #   the root where the tar files are being created
-    # @param [Array<String>] files
-    #   the list of files to include
+    # @param [Hash<String, String>] slip
+    #   the map from physical file path to tarball file path
     #
     # @return [StringIO]
     #   the io object that contains the tarball contents
     #
-    def tar(root, files)
+    def tar(root, slip)
       io = StringIO.new('')
       Gem::Package::TarWriter.new(io) do |tar|
-        files.each do |file|
-          mode = File.stat(file).mode
-          relative_file = file.sub /^#{Regexp.escape(root)}\/?/, ''
-          base_dir = Regexp.escape(File.dirname(relative_file))
-          tarball_file = relative_file.sub /^#{base_dir}/, cookbook.name
+        slip.each do |original_file, tarball_file|
+          mode = File.stat(original_file).mode
 
-          if File.directory?(file)
+          if File.directory?(original_file)
             tar.mkdir(tarball_file, mode)
           else
             tar.add_file(tarball_file, mode) do |tf|
-              File.open(file, 'rb') { |f| tf.write(f.read) }
+              File.open(original_file, 'rb') { |f| tf.write(f.read) }
             end
           end
         end
