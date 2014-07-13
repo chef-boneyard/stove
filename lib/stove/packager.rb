@@ -93,11 +93,13 @@ module Stove
         files.each do |file|
           mode = File.stat(file).mode
           relative_file = file.sub /^#{Regexp.escape(root)}\/?/, ''
+          base_dir = Regexp.escape(File.dirname(relative_file))
+          tarball_file = relative_file.sub /^#{base_dir}/, cookbook.name
 
           if File.directory?(file)
-            tar.mkdir(relative_file, mode)
+            tar.mkdir(tarball_file, mode)
           else
-            tar.add_file(relative_file, mode) do |tf|
+            tar.add_file(tarball_file, mode) do |tf|
               File.open(file, 'rb') { |f| tf.write(f.read) }
             end
           end
