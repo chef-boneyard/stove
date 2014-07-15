@@ -17,7 +17,7 @@ module Stove
       'libraries/*.rb',
       'providers/*.rb',
       'recipes/*.rb',
-      'resources/.*.rb',
+      'resources/*.rb',
       'templates/**/*',
     ].freeze
 
