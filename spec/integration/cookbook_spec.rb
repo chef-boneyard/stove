@@ -11,15 +11,13 @@ module Stove
 
         Zlib::GzipReader.open(tarball.path) do |gzip|
           Gem::Package::TarReader.new(gzip) do |tar|
-            structure = tar.map(&:full_name)
+            structure = tar.map(&:full_name).sort
           end
         end
 
         expect(structure).to eq(%w(
-          basic/README.md
           basic/CHANGELOG.md
-          basic/metadata.json
-          basic/metadata.rb
+          basic/README.md
           basic/attributes/default.rb
           basic/attributes/system.rb
           basic/definitions/web_app.rb
@@ -27,6 +25,8 @@ module Stove
           basic/files/default/example.txt
           basic/files/default/patch.txt
           basic/libraries/magic.rb
+          basic/metadata.json
+          basic/metadata.rb
           basic/providers/thing.rb
           basic/recipes/default.rb
           basic/recipes/system.rb
