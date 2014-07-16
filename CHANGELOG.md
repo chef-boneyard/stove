@@ -8,6 +8,7 @@ v3.2.1 (2014-07-16)
 
 v3.2.0 (2014-07-15)
 -------------------
+**This version has been removed from Rubygems**
 - Add the ability to "yank" (delete) a cookbook from the Supermarket
 - Remove the `--category` flag (it is no longer honored)
 - Fix a bug where the `resources/` folder was not uploaded
@@ -15,6 +16,8 @@ v3.2.0 (2014-07-15)
 
 v3.1.0 (2014-07-10)
 -------------------
+**This version has been removed from Rubygems**
+
 - Use the generated tempfile directly (instead of writing to disk and creating File objects)
 - Add a default version constraint ('>= 0.0.0')
 - Only package Ruby files under `recipes/` and similar directories
