@@ -2,13 +2,16 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.2.1 (2014-07-16)
+-------------------
+- Fix a critical bug where nested directories are flattened
+
 v3.2.0 (2014-07-15)
 -------------------
 - Add the ability to "yank" (delete) a cookbook from the Supermarket
 - Remove the `--category` flag (it is no longer honored)
 - Fix a bug where the `resources/` folder was not uploaded
 - Fix a bug when the cookbook name is not the same as the metdata name in the uploaded tarball
--
 
 v3.1.0 (2014-07-10)
 -------------------
