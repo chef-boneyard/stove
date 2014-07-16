@@ -54,26 +54,15 @@ module Stove
     # @return [Hash<String, String>]
     #   the map of file paths
     def packaging_slip
-      root = File.dirname(cookbook.path)
-      path = File.expand_path("#{cookbook.path}/{#{ACCEPTABLE_FILES_LIST}}")
+      root = File.expand_path(cookbook.path)
+      path = File.join(root, "{#{ACCEPTABLE_FILES_LIST}}")
 
       Dir[path].reject do |filepath|
         TMP_FILES.any? { |regex| filepath.match(regex) }
       end.map do |cookbook_file|
         [
           cookbook_file,
-          cookbook_file.sub(/^#{Regexp.escape(root)}\/?/, '')
-        ]
-      end.map do |cookbook_file, relative_file|
-        [
-          cookbook_file,
-          relative_file,
-          Regexp.escape(File.dirname(relative_file))
-        ]
-      end.map do |cookbook_file, relative_file, relative_base_dir|
-        [
-          cookbook_file,
-          relative_file.sub(/^#{relative_base_dir}/, cookbook.name)
+          cookbook_file.sub(/^#{Regexp.escape(root)}/, cookbook.name)
         ]
       end.reduce({}) do |map, (cookbook_file, tarball_file)|
         map[cookbook_file] = tarball_file

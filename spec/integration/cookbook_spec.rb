@@ -3,9 +3,16 @@ require 'spec_helper'
 describe Stove::Cookbook do
   describe '#tarball' do
     it 'contains a directory with the same name as the cookbook' do
-      FileUtils.mkdir_p('tmp/basic-cookbook')
+      FileUtils.mkdir_p('tmp/basic-cookbook/recipes')
+      FileUtils.mkdir_p('tmp/basic-cookbook/templates/default')
       File.open('tmp/basic-cookbook/metadata.rb', 'w+') do |f|
         f.puts "name 'basic'"
+      end
+      File.open('tmp/basic-cookbook/recipes/default.rb', 'w+') do |f|
+        f.puts '# default.rb'
+      end
+      File.open('tmp/basic-cookbook/templates/default/basic.erb', 'w+') do |f|
+        f.puts '# basic.erb'
       end
 
       tarball = Stove::Cookbook.new('tmp/basic-cookbook').tarball
@@ -17,7 +24,12 @@ describe Stove::Cookbook do
         end
       end
 
-      expect(tarball_directories).to include('basic')
+      expect(tarball_directories.uniq).to eql([
+        'basic',
+        'basic/recipes',
+        'basic/templates',
+        'basic/templates/default'
+      ])
     end
   end
 end
