@@ -1,35 +1,41 @@
 require 'spec_helper'
 
-describe Stove::Cookbook do
-  describe '#tarball' do
-    it 'contains a directory with the same name as the cookbook' do
-      FileUtils.mkdir_p('tmp/basic-cookbook/recipes')
-      FileUtils.mkdir_p('tmp/basic-cookbook/templates/default')
-      File.open('tmp/basic-cookbook/metadata.rb', 'w+') do |f|
-        f.puts "name 'basic'"
-      end
-      File.open('tmp/basic-cookbook/recipes/default.rb', 'w+') do |f|
-        f.puts '# default.rb'
-      end
-      File.open('tmp/basic-cookbook/templates/default/basic.erb', 'w+') do |f|
-        f.puts '# basic.erb'
-      end
+module Stove
+  describe Cookbook do
+    describe '#tarball' do
+      let(:path) { generate_cookbook('basic', 'basic-cookbook') }
+      it 'contains a directory with the same name as the cookbook' do
+        tarball = Cookbook.new(path).tarball
 
-      tarball = Stove::Cookbook.new('tmp/basic-cookbook').tarball
-      tarball_directories = []
+        structure = []
 
-      Zlib::GzipReader.open(tarball.path) do |gzip|
-        Gem::Package::TarReader.new(gzip) do |tar|
-          tarball_directories = tar.map(&:full_name).map(&File.method(:dirname))
+        Zlib::GzipReader.open(tarball.path) do |gzip|
+          Gem::Package::TarReader.new(gzip) do |tar|
+            structure = tar.map(&:full_name)
+          end
         end
-      end
 
-      expect(tarball_directories.uniq).to eql([
-        'basic',
-        'basic/recipes',
-        'basic/templates',
-        'basic/templates/default'
-      ])
+        expect(structure).to eq(%w(
+          basic/README.md
+          basic/CHANGELOG.md
+          basic/metadata.json
+          basic/metadata.rb
+          basic/attributes/default.rb
+          basic/attributes/system.rb
+          basic/definitions/web_app.rb
+          basic/files/default
+          basic/files/default/example.txt
+          basic/files/default/patch.txt
+          basic/libraries/magic.rb
+          basic/providers/thing.rb
+          basic/recipes/default.rb
+          basic/recipes/system.rb
+          basic/resources/thing.rb
+          basic/templates/default
+          basic/templates/default/another.text.erb
+          basic/templates/default/example.erb
+        ))
+      end
     end
   end
 end
