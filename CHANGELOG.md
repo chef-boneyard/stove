@@ -2,6 +2,10 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.2.2 (2014-08-07)
+-------------------
+- Fix a bug where files beginning with a dot (`.`) were not packaged
+
 v3.2.1 (2014-07-16)
 -------------------
 - Fix a critical bug where nested directories are flattened
