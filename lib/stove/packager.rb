@@ -57,15 +57,12 @@ module Stove
       root = File.expand_path(cookbook.path)
       path = File.join(root, "{#{ACCEPTABLE_FILES_LIST}}")
 
-      Dir[path].reject do |filepath|
-        TMP_FILES.any? { |regex| filepath.match(regex) }
-      end.map do |cookbook_file|
-        [
-          cookbook_file,
-          cookbook_file.sub(/^#{Regexp.escape(root)}/, cookbook.name)
-        ]
-      end.reduce({}) do |map, (cookbook_file, tarball_file)|
-        map[cookbook_file] = tarball_file
+      Dir.glob(path, File::FNM_DOTMATCH)
+        .reject { |path| %w(. ..).include?(File.basename(path)) }
+        .reject { |path| TMP_FILES.any? { |regex| path.match(regex) } }
+        .map    { |path| [path, path.sub(/^#{Regexp.escape(root)}/, cookbook.name)] }
+        .reduce({}) do |map, (cookbook_file, tarball_file)|
+          map[cookbook_file] = tarball_file
         map
       end
     end

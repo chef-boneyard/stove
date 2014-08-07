@@ -22,6 +22,7 @@ module Stove
           basic/attributes/system.rb
           basic/definitions/web_app.rb
           basic/files/default
+          basic/files/default/.authorized_keys
           basic/files/default/example.txt
           basic/files/default/patch.txt
           basic/libraries/magic.rb
@@ -32,6 +33,7 @@ module Stove
           basic/recipes/system.rb
           basic/resources/thing.rb
           basic/templates/default
+          basic/templates/default/.env.erb
           basic/templates/default/another.text.erb
           basic/templates/default/example.erb
         ))

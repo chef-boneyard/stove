@@ -67,6 +67,11 @@ module Stove
             This is a file with some text
           EOH
         end
+        File.open(root.join('files', 'default', '.authorized_keys'), 'wb') do |f|
+          f.write <<-EOH.gsub(/^ {11}/, '')
+            id-rsa ABC123
+          EOH
+        end
         File.open(root.join('libraries', 'magic.rb'), 'wb') do |f|
           f.write <<-EOH.gsub(/^ {11}/, '')
             class Chef
@@ -107,6 +112,11 @@ module Stove
         File.open(root.join('templates', 'default', 'another.text.erb'), 'wb') do |f|
           f.write <<-EOH.gsub(/^ {11}/, '')
             # Comment?
+          EOH
+        end
+        File.open(root.join('templates', 'default', '.env.erb'), 'wb') do |f|
+          f.write <<-EOH.gsub(/^ {11}/, '')
+            ENV['FOO'] = 'BAR'
           EOH
         end
 
