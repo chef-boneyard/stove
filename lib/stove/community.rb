@@ -56,7 +56,7 @@ module Stove
 
         # This is for legacy, backwards-compatability reasons. The new
         # Supermarket site does not require a category, but many of the testing
-        # tools still assume a cookbook category is present. We juse hardcode
+        # tools still assume a cookbook category is present. We just hardcode
         # "Other" here.
         'cookbook' => { 'category' => 'Other' }.to_json,
       })
