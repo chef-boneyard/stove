@@ -2,6 +2,10 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.2.3 (2014-10-12)
+-------------------
+- Only upload fully-compiled metadata (i.e. only upload metadata.json, not metadata.rb)
+
 v3.2.2 (2014-08-07)
 -------------------
 - Fix a bug where files beginning with a dot (`.`) were not packaged
