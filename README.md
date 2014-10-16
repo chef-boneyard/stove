@@ -48,6 +48,11 @@ The default publishing endpoint is the [Chef Supermarket](https://supermarket.ge
 $ stove --endpoint https://internal-cookbook-store.example.com
 ```
 
+or for a private supermarket using the [supermarket](https://supermarket.getchef.com/cookbooks/supermarket) cookbook:
+
+```bash
+$ stove --endpoint https://internal-cookbook-store.example.com/api/v1
+```
 
 Usage
 -----
