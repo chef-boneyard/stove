@@ -40,7 +40,7 @@ Stove requires your username and private key to upload a cookbook. You can pass 
 $ stove login --username sethvargo --key ~/.chef/sethvargo.pem
 ```
 
-These values will be saved in Stove's configuration file and persisted across your workstation.
+These values will be saved in Stove's configuration file (`~/.stove`) and persisted across your workstation.
 
 The default publishing endpoint is the [Chef Supermarket](https://supermarket.getchef.com), but this is configurable. If you want to publish to an internal community site, you can specify the `--endpoint` value:
 
