@@ -2,13 +2,9 @@ Stove
 =====
 [![Gem Version](http://img.shields.io/gem/v/stove.svg?style=flat-square)][gem]
 [![Build Status](http://img.shields.io/travis/sethvargo/stove.svg?style=flat-square)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/sethvargo/stove.svg?style=flat-square)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/sethvargo/stove.svg?style=flat-square)][codeclimate]
 
 [gem]: https://rubygems.org/gems/stove
 [travis]: http://travis-ci.org/sethvargo/stove
-[gemnasium]: https://gemnasium.com/sethvargo/stove
-[codeclimate]: https://codeclimate.com/github/sethvargo/stove
 
 A utility for releasing and managing Chef Cookbooks. It will:
 
