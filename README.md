@@ -1,9 +1,9 @@
 Stove
 =====
-[![Gem Version](http://img.shields.io/gem/v/stove.svg)][gem]
-[![Build Status](http://img.shields.io/travis/sethvargo/stove.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/sethvargo/stove.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/sethvargo/stove.svg)][codeclimate]
+[![Gem Version](http://img.shields.io/gem/v/stove.svg?style=flat-square)][gem]
+[![Build Status](http://img.shields.io/travis/sethvargo/stove.svg?style=flat-square)][travis]
+[![Dependency Status](http://img.shields.io/gemnasium/sethvargo/stove.svg?style=flat-square)][gemnasium]
+[![Code Climate](http://img.shields.io/codeclimate/github/sethvargo/stove.svg?style=flat-square)][codeclimate]
 
 [gem]: https://rubygems.org/gems/stove
 [travis]: http://travis-ci.org/sethvargo/stove
