@@ -72,6 +72,9 @@ module Stove
       def_attribute :description
       def_attribute :long_description
 
+      def_attribute :source_url
+      def_attribute :issues_url
+
       def_meta_cookbook :supports,   :platforms
       def_meta_cookbook :depends,    :dependencies
       def_meta_cookbook :recommends, :recommendations
