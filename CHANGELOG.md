@@ -2,6 +2,10 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.2.4 (2014-12-07)
+-------------------
+- Add support for `issues_url` and `source_url` metadata attributes
+
 v3.2.3 (2014-10-12)
 -------------------
 - Only upload fully-compiled metadata (i.e. only upload metadata.json, not metadata.rb)
