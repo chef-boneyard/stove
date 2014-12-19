@@ -2,6 +2,10 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.2.5 (2014-12-19)
+-------------------
+- Fix a bug with line endings when generating tarballs
+
 v3.2.4 (2014-12-07)
 -------------------
 - Add support for `issues_url` and `source_url` metadata attributes
