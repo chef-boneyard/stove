@@ -77,7 +77,7 @@ module Stove
       io  = tar(File.dirname(cookbook.path), packaging_slip)
       tgz = gzip(io)
 
-      tempfile = Tempfile.new([cookbook.name, '.tar.gz'])
+      tempfile = Tempfile.new([cookbook.name, '.tar.gz'], Dir.tmpdir, mode: File::RDWR|File::CREAT|File::EXCL|File::BINARY)
 
       while buffer = tgz.read(1024)
         tempfile.write(buffer)
@@ -103,7 +103,7 @@ module Stove
     #   the io object that contains the tarball contents
     #
     def tar(root, slip)
-      io = StringIO.new('')
+      io = StringIO.new('', 'r+b')
       Gem::Package::TarWriter.new(io) do |tar|
         slip.each do |original_file, tarball_file|
           mode = File.stat(original_file).mode
