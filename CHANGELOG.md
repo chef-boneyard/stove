@@ -2,6 +2,10 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.2.6 (2015-03-18)
+-------------------
+- Include new metadata methods for Supermarket
+
 v3.2.5 (2014-12-19)
 -------------------
 - Fix a bug with line endings when generating tarballs
