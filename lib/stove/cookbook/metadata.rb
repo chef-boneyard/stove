@@ -104,6 +104,8 @@ module Stove
         @cookbook         = cookbook
         @name             = cookbook ? cookbook.name : ''
         @long_description = ''
+        @source_url       = Stove::Mash.new
+        @issues_url       = Stove::Mash.new
         @platforms        = Stove::Mash.new
         @dependencies     = Stove::Mash.new
         @recommendations  = Stove::Mash.new
@@ -162,6 +164,8 @@ module Stove
           'version'          => self.version,
           'description'      => self.description,
           'long_description' => self.long_description,
+          'source_url'       => self.source_url,
+          'issues_url'       => self.issues_url,
           'maintainer'       => self.maintainer,
           'maintainer_email' => self.maintainer_email,
           'license'          => self.license,
