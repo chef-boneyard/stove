@@ -10,7 +10,7 @@ module Stove
     #
     # @return [String]
     #
-    DEFAULT_ENDPOINT = 'https://supermarket.getchef.com/api/v1'
+    DEFAULT_ENDPOINT = 'https://supermarket.chef.io/api/v1'
 
     #
     # Get and cache a community cookbook's JSON response from the given name
