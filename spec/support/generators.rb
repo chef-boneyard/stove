@@ -38,7 +38,7 @@ module Stove
         end
         File.open(root.join('Berksfile'), 'wb') do |f|
           f.write <<-EOH.gsub(/^ {11}/, '')
-            source 'https://supermarket.getchef.com'
+            source 'https://supermarket.chef.io'
             metadata
           EOH
         end
