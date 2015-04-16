@@ -84,7 +84,8 @@ module Stove
       io  = tar(File.dirname(cookbook.path), packaging_slip)
       tgz = gzip(io)
 
-      tempfile = Tempfile.new([cookbook.name, '.tar.gz'], Dir.tmpdir, mode: File::RDWR|File::CREAT|File::EXCL|File::BINARY)
+      tempfile = Tempfile.new([cookbook.name, '.tar.gz'], Dir.tmpdir)
+      tempfile.binmode
 
       while buffer = tgz.read(1024)
         tempfile.write(buffer)
