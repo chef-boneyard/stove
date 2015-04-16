@@ -94,8 +94,8 @@ module Stove
     #
     # @return [File]
     #
-    def tarball
-      @tarball ||= Packager.new(self).tarball
+    def tarball(extended_metadata = false)
+      @tarball ||= Packager.new(self, extended_metadata).tarball
     end
 
     private

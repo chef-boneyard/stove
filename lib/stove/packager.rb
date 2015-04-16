@@ -33,12 +33,20 @@ module Stove
     # @erturn [Stove::Cookbook]
     attr_reader :cookbook
 
+    # Whether to include the new extended metadata attributes.
+    #
+    # @return [true, false]
+    attr_reader :extended_metadata
+
     # Create a new packager instance.
     #
     # @param [Stove::Cookbook]
     #   the cookbook to package
-    def initialize(cookbook)
+    # @param [true, false] extended_metadata
+    #   include new extended metadata attributes
+    def initialize(cookbook, extended_metadata = false)
       @cookbook = cookbook
+      @extended_metadata = extended_metadata
     end
 
     # A map from physical file path to tarball file path
@@ -70,9 +78,8 @@ module Stove
     def tarball
       # Generate the metadata.json on the fly
       metadata_json = File.join(cookbook.path, 'metadata.json')
-      File.open(metadata_json, 'wb') do |file|
-        file.write(cookbook.metadata.to_json)
-      end
+      json = JSON.fast_generate(cookbook.metadata.to_hash(extended_metadata))
+      File.open(metadata_json, 'wb') { |f| f.write(json) }
 
       io  = tar(File.dirname(cookbook.path), packaging_slip)
       tgz = gzip(io)

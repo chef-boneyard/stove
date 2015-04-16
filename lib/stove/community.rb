@@ -50,15 +50,15 @@ module Stove
     # @param [Cookbook] cookbook
     #   the cookbook to upload
     #
-    def upload(cookbook)
+    def upload(cookbook, extended_metadata = false)
       connection.post('cookbooks', {
-        'tarball'  => cookbook.tarball,
+        'tarball'  => cookbook.tarball(extended_metadata),
 
         # This is for legacy, backwards-compatability reasons. The new
         # Supermarket site does not require a category, but many of the testing
         # tools still assume a cookbook category is present. We just hardcode
         # "Other" here.
-        'cookbook' => { 'category' => 'Other' }.to_json,
+        'cookbook' => JSON.fast_generate(category: 'Other'),
       })
     end
 
