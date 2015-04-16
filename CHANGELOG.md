@@ -2,6 +2,16 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.2.7 (2015-04-16)
+-------------------
+- Use chef.io instead of getchef.com
+- Ignore `vendor/` directory
+- Do not publish extended metadata fields like `issues_url` and `source_url` by
+  default (GH-64, GH-72). These fields can be optionally added using the
+  new `--extended-metadata` flag.
+- Add support for Ruby 2.2
+- Use binmode when reading and writing the tgz (GH-64)
+
 v3.2.6 (2015-03-18)
 -------------------
 - Include new metadata methods for Supermarket
