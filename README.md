@@ -50,6 +50,12 @@ or for a private supermarket using the [supermarket](https://supermarket.chef.io
 $ stove --endpoint https://internal-cookbook-store.example.com/api/v1
 ```
 
+Please note: depending on which version of Chef and which version of Supermarket you are running, you may support the new "extended" metadata fields. By default, Stove reads but does not write these new fields when uploading cookbooks because it is not backwards compatible. If you are running Chef 12+ and have the latest version of Supermarket installed, you can specify the `--extended-metadata` flag to include these values in the generated metadata:
+
+```bash
+$ stove --extended-metadata
+```
+
 Usage
 -----
 There are two ways to use Stove. You can either use the `stove` command directly or use the embedded rake task.

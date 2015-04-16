@@ -12,7 +12,7 @@ module Stove
     end
 
     run('Publishing the release to the Chef community site') do
-      Community.upload(cookbook)
+      Community.upload(cookbook, options[:extended_metadata])
     end
   end
 end

@@ -72,6 +72,9 @@ module Stove
       def_attribute :description
       def_attribute :long_description
 
+      # These attributes are available for reading, but are not written by
+      # default. In order to maintain backwards and forwards compatability,
+      # these attributes are here.
       def_attribute :source_url
       def_attribute :issues_url
 
@@ -158,14 +161,12 @@ module Stove
         end
       end
 
-      def to_hash
-        {
+      def to_hash(extended_metadata = false)
+        hash = {
           'name'             => self.name,
           'version'          => self.version,
           'description'      => self.description,
           'long_description' => self.long_description,
-          'source_url'       => self.source_url,
-          'issues_url'       => self.issues_url,
           'maintainer'       => self.maintainer,
           'maintainer_email' => self.maintainer_email,
           'license'          => self.license,
@@ -180,10 +181,13 @@ module Stove
           'groupings'        => self.groupings,
           'recipes'          => self.recipes,
         }
-      end
 
-      def to_json(*args)
-        JSON.pretty_generate(self.to_hash)
+        if extended_metadata
+          hash['source_url'] = self.source_url
+          hash['issues_url'] = self.issues_url
+        end
+
+        return hash
       end
 
       private

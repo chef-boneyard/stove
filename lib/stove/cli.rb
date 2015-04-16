@@ -116,6 +116,10 @@ module Stove
           options[:key] = v
         end
 
+        opts.on('--extended-metadata', 'Include non-backwards compatible metadata keys such as `issues_url`') do
+          options[:extended_metadata] = true
+        end
+
         opts.separator ''
         opts.separator 'Git Options:'
 
@@ -161,9 +165,10 @@ module Stove
     def options
       @options ||= {
         # Upload options
-        :endpoint => nil,
-        :username => Config.username,
-        :key      => Config.key,
+        :endpoint          => nil,
+        :username          => Config.username,
+        :key               => Config.key,
+        :extended_metadata => false,
 
         # Git options
         :remote => 'origin',
