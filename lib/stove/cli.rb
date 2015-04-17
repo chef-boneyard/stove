@@ -27,6 +27,7 @@ module Stove
 
         Config.username = options[:username]
         Config.key      = options[:key]
+        Config.endpoint = options[:endpoint] unless options[:endpoint].nil?
         Config.save
 
         @stdout.puts "Successfully saved config to `#{Config.__path__}'!"
