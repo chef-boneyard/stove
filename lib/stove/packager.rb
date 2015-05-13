@@ -14,10 +14,10 @@ module Stove
       'attributes/*.rb',
       'definitions/*.rb',
       'files/**/*',
-      'libraries/*.rb',
-      'providers/*.rb',
+      'libraries/**/*.rb',
+      'providers/**/*.rb',
       'recipes/*.rb',
-      'resources/*.rb',
+      'resources/**/*.rb',
       'templates/**/*',
     ].freeze
 
