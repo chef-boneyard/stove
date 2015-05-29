@@ -56,6 +56,11 @@ Please note: depending on which version of Chef and which version of Supermarket
 $ stove --extended-metadata
 ```
 
+If you are trying to use Stove behind a proxy, you can either export env variables for 'STOVE_PROXY_ADDRESS' and 'STOVE_PROXY_PORT', or add them to your Stove config file (`~/.stove`) like this:
+```
+{"username":"sethvargo","key":"~/.chef/sethvargo.pem","proxy_address":"myproxy.example.com","proxy_port":"8080"}
+```
+
 Usage
 -----
 There are two ways to use Stove. You can either use the `stove` command directly or use the embedded rake task.
