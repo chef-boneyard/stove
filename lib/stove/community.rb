@@ -86,11 +86,11 @@ module Stove
     #
     def connection
       @connection ||= ChefAPI::Connection.new do |conn|
-        conn.endpoint      = ENV['STOVE_ENDPOINT']      || Config.endpoint || DEFAULT_ENDPOINT
-        conn.client        = ENV['STOVE_USERNAME']      || Config.username
-        conn.key           = ENV['STOVE_KEY']           || Config.key
-        conn.proxy_address = ENV['STOVE_PROXY_ADDRESS'] || Config.proxy_address
-        conn.proxy_port    = ENV['STOVE_PROXY_PORT']    || Config.proxy_port
+        conn.endpoint      = ENV['STOVE_ENDPOINT']         || Config.endpoint || DEFAULT_ENDPOINT
+        conn.client        = ENV['STOVE_USERNAME']         || Config.username
+        conn.key           = ENV['STOVE_KEY']              || Config.key
+        conn.proxy_address = ENV['CHEF_API_PROXY_ADDRESS'] || Config.proxy_address
+        conn.proxy_port    = ENV['CHEF_API_PROXY_PORT']    || Config.proxy_port
       end
     end
   end
