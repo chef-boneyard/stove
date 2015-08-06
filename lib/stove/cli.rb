@@ -39,6 +39,7 @@ module Stove
       Config.endpoint = options[:endpoint] if options[:endpoint]
       Config.username = options[:username] if options[:username]
       Config.key      = options[:key]      if options[:key]
+      Config.ssl_verify = options[:ssl_verify]
 
       # Set the log level
       Stove.log_level = options[:log_level]
@@ -121,6 +122,10 @@ module Stove
           options[:extended_metadata] = true
         end
 
+        opts.on('--no-ssl-verify', 'Turn off ssl verify') do
+          options[:ssl_verify] = false
+        end
+
         opts.separator ''
         opts.separator 'Git Options:'
 
@@ -170,6 +175,7 @@ module Stove
         :username          => Config.username,
         :key               => Config.key,
         :extended_metadata => false,
+        :ssl_verify        => true,
 
         # Git options
         :remote => 'origin',

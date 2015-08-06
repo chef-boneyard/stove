@@ -89,6 +89,7 @@ module Stove
         conn.endpoint = ENV['STOVE_ENDPOINT'] || Config.endpoint || DEFAULT_ENDPOINT
         conn.client   = ENV['STOVE_USERNAME'] || Config.username
         conn.key      = ENV['STOVE_KEY']      || Config.key
+        conn.ssl_verify = ENV['SSL_VERIFY'].nil? ? Config.ssl_verify : ENV['SSL_VERIFY']
       end
     end
   end
