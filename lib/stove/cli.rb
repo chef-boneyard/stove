@@ -36,9 +36,9 @@ module Stove
       end
 
       # Override configs
-      Config.endpoint = options[:endpoint] if options[:endpoint]
-      Config.username = options[:username] if options[:username]
-      Config.key      = options[:key]      if options[:key]
+      Config.endpoint   = options[:endpoint] if options[:endpoint]
+      Config.username   = options[:username] if options[:username]
+      Config.key        = options[:key]      if options[:key]
       Config.ssl_verify = options[:ssl_verify]
 
       # Set the log level
