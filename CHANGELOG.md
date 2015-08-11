@@ -2,10 +2,6 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
-v3.2.8 (2015-08-06)
--------------------
-- Optional ChefAPI configuration turning off ssl_verify
-
 v3.2.7 (2015-04-16)
 -------------------
 - Use chef.io instead of getchef.com
