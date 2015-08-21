@@ -183,8 +183,10 @@ module Stove
         }
 
         if extended_metadata
-          hash['source_url'] = self.source_url
-          hash['issues_url'] = self.issues_url
+          %w(source_url issues_url).each do |attr|
+            attrval = self.send(attr.to_sym)
+            hash[attr] = attrval unless attrval.empty?
+          end
         end
 
         return hash

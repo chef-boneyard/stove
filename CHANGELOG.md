@@ -2,6 +2,12 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+Unreleased
+----------
+- only publish extended metadata fields if the flag is provided and the
+  value is set in metadata.rb.  This prevents Supermarket from rejecting
+  uploads where e.g. source_url is set but issues_url is not
+
 v3.2.7 (2015-04-16)
 -------------------
 - Use chef.io instead of getchef.com
