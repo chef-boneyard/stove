@@ -10,6 +10,8 @@ module Stove
     ACCEPTABLE_FILES = [
       'README.*',
       'CHANGELOG.*',
+      'CONTRIBUTING.md',
+      'MAINTAINERS.md',
       'metadata.json',
       'attributes/*.rb',
       'definitions/*.rb',
