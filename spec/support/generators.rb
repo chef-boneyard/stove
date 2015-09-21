@@ -20,6 +20,11 @@ module Stove
         FileUtils.mkdir_p(root.join('templates', 'default'))
 
         # Files
+        File.open(root.join('.foodcritic'), 'wb') do |f|
+          f.write <<-EOH.gsub(/^ {11}/, '')
+            ~FC031 ~FC045
+          EOH
+        end
         File.open(root.join('metadata.rb'), 'wb') do |f|
           f.write <<-EOH.gsub(/^ {11}/, '')
             name '#{cookbook_name}'
