@@ -183,8 +183,8 @@ module Stove
         }
 
         if extended_metadata
-          hash['source_url'] = self.source_url
-          hash['issues_url'] = self.issues_url
+          hash['source_url'] = self.source_url if !self.source_url.empty?
+          hash['issues_url'] = self.issues_url if !self.issues_url.empty?
         end
 
         return hash
