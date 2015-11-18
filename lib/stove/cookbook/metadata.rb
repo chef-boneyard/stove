@@ -77,6 +77,8 @@ module Stove
       # these attributes are here.
       def_attribute :source_url
       def_attribute :issues_url
+      def_attribute :chef_version
+      def_attribute :ohai_version
 
       def_meta_cookbook :supports,   :platforms
       def_meta_cookbook :depends,    :dependencies
@@ -109,6 +111,8 @@ module Stove
         @long_description = ''
         @source_url       = Stove::Mash.new
         @issues_url       = Stove::Mash.new
+        @chef_version     = Stove::Mash.new
+        @ohai_version     = Stove::Mash.new
         @platforms        = Stove::Mash.new
         @dependencies     = Stove::Mash.new
         @recommendations  = Stove::Mash.new
@@ -183,8 +187,10 @@ module Stove
         }
 
         if extended_metadata
-          hash['source_url'] = self.source_url
-          hash['issues_url'] = self.issues_url
+          hash['source_url']   = self.source_url
+          hash['issues_url']   = self.issues_url
+          hash['chef_version'] = self.chef_version
+          hash['ohai_version'] = self.ohai_version
         end
 
         return hash
