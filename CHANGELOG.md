@@ -2,6 +2,13 @@ Stove CHANGELOG
 ===============
 This is the Changelog for the Stove gem.
 
+v3.2.8 (2015-11-19)
+-------------------
+- Add endpoint config to the .stove config file for users of private Supermarkets
+- Add option --no-ssl-verify to skip SSL verification
+- Add chef_version and ohai_version metadata when extended-metadata is enabled
+- Add CONTRIBUTING.md, MAINTAINERS.md and .foodcritic to the file whitelist
+
 v3.2.7 (2015-04-16)
 -------------------
 - Use chef.io instead of getchef.com
