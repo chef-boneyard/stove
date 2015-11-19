@@ -8,6 +8,7 @@ module Stove
     include Logify
 
     ACCEPTABLE_FILES = [
+      '.foodcritic',
       'README.*',
       'CHANGELOG.*',
       'CONTRIBUTING.md',

@@ -16,6 +16,7 @@ module Stove
         end
 
         expect(structure).to eq(%w(
+          basic/.foodcritic
           basic/CHANGELOG.md
           basic/README.md
           basic/attributes/default.rb
