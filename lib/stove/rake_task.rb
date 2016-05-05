@@ -9,7 +9,7 @@ module Stove
     def initialize(name = nil)
       yield self if block_given?
 
-      desc 'Publish this cookbook' unless ::Rake.application.last_comment
+      desc 'Publish this cookbook' unless ::Rake.application.last_description
       task(name || :publish) do |t, args|
         Cli.new(stove_opts || []).execute!
       end
