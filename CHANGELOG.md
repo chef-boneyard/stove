@@ -1,58 +1,61 @@
-Stove CHANGELOG
-===============
+# Stove CHANGELOG
+
 This is the Changelog for the Stove gem.
 
-v3.2.8 (2015-11-19)
--------------------
+## v4.0.0 (2016-05-05)
+
+- This version of stove now requires Ruby 2.0 or later
+
+## v3.2.8 (2015-11-19)
+
 - Add endpoint config to the .stove config file for users of private Supermarkets
 - Add option --no-ssl-verify to skip SSL verification
 - Add chef_version and ohai_version metadata when extended-metadata is enabled
 - Add CONTRIBUTING.md, MAINTAINERS.md and .foodcritic to the file whitelist
 
-v3.2.7 (2015-04-16)
--------------------
+## v3.2.7 (2015-04-16)
+
 - Use chef.io instead of getchef.com
 - Ignore `vendor/` directory
-- Do not publish extended metadata fields like `issues_url` and `source_url` by
-  default (GH-64, GH-72). These fields can be optionally added using the
-  new `--extended-metadata` flag.
+- Do not publish extended metadata fields like `issues_url` and `source_url` by default (GH-64, GH-72). These fields can be optionally added using the new `--extended-metadata` flag.
 - Add support for Ruby 2.2
 - Use binmode when reading and writing the tgz (GH-64)
 
-v3.2.6 (2015-03-18)
--------------------
+## v3.2.6 (2015-03-18)
+
 - Include new metadata methods for Supermarket
 
-v3.2.5 (2014-12-19)
--------------------
+## v3.2.5 (2014-12-19)
+
 - Fix a bug with line endings when generating tarballs
 
-v3.2.4 (2014-12-07)
--------------------
+## v3.2.4 (2014-12-07)
+
 - Add support for `issues_url` and `source_url` metadata attributes
 
-v3.2.3 (2014-10-12)
--------------------
+## v3.2.3 (2014-10-12)
+
 - Only upload fully-compiled metadata (i.e. only upload metadata.json, not metadata.rb)
 
-v3.2.2 (2014-08-07)
--------------------
+## v3.2.2 (2014-08-07)
+
 - Fix a bug where files beginning with a dot (`.`) were not packaged
 
-v3.2.1 (2014-07-16)
--------------------
+## v3.2.1 (2014-07-16)
+
 - Fix a critical bug where nested directories are flattened
 
-v3.2.0 (2014-07-15)
--------------------
+## v3.2.0 (2014-07-15)
+
 **This version has been removed from Rubygems**
+
 - Add the ability to "yank" (delete) a cookbook from the Supermarket
 - Remove the `--category` flag (it is no longer honored)
 - Fix a bug where the `resources/` folder was not uploaded
 - Fix a bug when the cookbook name is not the same as the metdata name in the uploaded tarball
 
-v3.1.0 (2014-07-10)
--------------------
+## v3.1.0 (2014-07-10)
+
 **This version has been removed from Rubygems**
 
 - Use the generated tempfile directly (instead of writing to disk and creating File objects)
@@ -62,8 +65,8 @@ v3.1.0 (2014-07-10)
 - Use Rubygem's TarWrtier instead of minitar (removed dependency)
 - Bump version of Chef API to support tempfile IO objects
 
-v3.0.0 (2014-07-07)
--------------------
+## v3.0.0 (2014-07-07)
+
 - Add support for signed git tags
 - Require Ruby 1.9+
 - Remove i18n in favor of ERB
@@ -82,8 +85,8 @@ v3.0.0 (2014-07-07)
 - Improve test coverage
 - Publish to Supermarket by default
 
-v2.0.0 (2014-04-04)
--------------------
+## v2.0.0 (2014-04-04)
+
 - Completely refactor the runner for speed optimizations
 - Introduce a new configuration file format
 - Add i18n support
@@ -99,8 +102,8 @@ v2.0.0 (2014-04-04)
 - Persist data across the cookbook object
 - Use singleton classes to save memory and loadtime
 
-v1.1.0
-------
+## v1.1.0
+
 - Check if the git remote is in sync with local branch before pushing
 - Add support for bumping devodd releases
 - Add a custom rake task
@@ -110,10 +113,10 @@ v1.1.0
 - Fix error where the community site does not give an adequate response
 - Retry uploads 3 times in case the community site is being lame
 
-v1.0.1
-------
+## v1.0.1
+
 - Fix a bug where `--log-level` was being ignored
 
-v1.0.0
-------
+## v1.0.0
+
 - Initial release
