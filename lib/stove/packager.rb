@@ -97,7 +97,7 @@ module Stove
       tempfile.rewind
       tempfile
     ensure
-      if defined?(metadata_json)
+      if defined?(metadata_json) && File.exist?(File.join(cookbook.path, 'metadata.rb'))
         File.delete(metadata_json)
       end
     end
