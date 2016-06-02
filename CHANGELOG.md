@@ -2,6 +2,10 @@
 
 This is the Changelog for the Stove gem.
 
+## v4.1.0 (2016-06-02)
+
+- Support uploading cookbooks to Supermarket that lack a metadata.rb, but have a metadata.json
+
 ## v4.0.0 (2016-05-05)
 
 - This version of stove now requires Ruby 2.0 or later
