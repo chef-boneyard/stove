@@ -2,6 +2,10 @@
 
 This is the Changelog for the Stove gem.
 
+## v4.1.1 (2016-06-02)
+
+- Don't delete the metadata.json file if there isn't a metadata.rb
+
 ## v4.1.0 (2016-06-02)
 
 - Support uploading cookbooks to Supermarket that lack a metadata.rb, but have a metadata.json
