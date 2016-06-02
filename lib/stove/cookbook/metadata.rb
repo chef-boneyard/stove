@@ -142,10 +142,13 @@ module Stove
 
       def from_file(path)
         path = path.to_s
+        path_json = File.join(File.dirname(path), 'metadata.json')
 
         if File.exist?(path) && File.readable?(path)
           self.instance_eval(IO.read(path), path, 1)
           self
+        elsif File.exist?(path_json) && File.readable?(path_json)
+          metadata_from_json(path_json)
         else
           raise Error::MetadataNotFound.new(path: path)
         end
@@ -197,6 +200,14 @@ module Stove
       end
 
       private
+
+      def metadata_from_json(path)
+        json = JSON.parse(IO.read(path))
+        json.keys.each do |key|
+          set_or_return(key.to_sym, json[key])
+        end
+        self
+      end
 
       def set_or_return(symbol, arg)
         iv_symbol = "@#{symbol.to_s}".to_sym
