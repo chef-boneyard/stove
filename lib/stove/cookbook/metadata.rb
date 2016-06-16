@@ -190,8 +190,8 @@ module Stove
         }
 
         if extended_metadata
-          hash['source_url']   = self.source_url
-          hash['issues_url']   = self.issues_url
+          hash['source_url']   = self.source_url unless self.source_url.empty?
+          hash['issues_url']   = self.issues_url unless self.issues_url.empty?
           hash['chef_version'] = self.chef_version
           hash['ohai_version'] = self.ohai_version
         end
