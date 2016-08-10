@@ -8,6 +8,7 @@ class Stove::Cookbook
           hash = subject.to_hash(false)
           expect(hash).to_not include('issues_url')
           expect(hash).to_not include('source_url')
+          expect(hash).to_not include('chef')
         end
       end
 
@@ -15,11 +16,14 @@ class Stove::Cookbook
         it 'includes the new metadata fields' do
           subject.source_url('http://foo.example.com')
           subject.issues_url('http://bar.example.com')
+          subject.gem('rspec')
           hash = subject.to_hash(true)
           expect(hash).to include('issues_url')
           expect(hash['source_url']).to eq 'http://foo.example.com'
           expect(hash).to include('source_url')
           expect(hash['issues_url']).to eq 'http://bar.example.com'
+          expect(hash).to include('gems')
+          expect(hash['gems']).to include('rspec' => '>= 0.0.0')
         end
       end
 
@@ -28,6 +32,7 @@ class Stove::Cookbook
           hash = subject.to_hash(true)
           expect(hash).not_to include('source_url')
           expect(hash).not_to include('issues_url')
+          expect(hash).not_to include('gems')
         end
       end
 
@@ -46,6 +51,15 @@ class Stove::Cookbook
           expect(hash).to include('issues_url')
           expect(hash['issues_url']).to eq 'http://bar.example.com'
           expect(hash).not_to include('source_url')
+        end
+
+        it 'only includes the gems' do
+          subject.gem('rspec')
+          hash = subject.to_hash(true)
+          expect(hash).to include('gems')
+          expect(hash['gems']).to include('rspec' => '>= 0.0.0')
+          expect(hash).not_to include('source_url')
+          expect(hash).not_to include('issues_url')
         end
       end
     end
