@@ -54,6 +54,14 @@ module Stove
             end
           EOM
         end
+
+        def def_meta_gems(field, instance_variable)
+          class_eval <<-EOM, __FILE__, __LINE__ + 1
+            def #{field}(thing)
+              @#{instance_variable} << thing
+            end
+          EOM
+        end
       end
 
       DEFAULT_VERSION = '>= 0.0.0'.freeze
@@ -84,7 +92,6 @@ module Stove
       def_meta_cookbook :supports,   :platforms
       def_meta_cookbook :depends,    :dependencies
       def_meta_cookbook :recommends, :recommendations
-      def_meta_cookbook :gem,        :gems
       def_meta_cookbook :suggests,   :suggestions
       def_meta_cookbook :conflicts,  :conflicting
       def_meta_cookbook :provides,   :providing
@@ -93,6 +100,7 @@ module Stove
       def_meta_setter :recipe,    :recipes
       def_meta_setter :grouping,  :groupings
       def_meta_setter :attribute, :attributes
+      def_meta_gems   :gem,       :gems
 
       attr_reader :cookbook
       attr_reader :platforms
@@ -114,7 +122,7 @@ module Stove
         @long_description = ''
         @source_url       = Stove::Mash.new
         @issues_url       = Stove::Mash.new
-        @gems             = Stove::Mash.new
+        @gems             = []
         @chef_version     = Stove::Mash.new
         @ohai_version     = Stove::Mash.new
         @platforms        = Stove::Mash.new
