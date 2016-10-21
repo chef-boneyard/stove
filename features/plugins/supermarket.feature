@@ -1,4 +1,4 @@
-Feature: Community
+Feature: Supermarket
   Background:
     * I have a cookbook named "bacon"
 
@@ -13,25 +13,25 @@ Feature: Community
     * it should fail with "requires a private key"
 
   Scenario: With the default parameters
-    * the community server has the cookbook:
+    * the supermarket server has the cookbook:
       | bacon | 1.2.3 |
     * I successfully run `stove --no-git`
-    * the community server will have the cookbooks:
+    * the supermarket server will have the cookbooks:
       | bacon | 0.0.0 |
 
   Scenario: Yanking a cookbook
-    * the community server has the cookbooks:
+    * the supermarket server has the cookbooks:
       | bacon | 1.2.3 |
     * I successfully run `stove yank -l debug`
-    * the community server will not have the cookbooks:
+    * the supermarket server will not have the cookbooks:
       | bacon | 1.2.3 |
     * the output should contain "Successfully yanked bacon!"
 
   Scenario: Yanking a cookbook by name
-    * the community server has the cookbooks:
+    * the supermarket server has the cookbooks:
       | eggs | 4.5.6 |
     * I successfully run `stove yank eggs`
-    * the community server will not have the cookbooks:
+    * the supermarket server will not have the cookbooks:
       | eggs | 4.5.6 |
     * the output should not contain "Successfully yanked bacon!"
     * the output should contain "Successfully yanked eggs!"

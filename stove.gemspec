@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Stove::VERSION
   spec.authors       = ['Seth Vargo']
   spec.email         = ['sethvargo@gmail.com']
-  spec.description   = "A utility for releasing Chef community cookbooks"
-  spec.summary       = "A command-line utility for releasing Chef community cookbooks"
+  spec.description   = "A utility for releasing Chef cookbooks to the Supermarket"
+  spec.summary       = "A command-line utility for releasing Chef cookbooks to the Supermarket"
   spec.homepage      = 'https://github.com/sethvargo/stove'
   spec.license       = 'Apache 2.0'
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.0'
+  spec.required_ruby_version = '>= 2.2'
 
   # Runtime dependencies
   spec.add_dependency 'chef-api', '~> 0.5'

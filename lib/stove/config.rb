@@ -58,12 +58,12 @@ module Stove
 
       @__raw__ = JSON.parse(File.read(__path__), symbolize_names: true)
 
-      if @__raw__.key?(:community)
+      if @__raw__.key?(:supermarket)
         $stderr.puts "Detected old Stove configuration file, converting..."
 
         @__raw__ = {
-          :username => @__raw__[:community][:username],
-          :key      => @__raw__[:community][:key],
+          :username => @__raw__[:supermarket][:username],
+          :key      => @__raw__[:supermarket][:key],
         }
       end
 

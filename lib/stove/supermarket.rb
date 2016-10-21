@@ -1,35 +1,35 @@
 require 'chef-api'
 
 module Stove
-  class Community
+  class Supermarket
     include Mixin::Instanceable
     include Mixin::Optionable
 
     #
-    # The default endpoint where the community site lives.
+    # The default endpoint where the supermarket lives.
     #
     # @return [String]
     #
     DEFAULT_ENDPOINT = 'https://supermarket.chef.io/api/v1'
 
     #
-    # Get and cache a community cookbook's JSON response from the given name
+    # Get and cache a supermarket cookbook's JSON response from the given name
     # and version.
     #
     # @example Find a cookbook by name
-    #   Community.cookbook('apache2') #=> {...}
+    #   Supermarket.cookbook('apache2') #=> {...}
     #
     # @example Find a cookbook by name and version
-    #   Community.cookbook('apache2', '1.0.0') #=> {...}
+    #   Supermarket.cookbook('apache2', '1.0.0') #=> {...}
     #
     # @example Find a non-existent cookbook
-    #   Community.cookbook('not-real') #=> Community::BadResponse
+    #   Supermarket.cookbook('not-real') #=> Supermarket::BadResponse
     #
-    # @raise [Community::BadResponse]
-    #   if the given cookbook (or cookbook version) does not exist on the community site
+    # @raise [Supermarket::BadResponse]
+    #   if the given cookbook (or cookbook version) does not exist on the supermarket
     #
     # @param [String] name
-    #   the name of the cookbook on the community site
+    #   the name of the cookbook on the supermarket
     # @param [String] version (optional)
     #   the version of the cookbook to find
     #
@@ -45,7 +45,7 @@ module Stove
     end
 
     #
-    # Upload a cookbook to the community site.
+    # Upload a cookbook to the supermarket.
     #
     # @param [Cookbook] cookbook
     #   the cookbook to upload
@@ -54,16 +54,15 @@ module Stove
       connection.post('cookbooks', {
         'tarball'  => cookbook.tarball(extended_metadata),
 
-        # This is for legacy, backwards-compatability reasons. The new
-        # Supermarket site does not require a category, but many of the testing
-        # tools still assume a cookbook category is present. We just hardcode
-        # "Other" here.
+        # This is for legacy, backwards-compatability reasons. The Supermarket
+        # does not require a category, but many of the testing tools still
+        # assume a cookbook category is present. We just hardcode "Other" here.
         'cookbook' => JSON.fast_generate(category: 'Other'),
       })
     end
 
     #
-    # Delete the given cookbook from the communit site.
+    # Delete the given cookbook from the supermarket.
     #
     # @param [String] name
     #   the name of the cookbook to delete

@@ -1,7 +1,7 @@
 Feature: git Plugin
   Background:
     * I have a cookbook named "bacon"
-    * the community server has the cookbooks:
+    * the supermarket server has the cookbooks:
       | bacon | 1.0.0 |
 
   Scenario: When the directory is not a git repository
