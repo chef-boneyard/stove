@@ -12,7 +12,7 @@ module Stove
 
     def run
       run_plugin :git
-      run_plugin :community
+      run_plugin :supermarket
     end
 
     private

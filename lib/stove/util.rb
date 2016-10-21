@@ -2,7 +2,7 @@ module Stove
   module Util
     extend self
 
-    # Convert a version string (x.y.z) to a community-site friendly format
+    # Convert a version string (x.y.z) to a supermarket friendly format
     # (x_y_z).
     #
     # @example Convert a version to a version string

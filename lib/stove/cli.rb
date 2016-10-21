@@ -53,7 +53,7 @@ module Stove
       if @argv.first == 'yank'
         name = @argv[1] || Cookbook.new(options[:path]).name
 
-        if Community.yank(name)
+        if Supermarket.yank(name)
           @stdout.puts "Successfully yanked #{name}!"
           @kernel.exit(0)
         else
