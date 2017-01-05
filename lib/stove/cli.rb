@@ -118,8 +118,8 @@ module Stove
           options[:key] = v
         end
 
-        opts.on('--extended-metadata', 'Include non-backwards compatible metadata keys such as `issues_url`') do
-          options[:extended_metadata] = true
+        opts.on('--[no-]extended-metadata', 'Include non-backwards compatible metadata keys such as `issues_url`') do |v|
+          options[:extended_metadata] = v
         end
 
         opts.on('--no-ssl-verify', 'Turn off ssl verify') do
@@ -174,7 +174,7 @@ module Stove
         :endpoint          => nil,
         :username          => Config.username,
         :key               => Config.key,
-        :extended_metadata => false,
+        :extended_metadata => true,
         :ssl_verify        => true,
 
         # Git options
