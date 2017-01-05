@@ -54,6 +54,14 @@ module Stove
             end
           EOM
         end
+
+        def def_meta_gems(field, instance_variable)
+          class_eval <<-EOM, __FILE__, __LINE__ + 1
+            def #{field}(thing)
+              @#{instance_variable} << thing
+            end
+          EOM
+        end
       end
 
       DEFAULT_VERSION = '>= 0.0.0'.freeze
@@ -79,6 +87,7 @@ module Stove
       def_attribute :issues_url
       def_attribute :chef_version
       def_attribute :ohai_version
+      def_attribute :gem
 
       def_meta_cookbook :supports,   :platforms
       def_meta_cookbook :depends,    :dependencies
@@ -91,11 +100,13 @@ module Stove
       def_meta_setter :recipe,    :recipes
       def_meta_setter :grouping,  :groupings
       def_meta_setter :attribute, :attributes
+      def_meta_gems   :gem,       :gems
 
       attr_reader :cookbook
       attr_reader :platforms
       attr_reader :dependencies
       attr_reader :recommendations
+      attr_reader :gems
       attr_reader :suggestions
       attr_reader :conflicting
       attr_reader :providing
@@ -111,6 +122,7 @@ module Stove
         @long_description = ''
         @source_url       = Stove::Mash.new
         @issues_url       = Stove::Mash.new
+        @gems             = []
         @chef_version     = Stove::Mash.new
         @ohai_version     = Stove::Mash.new
         @platforms        = Stove::Mash.new
@@ -192,6 +204,7 @@ module Stove
         if extended_metadata
           hash['source_url']   = self.source_url unless self.source_url.empty?
           hash['issues_url']   = self.issues_url unless self.issues_url.empty?
+          hash['gems']         = self.gems unless self.gems.empty?
           hash['chef_version'] = self.chef_version
           hash['ohai_version'] = self.ohai_version
         end
