@@ -8,7 +8,7 @@ module Stove
     end
 
     validate(:clean) do
-      git_null('status -s').strip.empty?
+      git_null('status --porcelain').strip.empty?
     end
 
     validate(:up_to_date) do
