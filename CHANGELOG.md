@@ -2,6 +2,14 @@
 
 This is the Changelog for the Stove gem.
 
+## v5.0.0 (2017-03-22)
+
+- Enable pushing extended metadata for Chef 12 by default
+- Add gem metadata to the extended metadata whitelist
+- Use git porcelain vs. -s to avoid having local git configs interfere with stove functionality
+- Only populate the extended metadata if the fields are actually present in the metadata
+- Support for Ruby 2.0 has been dropped as Ruby 2.0 has been EOL'd
+
 ## v4.1.1 (2016-06-02)
 
 - Don't delete the metadata.json file if there isn't a metadata.rb
