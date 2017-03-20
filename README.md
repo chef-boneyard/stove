@@ -41,7 +41,7 @@ The default publishing endpoint is the [Chef Supermarket](https://supermarket.ch
 $ stove --endpoint https://internal-supermarket.example.com/api/v1
 ```
 
-Please note: depending on which version of Chef and which version of Supermarket you are running, you may support the new "extended" metadata fields. By default, Stove writes these new fields when uploading cookbooks because, which require Chef 12 or later. If you would like to retain compatibility with Chef 11 you can disable extended metadata with `--no-extended-metadata`.
+Please note: depending on which version of Chef and which version of Supermarket you are running, you may support the new "extended" metadata fields. By default, Stove writes these new fields when uploading cookbooks, which require Chef 12 or later. If you would like to retain compatibility with Chef 11 you can disable extended metadata with `--no-extended-metadata`:
 
 ```bash
 $ stove --no-extended-metadata
