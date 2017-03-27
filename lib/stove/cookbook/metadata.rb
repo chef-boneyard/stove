@@ -57,8 +57,12 @@ module Stove
 
         def def_meta_gems(field, instance_variable)
           class_eval <<-EOM, __FILE__, __LINE__ + 1
-            def #{field}(thing)
-              @#{instance_variable} << thing
+            def #{field}(gem_name, *args)
+              version = args.first
+              gem_params = []
+              gem_params << gem_name
+              gem_params << version if version
+              @#{instance_variable} << gem_params
             end
           EOM
         end
