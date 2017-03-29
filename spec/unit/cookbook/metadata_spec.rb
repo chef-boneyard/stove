@@ -63,5 +63,78 @@ class Stove::Cookbook
         end
       end
     end
+
+    describe '#chef_version' do
+      let(:hash_version) { subject.to_hash(true)['chef_version'] }
+
+      context 'with no chef_version line' do
+        it 'returns []' do
+          expect(subject.chef_version).to eq []
+          expect(hash_version).to eq []
+        end
+      end
+
+      context 'with a single chef_version requirement' do
+        it 'returns [[req]]' do
+          subject.chef_version('>= 12.0')
+          expect(subject.chef_version).to eq [['>= 12.0']]
+          expect(hash_version).to eq [['>= 12.0']]
+        end
+      end
+
+      context 'with a multi-part chef_version requirement' do
+        it 'returns [[req1, req2]]' do
+          subject.chef_version('>= 12.0', '< 14.0')
+          expect(subject.chef_version).to eq [['>= 12.0', '< 14.0']]
+          expect(hash_version).to eq [['< 14.0', '>= 12.0',]]
+        end
+      end
+
+      context 'with multiple chef_version requirements' do
+        it 'returns [[req1], [req2]]' do
+          subject.chef_version('< 12')
+          subject.chef_version('> 14')
+          expect(subject.chef_version).to eq [['< 12'], ['> 14']]
+          expect(hash_version).to eq [['< 12'], ['> 14']]
+        end
+      end
+    end
+
+    describe '#ohai_version' do
+      let(:hash_version) { subject.to_hash(true)['ohai_version'] }
+
+      context 'with no ohai_version line' do
+        it 'returns []' do
+          expect(subject.ohai_version).to eq []
+          expect(hash_version).to eq []
+        end
+      end
+
+      context 'with a single ohai_version requirement' do
+        it 'returns [[req]]' do
+          subject.ohai_version('>= 12.0')
+          expect(subject.ohai_version).to eq [['>= 12.0']]
+          expect(hash_version).to eq [['>= 12.0']]
+        end
+      end
+
+      context 'with a multi-part ohai_version requirement' do
+        it 'returns [[req1, req2]]' do
+          subject.ohai_version('>= 12.0', '< 14.0')
+          expect(subject.ohai_version).to eq [['>= 12.0', '< 14.0']]
+          expect(hash_version).to eq [['< 14.0', '>= 12.0',]]
+        end
+      end
+
+      context 'with multiple ohai_version requirements' do
+        it 'returns [[req1], [req2]]' do
+          subject.ohai_version('< 12')
+          subject.ohai_version('> 14')
+          expect(subject.ohai_version).to eq [['< 12'], ['> 14']]
+          expect(hash_version).to eq [['< 12'], ['> 14']]
+        end
+      end
+    end
+
   end
 end
