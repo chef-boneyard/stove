@@ -2,6 +2,12 @@
 
 This is the Changelog for the Stove gem.
 
+## v5.1.0 (2017-03-31)
+
+- Match Chef's metadata behavior with chef_version and ohai_version to allow version constraints like '>= 12.5', '< 14'
+- Allow having gem version in cookbook metadata.json
+- Better align gem version logic with how Chef handles it
+
 ## v5.0.0 (2017-03-22)
 
 - Enable pushing extended metadata for Chef 12 by default
