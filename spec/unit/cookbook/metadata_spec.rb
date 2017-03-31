@@ -23,7 +23,7 @@ class Stove::Cookbook
           expect(hash).to include('source_url')
           expect(hash['issues_url']).to eq 'http://bar.example.com'
           expect(hash).to include('gems')
-          expect(hash['gems']).to eq(['rspec'])
+          expect(hash['gems']).to eq([['rspec']])
         end
       end
 
@@ -57,7 +57,7 @@ class Stove::Cookbook
           subject.gem('rspec')
           hash = subject.to_hash(true)
           expect(hash).to include('gems')
-          expect(hash['gems']).to eq(['rspec'])
+          expect(hash['gems']).to eq([['rspec']])
           expect(hash).not_to include('source_url')
           expect(hash).not_to include('issues_url')
         end
