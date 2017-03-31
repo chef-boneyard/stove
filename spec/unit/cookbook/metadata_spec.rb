@@ -136,5 +136,41 @@ class Stove::Cookbook
       end
     end
 
+    describe '#gem' do
+      let(:hash_gems) { subject.to_hash(true)['gems'] }
+
+      context 'with no gem line' do
+        it 'returns []' do
+          expect(subject.gems).to eq []
+          expect(hash_gems).to be_nil
+        end
+      end
+
+      context 'with a single gem dependency' do
+        it 'returns [[gem]]' do
+          subject.gem('nokogiri')
+          expect(subject.gems).to eq [['nokogiri']]
+          expect(hash_gems).to eq [['nokogiri']]
+        end
+      end
+
+      context 'with a gem dependency with a version specifier' do
+        it 'returns [[gem, ver]]' do
+          subject.gem('nokogiri', '>= 1.2.3')
+          expect(subject.gems).to eq [['nokogiri', '>= 1.2.3']]
+          expect(hash_gems).to eq [['nokogiri', '>= 1.2.3']]
+        end
+      end
+
+      context 'with multiple gem dependencies' do
+        it 'returns [[gem1], [gem2]]' do
+          subject.gem('nokogiri')
+          subject.gem('rack')
+          expect(subject.gems).to eq [['nokogiri'], ['rack']]
+          expect(hash_gems).to eq [['nokogiri'], ['rack']]
+        end
+      end
+    end
+
   end
 end
