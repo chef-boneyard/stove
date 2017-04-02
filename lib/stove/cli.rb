@@ -52,13 +52,24 @@ module Stove
       # Yank command
       if @argv.first == 'yank'
         name = @argv[1] || Cookbook.new(options[:path]).name
+        version = @argv[2]
 
-        if Community.yank(name)
-          @stdout.puts "Successfully yanked #{name}!"
-          @kernel.exit(0)
+        if version.nil?
+          if Community.yank(name)
+            @stdout.puts "Successfully yanked #{name}!"
+            @kernel.exit(0)
+          else
+            @stderr.puts "I could not find a cookbook named #{name}!"
+            @kernel.exit(1)
+          end
         else
-          @stderr.puts "I could not find a cookbook named #{name}!"
-          @kernel.exit(1)
+          if Community.yank(name, version)
+            @stdout.puts "Successfully yanked version #{version} of #{name}!"
+            @kernel.exit(0)
+          else
+            @stderr.puts "I could not find a version #{version} of cookbook named #{name}!"
+            @kernel.exit(1)
+          end
         end
 
         return

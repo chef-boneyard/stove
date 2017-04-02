@@ -63,16 +63,28 @@ module Stove
     end
 
     #
-    # Delete the given cookbook from the communit site.
+    # Delete the given cookbook or a specific version from the community site.
+    #
+    # @example Delete a cookbook version
+    #   Community.yank('apache2', '1.0.0') #=> true
+    #
+    # @example Delete an entire cookbook
+    #   Community.yank('apache2') #=> true
     #
     # @param [String] name
-    #   the name of the cookbook to delete
+    #   the name of the cookbook on the community site
+    # @param [String] version (optional)
+    #   the version of the cookbook to delete
     #
     # @return [true, false]
-    #   true if the cookbook was deleted, false otherwise
+    #   true if the item was deleted, false otherwise
     #
-    def yank(name)
-      connection.delete("/cookbooks/#{name}")
+    def yank(name, version = nil)
+      if version.nil?
+        connection.delete("cookbooks/#{name}")
+      else
+        connection.delete("cookbooks/#{name}/versions/#{Util.version_for_url(version)}")
+      end
       true
     rescue ChefAPI::Error::HTTPBadRequest,
            ChefAPI::Error::HTTPNotFound,
