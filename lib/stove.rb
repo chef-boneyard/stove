@@ -2,18 +2,19 @@ require 'logify'
 require 'pathname'
 
 module Stove
-  autoload :Community,  'stove/community'
-  autoload :Config,     'stove/config'
-  autoload :Cookbook,   'stove/cookbook'
-  autoload :Cli,        'stove/cli'
-  autoload :Error,      'stove/error'
-  autoload :Filter,     'stove/filter'
-  autoload :Mash,       'stove/mash'
-  autoload :Packager,   'stove/packager'
-  autoload :Runner,     'stove/runner'
-  autoload :Util,       'stove/util'
-  autoload :Validator,  'stove/validator'
-  autoload :VERSION,    'stove/version'
+  autoload :Artifactory, 'stove/artifactory'
+  autoload :Community,   'stove/community'
+  autoload :Config,      'stove/config'
+  autoload :Cookbook,    'stove/cookbook'
+  autoload :Cli,         'stove/cli'
+  autoload :Error,       'stove/error'
+  autoload :Filter,      'stove/filter'
+  autoload :Mash,        'stove/mash'
+  autoload :Packager,    'stove/packager'
+  autoload :Runner,      'stove/runner'
+  autoload :Util,        'stove/util'
+  autoload :Validator,   'stove/validator'
+  autoload :VERSION,     'stove/version'
 
   module Middleware
     autoload :ChefAuthentication, 'stove/middlewares/chef_authentication'
@@ -28,9 +29,10 @@ module Stove
   end
 
   module Plugin
-    autoload :Base,      'stove/plugins/base'
-    autoload :Community, 'stove/plugins/community'
-    autoload :Git,       'stove/plugins/git'
+    autoload :Artifactory, 'stove/plugins/artifactory'
+    autoload :Base,        'stove/plugins/base'
+    autoload :Community,   'stove/plugins/community'
+    autoload :Git,         'stove/plugins/git'
   end
 
   #

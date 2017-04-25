@@ -36,10 +36,12 @@ module Stove
       end
 
       # Override configs
-      Config.endpoint   = options[:endpoint] if options[:endpoint]
-      Config.username   = options[:username] if options[:username]
-      Config.key        = options[:key]      if options[:key]
-      Config.ssl_verify = options[:ssl_verify]
+      Config.endpoint        = options[:endpoint]        if options[:endpoint]
+      Config.username        = options[:username]        if options[:username]
+      Config.key             = options[:key]             if options[:key]
+      Config.artifactory     = options[:artifactory]     if options[:artifactory]
+      Config.artifactory_key = options[:artifactory_key] if options[:artifactory_key]
+      Config.ssl_verify      = options[:ssl_verify]
 
       # Set the log level
       Stove.log_level = options[:log_level]
@@ -142,6 +144,23 @@ module Stove
         end
 
         opts.separator ''
+        opts.separator 'Artifactory Options:'
+
+        opts.on('--artifactory [URL]', 'URL for the Artifactory repository') do |v|
+          options[:artifactory] = v
+        end
+
+        opts.on('--artifactory-key [KEY]', 'Artifactory API key to use') do |v|
+          options[:artifactory_key] = if v[0] == '@'
+            # If passed a key looking like @foo, read it as a file. This allows
+            # passing in the key securely.
+            IO.read(File.expand_path(v[1..-1]))
+          else
+            v
+          end
+        end
+
+        opts.separator ''
         opts.separator 'Global Options:'
 
         opts.on('--log-level [LEVEL]', 'Set the log verbosity') do |v|
@@ -181,6 +200,10 @@ module Stove
         :remote => 'origin',
         :branch => 'master',
         :sign   => false,
+
+        # Artifactory options
+        :artifactory     => false,
+        :artifactory_key => ENV['ARTIFACTORY_API_KEY'],
 
         # Global options
         :log_level => :warn,
