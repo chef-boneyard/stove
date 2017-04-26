@@ -1,5 +1,6 @@
 require 'rspec'
 require 'webmock/rspec'
+require 'rspec_command'
 require 'stove'
 
 RSpec.configure do |config|
