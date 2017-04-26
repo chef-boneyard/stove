@@ -17,6 +17,10 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  # Don't try running the Artifactory integration tests without the config for it.
+  # See integration/artifactory_spec for more info.
+  config.filter_run_excluding(:artifactory_integration) unless ENV['TEST_STOVE_ARTIFACTORY']
 end
 
 def tmp_path

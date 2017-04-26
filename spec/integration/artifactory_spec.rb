@@ -7,9 +7,8 @@ require 'spec_helper'
 # $TEST_STOVE_ARTIFACTORY - URL to the Chef virtual repository.
 # $TEST_STOVE_ARTIFACTORY_REAL - URL to the non-virtual repository.
 # $TEST_STOVE_ARTIFACTORY_API_KEY - API key to use.
-return unless ENV['TEST_STOVE_ARTIFACTORY']
 
-describe 'artifactory integration test', skip: !ENV['TEST_STOVE_ARTIFACTORY'] do
+describe 'artifactory integration test', artifactory_integration: true do
   include RSpecCommand
   let(:upload_url) { ENV['TEST_STOVE_ARTIFACTORY'] }
   let(:delete_url) { ENV['TEST_STOVE_ARTIFACTORY_REAL'] }
