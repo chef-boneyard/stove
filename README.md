@@ -76,6 +76,21 @@ And then use rake to publish the cookbook:
 $ bin/rake publish
 ```
 
+## Artifactory Support
+
+In addition to uploading to a standard [Supermarket](https://github.com/chef/supermarket) server, Stove can upload to an Artifactory repository [configured to be in Chef mode](https://www.jfrog.com/confluence/display/RTF/Chef+Cookbook+Repositories).
+
+You specify the URL to upload to via `--artifactory`, which you can find the URL Artifactory repository configuration. Your API key can be specified either in the `$ARTIFACTORY_API_KEY` environment variable or via `--artifactory-key`:
+
+```bash
+# API key in $ARTIFACTORY_API_KEY
+$ stove --artifactory https://artifactory.example.com/api/chef/nameofrepo
+# API key in a file
+$ stove --artifactory https://artifactory.example.com/api/chef/nameofrepo --artifactory-key=@path/to/key/file
+# API key on the command line
+$ stove --artifactory https://artifactory.example.com/api/chef/nameofrepo --artifactory-key=XZg6tefUZYfiglmSbQ1s1e6habk
+```
+
 ## Contributing
 
 1. Fork it

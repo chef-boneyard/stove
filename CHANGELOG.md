@@ -2,6 +2,10 @@
 
 This is the Changelog for the Stove gem.
 
+## v5.2.0 (2017-05-12)
+
+- Support for uploading to Artifactory
+
 ## v5.1.0 (2017-03-31)
 
 - Match Chef's metadata behavior with chef_version and ohai_version to allow version constraints like '>= 12.5', '< 14'
