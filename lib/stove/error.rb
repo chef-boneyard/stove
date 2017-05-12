@@ -40,6 +40,7 @@ module Stove
     class GitFailed < StoveError; end
     class MetadataNotFound < StoveError; end
     class ServerUnavailable < StoveError; end
+    class CookbookAlreadyExists < StoveError; end
 
     # Validations
     class ValidationFailed < StoveError; end
@@ -49,5 +50,6 @@ module Stove
     class GitCleanValidationFailed < ValidationFailed; end
     class GitRepositoryValidationFailed < ValidationFailed; end
     class GitUpToDateValidationFailed < ValidationFailed; end
+    class ArtifactoryKeyValidationFailed < ValidationFailed; end
   end
 end

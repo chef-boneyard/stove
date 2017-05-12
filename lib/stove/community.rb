@@ -63,7 +63,7 @@ module Stove
     end
 
     #
-    # Delete the given cookbook from the communit site.
+    # Delete the given cookbook from the community site.
     #
     # @param [String] name
     #   the name of the cookbook to delete

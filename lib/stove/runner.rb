@@ -12,7 +12,11 @@ module Stove
 
     def run
       run_plugin :git
-      run_plugin :community
+      if Config.artifactory
+        run_plugin :artifactory
+      else
+        run_plugin :community
+      end
     end
 
     private
