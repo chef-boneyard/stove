@@ -34,11 +34,13 @@ module Stove
     private
 
     def git(command, errors = true)
+      log.debug("the command matches")
       log.debug("Running `git #{command}', errors: #{errors}")
       Dir.chdir(cookbook.path) do
         response = %x|git #{command}|
 
         if errors && !$?.success?
+          raise Error::GitTaggingFailed.new(command: command) if command =~ /^tag/
           raise Error::GitFailed.new(command: command)
         end
 

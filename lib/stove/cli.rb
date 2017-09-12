@@ -101,7 +101,7 @@ module Stove
         opts.separator ''
         opts.separator 'Plugins:'
 
-        opts.on('--no-git', 'Do not use the git plugin') do
+        opts.on('--no-git', 'Do not use the git plugin. Skips tagging if specified.') do
           options[:no_git] = true
         end
 

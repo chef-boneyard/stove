@@ -38,6 +38,7 @@ module Stove
     end
 
     class GitFailed < StoveError; end
+    class GitTaggingFailed < StoveError; end
     class MetadataNotFound < StoveError; end
     class ServerUnavailable < StoveError; end
     class CookbookAlreadyExists < StoveError; end
