@@ -15,7 +15,7 @@ module Stove
       if Config.artifactory
         run_plugin :artifactory
       else
-        run_plugin :community
+        run_plugin :supermarket
       end
     end
 

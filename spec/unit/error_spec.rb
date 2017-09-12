@@ -49,12 +49,12 @@ module Stove::Error
     end
   end
 
-  describe CommunityKeyValidationFailed do
+  describe SupermarketKeyValidationFailed do
     it 'raises an exception with the correct message' do
       expect { raise described_class }.to raise_error { |error|
         expect(error).to be_a(described_class)
         expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          You did not specify the path to a private key! The Chef community site requires a private key for authentication:
+          You did not specify the path to a private key! The Chef Supermarket requires a private key for authentication:
 
               stove --key ~/.chef/sethvargo.pem
         EOH
@@ -62,12 +62,12 @@ module Stove::Error
     end
   end
 
-  describe CommunityUsernameValidationFailed do
+  describe SupermarketUsernameValidationFailed do
     it 'raises an exception with the correct message' do
       expect { raise described_class }.to raise_error { |error|
         expect(error).to be_a(described_class)
         expect(error.message).to eq <<-EOH.gsub(/^ {10}/, '')
-          You did not specify the username to authenticate with! The Chef community site requires a username for authentication:
+          You did not specify the username to authenticate with! The Chef Supermarket requires a username for authentication:
 
               stove --username sethvargo
         EOH

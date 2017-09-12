@@ -45,9 +45,9 @@ module Stove
 
     # Validations
     class ValidationFailed < StoveError; end
-    class CommunityCategoryValidationFailed < ValidationFailed; end
-    class CommunityKeyValidationFailed < ValidationFailed; end
-    class CommunityUsernameValidationFailed < ValidationFailed; end
+    class SupermarketCategoryValidationFailed < ValidationFailed; end
+    class SupermarketKeyValidationFailed < ValidationFailed; end
+    class SupermarketUsernameValidationFailed < ValidationFailed; end
     class GitCleanValidationFailed < ValidationFailed; end
     class GitRepositoryValidationFailed < ValidationFailed; end
     class GitUpToDateValidationFailed < ValidationFailed; end

@@ -3,7 +3,7 @@ require 'pathname'
 
 module Stove
   autoload :Artifactory, 'stove/artifactory'
-  autoload :Community,   'stove/community'
+  autoload :Supermarket, 'stove/supermarket'
   autoload :Config,      'stove/config'
   autoload :Cookbook,    'stove/cookbook'
   autoload :Cli,         'stove/cli'
@@ -31,7 +31,7 @@ module Stove
   module Plugin
     autoload :Artifactory, 'stove/plugins/artifactory'
     autoload :Base,        'stove/plugins/base'
-    autoload :Community,   'stove/plugins/community'
+    autoload :Supermarket, 'stove/plugins/supermarket'
     autoload :Git,         'stove/plugins/git'
   end
 

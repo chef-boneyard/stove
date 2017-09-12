@@ -17,7 +17,7 @@ module Stove
 
     #
     # The name of the cookbook (must correspond to the name of the
-    # cookbook on the community site).
+    # cookbook on the Supermarket).
     #
     # @return [String]
     #
@@ -71,7 +71,7 @@ module Stove
     end
 
     #
-    # Deterine if this cookbook version is released on the community site
+    # Deterine if this cookbook version is released on the Supermarket
     #
     # @warn
     #   This is a fairly expensive operation and the result cannot be
@@ -82,7 +82,7 @@ module Stove
     #   site, false otherwise
     #
     def released?
-      Community.cookbook(name, version)
+      Supermarket.cookbook(name, version)
       true
     rescue ChefAPI::Error::HTTPNotFound
       false
