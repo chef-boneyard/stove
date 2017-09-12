@@ -1,12 +1,12 @@
 require 'chef-api'
 
 module Stove
-  class Community
+  class Supermarket
     include Mixin::Instanceable
     include Mixin::Optionable
 
     #
-    # The default endpoint where the community site lives.
+    # The default endpoint where the Supermarket lives.
     #
     # @return [String]
     #
@@ -17,19 +17,19 @@ module Stove
     # and version.
     #
     # @example Find a cookbook by name
-    #   Community.cookbook('apache2') #=> {...}
+    #   Supermarket.cookbook('apache2') #=> {...}
     #
     # @example Find a cookbook by name and version
-    #   Community.cookbook('apache2', '1.0.0') #=> {...}
+    #   Supermarket.cookbook('apache2', '1.0.0') #=> {...}
     #
     # @example Find a non-existent cookbook
-    #   Community.cookbook('not-real') #=> Community::BadResponse
+    #   Supermarket.cookbook('not-real') #=> Community::BadResponse
     #
-    # @raise [Community::BadResponse]
-    #   if the given cookbook (or cookbook version) does not exist on the community site
+    # @raise [Supermarket::BadResponse]
+    #   if the given cookbook (or cookbook version) does not exist on the Supermarket
     #
     # @param [String] name
-    #   the name of the cookbook on the community site
+    #   the name of the cookbook on the Supermarket
     # @param [String] version (optional)
     #   the version of the cookbook to find
     #
@@ -63,7 +63,7 @@ module Stove
     end
 
     #
-    # Delete the given cookbook from the community site.
+    # Delete the given cookbook from the supermarket.
     #
     # @param [String] name
     #   the name of the cookbook to delete
