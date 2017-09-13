@@ -2,6 +2,19 @@
 
 This is the Changelog for the Stove gem.
 
+## v6.0.0
+
+### Breaking Changes
+
+- All references to the Community site have been renamed to Supermarket. This includes the name of the `community` plugin and all `Community` classes references within the code. This should not be a breaking change unless your developing against stove as a library.
+- The long ago deprecated `bake` command has been removed.
+
+### Other Changes
+
+- Git tagging errors now include more useful error messaging.
+- The help command now better describes `--no-git` and `--endpoint` flags.
+- For developers running stove from the git repository, the application now properly loads stove from the repository instead of from an installed gem.
+
 ## v5.2.0 (2017-05-12)
 
 - Support for uploading to Artifactory
