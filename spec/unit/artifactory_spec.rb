@@ -68,6 +68,19 @@ describe Stove::Artifactory do
       end
     end
 
+    context 'with HTTPS authentication' do
+      before do
+        Stove::Config.artifactory_key = ''
+        Stove::Config.artifactory = 'https://username:passw%40rd@artifactory.example/api/chef/chef'
+      end
+
+      it 'uploads the file' do
+        stub_request(:get, 'https://artifactory.example/api/chef/chef/api/v1/cookbooks/testcook/versions/1.2.3').with(headers: {'authorization' => 'Basic dXNlcm5hbWU6cGFzc3dAcmQ='}).to_return(body: '')
+        stub_request(:post, 'https://artifactory.example/api/chef/chef/api/v1/cookbooks/testcook.tgz').with(headers: {'authorization' => 'Basic dXNlcm5hbWU6cGFzc3dAcmQ='}, body: 'simple').to_return(status: 201)
+        expect { subject }.to_not raise_error
+      end
+    end
+
   end
 
   # Break encapsulation a bit to test the ssl_verify configuration.

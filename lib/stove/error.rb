@@ -51,6 +51,6 @@ module Stove
     class GitCleanValidationFailed < ValidationFailed; end
     class GitRepositoryValidationFailed < ValidationFailed; end
     class GitUpToDateValidationFailed < ValidationFailed; end
-    class ArtifactoryKeyValidationFailed < ValidationFailed; end
+    class ArtifactoryCredentialsValidationFailed < ValidationFailed; end
   end
 end
