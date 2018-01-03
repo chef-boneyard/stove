@@ -80,7 +80,7 @@ $ bin/rake publish
 
 In addition to uploading to a standard [Supermarket](https://github.com/chef/supermarket) server, Stove can upload to an Artifactory repository [configured to be in Chef mode](https://www.jfrog.com/confluence/display/RTF/Chef+Cookbook+Repositories).
 
-You specify the URL to upload to via `--artifactory`, which you can find the URL Artifactory repository configuration. Your API key can be specified either in the `$ARTIFACTORY_API_KEY` environment variable or via `--artifactory-key`:
+You specify the URL to upload to via `--artifactory`, which you can find the URL Artifactory repository configuration. If you use API keys, the API key can be specified either in the `$ARTIFACTORY_API_KEY` environment variable or via `--artifactory-key`. If you are using HTTPS authentication, include the username and password into your Artifactory URL.
 
 ```bash
 # API key in $ARTIFACTORY_API_KEY
@@ -89,6 +89,8 @@ $ stove --artifactory https://artifactory.example.com/api/chef/nameofrepo
 $ stove --artifactory https://artifactory.example.com/api/chef/nameofrepo --artifactory-key=@path/to/key/file
 # API key on the command line
 $ stove --artifactory https://artifactory.example.com/api/chef/nameofrepo --artifactory-key=XZg6tefUZYfiglmSbQ1s1e6habk
+# User and password for HTTPS authentication
+$ stove --artifactory https://user:password@artifactory.example.com/api/chef/nameofrepo
 ```
 
 ## Contributing

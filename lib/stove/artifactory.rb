@@ -73,11 +73,31 @@ module Stove
       uri_string << '/' unless uri_string.end_with?('/')
       uri_string << path
       uri = URI(uri_string)
-      request = Net::HTTP.const_get(method.to_s.capitalize).new(uri)
-      request['X-Jfrog-Art-Api'] = Config.artifactory_key.strip
+
+      request = add_authentication(Net::HTTP.const_get(method.to_s.capitalize).new(uri))
       block.call(request) if block
       connection.request(request)
     end
 
+    #
+    # Add authentication headers for Artifactory.
+    #
+    # @param [Net::HTTP] request
+    #   HTTP request to which auth info should be added
+    #
+    # @return [Net::HTTP]
+    #
+    def add_authentication(request)
+      url = URI.parse(Config.artifactory.strip)
+      if url.user and url.password and url.scheme == 'https'
+        user = URI.unescape(url.user)
+        password = URI.unescape(url.password)
+
+        request.basic_auth(user, password)
+      else
+        request['X-Jfrog-Art-Api'] = Config.artifactory_key.strip
+      end
+      request
+    end
   end
 end
