@@ -3,9 +3,9 @@ cache: bundler
 sudo: false
 
 rvm:
-  - 2.1.9
-  - 2.2.6
+  - 2.2.7
   - 2.3.3
+  - 2.4.1
 
 branches:
   only:
