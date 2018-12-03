@@ -51,21 +51,6 @@ module Stove
       log.info("Options: #{options.inspect}")
       log.info("ARGV: #{@argv.inspect}")
 
-      # Yank command
-      if @argv.first == 'yank'
-        name = @argv[1] || Cookbook.new(options[:path]).name
-
-        if Supermarket.yank(name)
-          @stdout.puts "Successfully yanked #{name}!"
-          @kernel.exit(0)
-        else
-          @stderr.puts "I could not find a cookbook named #{name}!"
-          @kernel.exit(1)
-        end
-
-        return
-      end
-
       # Make a new cookbook object - this will raise an exception if there is
       # no cookbook at the given path
       cookbook = Cookbook.new(options[:path])
