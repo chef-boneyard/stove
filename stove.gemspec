@@ -6,16 +6,15 @@ require 'stove/version'
 Gem::Specification.new do |spec|
   spec.name          = 'stove'
   spec.version       = Stove::VERSION
-  spec.authors       = ['Seth Vargo']
-  spec.email         = ['sethvargo@gmail.com']
+  spec.authors       = ['Seth Vargo', 'Tim Smith']
+  spec.email         = ['sethvargo@gmail.com', 'tsmith84@gmail.com']
   spec.description   = "A utility for releasing Chef community cookbooks"
   spec.summary       = "A command-line utility for releasing Chef community cookbooks"
-  spec.homepage      = 'https://github.com/sethvargo/stove'
-  spec.license       = 'Apache 2.0'
+  spec.homepage      = 'https://github.com/tas50/stove'
+  spec.license       = 'Apache-2.0'
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files         = %w{LICENSE} + Dir.glob("{lib}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 2.2'

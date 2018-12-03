@@ -1,6 +1,6 @@
 # Stove
 
-[![Gem Version](http://img.shields.io/gem/v/stove.svg?style=flat-square)][gem] [![Build Status](http://img.shields.io/travis/sethvargo/stove.svg?style=flat-square)][travis]
+[![Gem Version](http://img.shields.io/gem/v/stove.svg?style=flat-square)][gem] [![Build Status](http://img.shields.io/travis/tas50/stove.svg?style=flat-square)][travis]
 
 A utility for releasing and managing Chef Cookbooks. It will:
 
@@ -9,7 +9,7 @@ A utility for releasing and managing Chef Cookbooks. It will:
 
 ## Why?
 
-Existing tools to package cookbooks (such as [Knife Community](https://github.com/miketheman/knife-community) and `knife cookbook site share`) require a dependency on Chef. Because of their dependency on Chef, they enforce the use of a "cookbook repo". Especially with the evolution of [Berkshelf](https://github.com/RiotGames/berkshelf), cookbooks are individualized artifacts and are often contained in their own repositories. [stove](https://github.com/sethvargo/stove) is **cookbook-centric, rather than Chef-centric**.
+Existing tools to package cookbooks (such as [Knife Community](https://github.com/miketheman/knife-community) and `knife cookbook site share`) require a dependency on Chef. Because of their dependency on Chef, they enforce the use of a "cookbook repo". Especially with the evolution of [Berkshelf](https://github.com/berkshelf/berkshelf), cookbooks are individualized artifacts and are often contained in their own repositories. [stove](https://github.com/tas50/stove) is **cookbook-centric, rather than Chef-centric**.
 
 ## Installation
 
@@ -109,8 +109,8 @@ $ stove --artifactory https://artifactory.example.com/api/chef/nameofrepo --arti
 - Author: Seth Vargo (sethvargo@gmail.com)
 
 ```text
-Copyright 2013-2014 Seth Vargo <sethvargo@gmail.com>
-Copyright 2013-2014 Chef Software, Inc
+Copyright 2013-2018 Seth Vargo <sethvargo@gmail.com>
+Copyright 2013-2018 Chef Software, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -126,4 +126,4 @@ limitations under the License.
 ```
 
 [gem]: https://rubygems.org/gems/stove
-[travis]: http://travis-ci.org/sethvargo/stove
+[travis]: http://travis-ci.org/tas50/stove
