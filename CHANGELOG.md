@@ -2,6 +2,12 @@
 
 This is the Changelog for the Stove gem.
 
+## v7.0.0
+
+- The metadata.rb file will now be included in uploads to match the behavior of berkshelf 7+
+- The bindir is once again included in the files list in the gemspec
+- The yank command has been removed as this command causes large downstream impact to other users and should not be part of the tooling
+
 ## v6.1.1
 
 - Resolve the missing stove binary in 6.1.0
