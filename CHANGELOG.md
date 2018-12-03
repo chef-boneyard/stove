@@ -2,6 +2,10 @@
 
 This is the Changelog for the Stove gem.
 
+## v6.1.1
+
+- Resolve the missing stove binary in 6.1.0
+
 ## v6.1.0
 
 - The number of files shipped in the stove gem has been reduced to reduce on disk installation size. If you need the full set of development files you'll need to checkout the gem from Github.
