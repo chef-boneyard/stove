@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/tas50/stove'
   spec.license       = 'Apache-2.0'
 
-  spec.files         = %w{LICENSE} + Dir.glob("lib/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
+  spec.files         = %w{LICENSE} + Dir.glob("{lib,bin}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
   spec.bindir        = 'bin'
   spec.executables   = 'stove'
   spec.require_paths = ['lib']
