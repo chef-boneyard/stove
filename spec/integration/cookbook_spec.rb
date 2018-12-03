@@ -28,6 +28,7 @@ module Stove
           basic/files/default/patch.txt
           basic/libraries/magic.rb
           basic/metadata.json
+          basic/metadata.rb
           basic/providers/thing.rb
           basic/recipes/default.rb
           basic/recipes/system.rb

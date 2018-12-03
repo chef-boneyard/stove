@@ -13,7 +13,7 @@ module Stove
       'CHANGELOG.*',
       'CONTRIBUTING.md',
       'MAINTAINERS.md',
-      'metadata.json',
+      'metadata.{json,rb}',
       'attributes/*.rb',
       'definitions/*.rb',
       'files/**/*',
