@@ -2,6 +2,10 @@
 
 This is the Changelog for the Stove gem.
 
+## v7.0.1
+
+- Added back missing templates files that were necessary for error messages
+
 ## v7.0.0
 
 - The metadata.rb file will now be included in uploads to match the behavior of berkshelf 7+
