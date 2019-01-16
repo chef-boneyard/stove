@@ -2,6 +2,11 @@
 
 This is the Changelog for the Stove gem.
 
+## v7.1.0
+
+- Removed support for Ruby 2.2 as it is now a end of life Ruby release.
+- Unpinned the bundler development dependency
+
 ## v7.0.1
 
 - Added back missing templates files that were necessary for error messages
