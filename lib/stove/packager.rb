@@ -14,6 +14,7 @@ module Stove
       'CONTRIBUTING.md',
       'MAINTAINERS.md',
       'metadata.{json,rb}',
+      'documentation/*.md',
       'attributes/*.rb',
       'definitions/*.rb',
       'files/**/*',
