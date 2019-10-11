@@ -16,8 +16,8 @@ module Stove
       local_sha  = git_null("rev-parse #{branch}").strip
       remote_sha = git_null("rev-parse #{remote}/#{branch}").strip
 
-      log.debug("Local SHA: #{local_sha}")
-      log.debug("Remote SHA: #{remote_sha}")
+      Stove::Log.debug("Local SHA: #{local_sha}")
+      Stove::Log.debug("Remote SHA: #{remote_sha}")
 
       local_sha == remote_sha
     end
@@ -34,8 +34,8 @@ module Stove
     private
 
     def git(command, errors = true)
-      log.debug("the command matches")
-      log.debug("Running `git #{command}', errors: #{errors}")
+      Stove::Log.debug("the command matches")
+      Stove::Log.debug("Running `git #{command}', errors: #{errors}")
       Dir.chdir(cookbook.path) do
         response = %x|git #{command}|
 

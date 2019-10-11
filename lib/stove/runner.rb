@@ -1,7 +1,5 @@
 module Stove
   class Runner
-    include Logify
-
     attr_reader :cookbook
     attr_reader :options
 
@@ -23,9 +21,9 @@ module Stove
 
     def run_plugin(name)
       if skip?(name)
-        log.info { "Skipping plugin `:#{name}'" }
+        Stove::Log.info { "Skipping plugin `:#{name}'" }
       else
-        log.info { "Running plugin `:#{name}'" }
+        Stove::Log.info { "Running plugin `:#{name}'" }
         klass = Plugin.const_get(Util.camelize(name))
         klass.new(cookbook, options).run
       end

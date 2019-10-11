@@ -5,8 +5,6 @@ require 'zlib'
 
 module Stove
   class Packager
-    include Logify
-
     ACCEPTABLE_FILES = [
       '.foodcritic',
       'README.*',

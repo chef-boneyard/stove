@@ -1,7 +1,5 @@
 module Stove
   class Validator
-    include Logify
-
     include Mixin::Insideable
 
     #
@@ -49,12 +47,12 @@ module Stove
     #   the cookbook to run this validation against
     #
     def run(cookbook, options = {})
-      log.info("Running validations for `#{klass.id}.#{id}'")
+      Stove::Log.info("Running validations for `#{klass.id}.#{id}'")
 
       inside(cookbook) do
         instance = klass.new(cookbook, options)
         unless result = instance.instance_eval(&block)
-          log.debug("Validation failed, result: #{result.inspect}")
+          Stove::Log.debug("Validation failed, result: #{result.inspect}")
 
           # Convert the class and id to their magical equivalents
           error = Error.const_get("#{Util.camelize(klass.id)}#{Util.camelize(id)}ValidationFailed")
@@ -62,7 +60,7 @@ module Stove
         end
       end
 
-      log.debug("Validation #{id} passed!")
+      Stove::Log.debug("Validation #{id} passed!")
     end
   end
 end
