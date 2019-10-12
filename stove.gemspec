@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'stove/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'chef-stove'
+  spec.name          = 'stove'
   spec.version       = Stove::VERSION
   spec.authors       = ['Seth Vargo', 'Tim Smith']
   spec.email         = ['sethvargo@gmail.com', 'tsmith84@gmail.com']

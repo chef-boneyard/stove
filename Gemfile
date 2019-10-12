@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gemspec
+gemspec name: 'stove'
 
 # testing compatibility
 gem 'rack', '< 2'
