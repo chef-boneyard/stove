@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'chef-infra-api', '~> 0.5'
   spec.add_dependency 'logify',   '~> 0.2'
 
-  spec.add_development_dependency 'aruba',          '~> 0.6.0'
+  spec.add_development_dependency 'aruba',          '~> 0.14.12'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'chef-community-zero', '~> 2.0'
   spec.add_development_dependency 'rake'
