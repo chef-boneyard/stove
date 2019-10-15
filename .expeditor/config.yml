@@ -1,5 +1,6 @@
 # Documentation available at https://expeditor.chef.io/docs/getting-started/
 ---
+
 # Slack channel in Chef Software slack to send notifications about build failures, etc
 slack:
   notify_channel: chef-ws-notify
@@ -34,11 +35,10 @@ merge_actions:
       only_if: built_in:bump_version
   - built_in:update_changelog:
       ignore_labels:
-        - "Expeditor: Exclude From Changelog"
+        - "Expeditor: Skip Changelog"
         - "Expeditor: Skip All"
   - built_in:build_gem:
-      only_if:
-        - built_in:bump_version
+      only_if: built_in:bump_version
 
 pipelines:
   - verify:
