@@ -2,6 +2,18 @@
 
 This is the Changelog for the Stove gem.
 
+<!-- latest_release -->
+<!-- latest_release -->
+
+<!-- release_rollup -->
+<!-- release_rollup -->
+
+<!-- latest_stable_release -->
+## v7.1.1
+
+- Release as chef-stove
+
+<!-- latest_stable_release -->
 ## v7.1.0
 
 - Removed support for Ruby 2.2 as it is now a end of life Ruby release.
