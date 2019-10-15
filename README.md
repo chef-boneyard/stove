@@ -1,15 +1,15 @@
 # Stove
 
-[![Gem Version](http://img.shields.io/gem/v/stove.svg?style=flat-square)][gem] [![Build Status](http://img.shields.io/travis/tas50/stove.svg?style=flat-square)][travis]
+[![Gem Version](http://img.shields.io/gem/v/stove.svg?style=flat-square)][gem] [![Build Status](http://img.shields.io/travis/chef/stove.svg?style=flat-square)][travis]
 
-A utility for releasing and managing Chef Cookbooks. It will:
+A utility for releasing and managing Chef Infra Cookbooks. Stove will:
 
 - Tag and push a new release to git
 - Upload the cookbook to a private or public Supermarket
 
 ## Why?
 
-Existing tools to package cookbooks (such as [Knife Community](https://github.com/miketheman/knife-community) and `knife cookbook site share`) require a dependency on Chef. Because of their dependency on Chef, they enforce the use of a "cookbook repo". Especially with the evolution of [Berkshelf](https://github.com/berkshelf/berkshelf), cookbooks are individualized artifacts and are often contained in their own repositories. [stove](https://github.com/tas50/stove) is **cookbook-centric, rather than Chef-centric**.
+Existing tools to package cookbooks (such as [Knife Community](https://github.com/miketheman/knife-community) and `knife supermarket share`) require a dependency on Chef Infra Client. Because of their dependency on Chef Infra Client, they enforce the use of a "cookbook repo". Especially with the evolution of [Berkshelf](https://github.com/berkshelf/berkshelf), cookbooks are individualized artifacts and are often contained in their own repositories. [stove](https://github.com/chef/stove) is **cookbook-centric, rather than Chef-centric**.
 
 ## Installation
 
@@ -126,4 +126,4 @@ limitations under the License.
 ```
 
 [gem]: https://rubygems.org/gems/stove
-[travis]: http://travis-ci.org/tas50/stove
+[travis]: http://travis-ci.org/chef/stove
