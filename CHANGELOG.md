@@ -2,17 +2,18 @@
 
 This is the Changelog for the Stove gem.
 
-<!-- latest_release 7.1.2 -->
-## [v7.1.2](https://github.com/chef/stove/tree/v7.1.2) (2019-10-15)
+<!-- latest_release 7.1.3 -->
+## [v7.1.3](https://github.com/chef/stove/tree/v7.1.3) (2019-10-18)
 
 #### Merged Pull Requests
-- Use the latest expeditor config and fix buildkite tests [#148](https://github.com/chef/stove/pull/148) ([tas50](https://github.com/tas50))
+- Add gem/buildkite badges and add Ruby 2.3 testing [#149](https://github.com/chef/stove/pull/149) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=7.1.0 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Add gem/buildkite badges and add Ruby 2.3 testing [#149](https://github.com/chef/stove/pull/149) ([tas50](https://github.com/tas50)) <!-- 7.1.3 -->
 - Use the latest expeditor config and fix buildkite tests [#148](https://github.com/chef/stove/pull/148) ([tas50](https://github.com/tas50)) <!-- 7.1.2 -->
 <!-- release_rollup -->
 
