@@ -1,6 +1,6 @@
 # Stove
 
-[![Gem Version](http://img.shields.io/gem/v/stove.svg?style=flat-square)][gem] [![Build Status](http://img.shields.io/travis/chef/stove.svg?style=flat-square)][travis]
+[![Gem Version](https://badge.fury.io/rb/stove.svg)](https://badge.fury.io/rb/stove) [![Build status](https://badge.buildkite.com/a699c008d0134dffca2b463884061641bfee761e206e5c18ac.svg?branch=master)](https://buildkite.com/chef-oss/chef-stove-master-verify)
 
 A utility for releasing and managing Chef Infra Cookbooks. Stove will:
 
@@ -124,6 +124,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-[gem]: https://rubygems.org/gems/stove
-[travis]: http://travis-ci.org/chef/stove

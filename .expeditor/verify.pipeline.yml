@@ -1,5 +1,13 @@
 steps:
 
+- label: run-specs-ruby-2.3
+  command:
+    - .expeditor/run_linux_tests.sh "rake"
+  expeditor:
+    executor:
+      docker:
+        image: ruby:2.3
+
 - label: run-specs-ruby-2.4
   command:
     - .expeditor/run_linux_tests.sh "rake"
