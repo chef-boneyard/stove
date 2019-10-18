@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.3'
 
   # Runtime dependencies
-  spec.add_dependency 'chef-infra-api', '~> 0.5'
+  spec.add_dependency 'chef-api', '~> 0.5'
   spec.add_dependency 'logify',   '~> 0.2'
 
   spec.add_development_dependency 'aruba',          '~> 0.6.0'
