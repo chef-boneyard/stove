@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Stove::VERSION
   spec.authors       = ['Seth Vargo', 'Tim Smith']
   spec.email         = ['sethvargo@gmail.com', 'tsmith84@gmail.com']
-  spec.description   = "A utility for releasing Chef community cookbooks"
+  spec.description   = "A utility for releasing Chef Infra cookbooks"
   spec.summary       = "A command-line utility for releasing Chef community cookbooks"
   spec.homepage      = 'https://github.com/chef/stove'
   spec.license       = 'Apache-2.0'
