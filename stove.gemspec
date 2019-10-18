@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   # Runtime dependencies
   spec.add_dependency 'chef-infra-api', '~> 0.5'
-  spec.add_dependency 'logify',   '~> 0.2'
+  spec.add_dependency 'chef'
 
   spec.add_development_dependency 'aruba',          '~> 0.6.0'
   spec.add_development_dependency 'bundler'

@@ -1,5 +1,5 @@
-require 'logify'
 require 'pathname'
+require 'chef/log'
 
 module Stove
   autoload :Artifactory, 'stove/artifactory'
@@ -72,7 +72,7 @@ module Stove
     #   the log level to set
     #
     def log_level=(level)
-      Logify.level = level.to_sym
+      Chef::Log.level = level.to_sym
     end
 
     #
@@ -81,7 +81,7 @@ module Stove
     # @return [Symbol]
     #
     def log_level
-      Logify.level
+      Chef::Log.level
     end
   end
 end

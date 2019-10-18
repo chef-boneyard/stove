@@ -4,8 +4,6 @@ require 'time'
 
 module Stove
   class Cookbook
-    include Logify
-
     require_relative 'cookbook/metadata'
 
     #

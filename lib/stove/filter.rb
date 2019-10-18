@@ -1,7 +1,5 @@
 module Stove
   class Filter
-    include Logify
-
     include Mixin::Insideable
 
     #
@@ -49,7 +47,7 @@ module Stove
     #   the cookbook to run this filter against
     #
     def run(cookbook, options = {})
-      log.info(message)
+      Chef::Log.info(message)
       instance = klass.new(cookbook, options)
 
       inside(cookbook) do
