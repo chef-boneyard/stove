@@ -1,3 +1,3 @@
 module Stove
-  VERSION = "7.1.5".freeze
+  VERSION = "7.1.6".freeze
 end

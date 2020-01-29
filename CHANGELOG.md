@@ -2,10 +2,18 @@
 
 This is the Changelog for the Stove gem.
 
-<!-- latest_release -->
+<!-- latest_release 7.1.6 -->
+## [v7.1.6](https://github.com/chef/stove/tree/v7.1.6) (2020-01-29)
+
+#### Merged Pull Requests
+- Switch from Logify to mixlib-log for logging [#150](https://github.com/chef/stove/pull/150) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=7.1.5 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Switch from Logify to mixlib-log for logging [#150](https://github.com/chef/stove/pull/150) ([tas50](https://github.com/tas50)) <!-- 7.1.6 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
