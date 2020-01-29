@@ -60,6 +60,7 @@ module Stove
       # If we got this far, everything was successful :)
       @kernel.exit(0)
     rescue => e
+      Stove::Log.init($stderr)
       Stove::Log.error('Stove experienced an error!')
       Stove::Log.error(e.class.name)
       Stove::Log.error(e.message)
