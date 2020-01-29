@@ -2,21 +2,19 @@
 
 This is the Changelog for the Stove gem.
 
-<!-- latest_release 7.1.6 -->
+<!-- latest_release -->
+<!-- latest_release -->
+
+<!-- release_rollup -->
+<!-- release_rollup -->
+
+<!-- latest_stable_release -->
 ## [v7.1.6](https://github.com/chef/stove/tree/v7.1.6) (2020-01-29)
 
 #### Merged Pull Requests
 - Switch from Logify to mixlib-log for logging [#150](https://github.com/chef/stove/pull/150) ([tas50](https://github.com/tas50))
-<!-- latest_release -->
-
-<!-- release_rollup since=7.1.5 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Switch from Logify to mixlib-log for logging [#150](https://github.com/chef/stove/pull/150) ([tas50](https://github.com/tas50)) <!-- 7.1.6 -->
-<!-- release_rollup -->
-
 <!-- latest_stable_release -->
+
 ## [v7.1.5](https://github.com/chef/stove/tree/v7.1.5) (2019-10-18)
 
 #### Merged Pull Requests
@@ -24,7 +22,6 @@ This is the Changelog for the Stove gem.
 - Add gem/buildkite badges and add Ruby 2.3 testing [#149](https://github.com/chef/stove/pull/149) ([tas50](https://github.com/tas50))
 - Add github templates, contributing doc, and update license template [#152](https://github.com/chef/stove/pull/152) ([tas50](https://github.com/tas50))
 - Switch back to depending on chef-api [#153](https://github.com/chef/stove/pull/153) ([tas50](https://github.com/tas50))
-<!-- latest_stable_release -->
 
 ## v7.1.1
 
