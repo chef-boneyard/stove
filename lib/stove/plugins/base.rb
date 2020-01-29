@@ -1,14 +1,12 @@
 module Stove
   class Plugin::Base
-    include Logify
-
     extend Mixin::Optionable
     extend Mixin::Validatable
 
     class << self
       def run(description, &block)
         actions << Proc.new do |instance|
-          log.info { description }
+          Stove::Log.info { description }
           instance.instance_eval(&block)
         end
       end

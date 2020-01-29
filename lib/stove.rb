@@ -1,4 +1,3 @@
-require 'logify'
 require 'pathname'
 
 module Stove
@@ -15,6 +14,7 @@ module Stove
   autoload :Util,        'stove/util'
   autoload :Validator,   'stove/validator'
   autoload :VERSION,     'stove/version'
+  autoload :Log,         'stove/log'
 
   module Middleware
     autoload :ChefAuthentication, 'stove/middlewares/chef_authentication'
@@ -53,7 +53,7 @@ module Stove
 
   class << self
     #
-    # The source root of the ChefAPI gem. This is useful when requiring files
+    # The source root of the Stove gem. This is useful when requiring files
     # that are relative to the root of the project.
     #
     # @return [Pathname]
@@ -66,13 +66,13 @@ module Stove
     # Set the log level.
     #
     # @example Set the log level to :info
-    #   ChefAPI.log_level = :info
+    #   Stove.log_level = :info
     #
     # @param [#to_sym] level
     #   the log level to set
     #
-    def log_level=(level)
-      Logify.level = level.to_sym
+    def log_level=(lev)
+      Stove::Log.level = lev.to_sym
     end
 
     #
@@ -81,7 +81,7 @@ module Stove
     # @return [Symbol]
     #
     def log_level
-      Logify.level
+      Stove::Log.level
     end
   end
 end

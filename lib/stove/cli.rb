@@ -3,8 +3,6 @@ require 'stove'
 
 module Stove
   class Cli
-    include Logify
-
     def initialize(argv, stdin=STDIN, stdout=STDOUT, stderr=STDERR, kernel=Kernel)
       @argv, @stdin, @stdout, @stderr, @kernel = argv, stdin, stdout, stderr, kernel
     end
@@ -48,8 +46,8 @@ module Stove
 
       # Useful debugging output for when people type the wrong fucking command
       # and then open an issue like it's somehow my fault
-      log.info("Options: #{options.inspect}")
-      log.info("ARGV: #{@argv.inspect}")
+      Stove::Log.info("Options: #{options.inspect}")
+      Stove::Log.info("ARGV: #{@argv.inspect}")
 
       # Make a new cookbook object - this will raise an exception if there is
       # no cookbook at the given path
@@ -62,10 +60,11 @@ module Stove
       # If we got this far, everything was successful :)
       @kernel.exit(0)
     rescue => e
-      log.error('Stove experienced an error!')
-      log.error(e.class.name)
-      log.error(e.message)
-      log.error(e.backtrace.join("\n"))
+      Stove::Log.init($stderr)
+      Stove::Log.error('Stove experienced an error!')
+      Stove::Log.error(e.class.name)
+      Stove::Log.error(e.message)
+      Stove::Log.error(e.backtrace.join("\n"))
 
       @kernel.exit(e.respond_to?(:exit_code) ? e.exit_code : 500)
     ensure

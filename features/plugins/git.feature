@@ -28,6 +28,7 @@ Feature: git Plugin
     * I successfully run `stove`
     * the git remote should have the tag "v0.0.0"
 
+  @wip
   Scenario: When using signed tags
     * I have a cookbook named "bacon" with git support
     * a GPG key exists

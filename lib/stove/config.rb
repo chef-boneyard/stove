@@ -3,7 +3,6 @@ require 'json'
 
 module Stove
   class Config
-    include Logify
     include Mixin::Instanceable
 
     def method_missing(m, *args, &block)
@@ -69,7 +68,7 @@ module Stove
 
       @__raw__
     rescue Errno::ENOENT => e
-      log.warn { "No config file found at `#{__path__}'!" }
+      Stove::Log.warn { "No config file found at `#{__path__}'!" }
       @__raw__ = {}
     end
   end

@@ -19,8 +19,11 @@ echo "Restoring the bundle cache archive to vendor/bundle"
 if [ -f bundle.tar.gz ]; then
   tar -xzf bundle.tar.gz
 fi
-bundle config --local path vendor/bundle
 
+git config --global user.email "foo@example.com"
+git config --global user.name "Foo Bar"
+
+bundle config --local path vendor/bundle
 bundle install --jobs=7 --retry=3
 bundle exec $1
 

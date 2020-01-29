@@ -17,7 +17,7 @@ Cucumber::Rake::Task.new(:acceptance) do |t|
     a.push('--color')
     a.push('--format progress')
     a.push('--strict')
-    a.push('--tags ~@wip')
+    a.push('--tags "not @wip"')
   end.join(' ')
 end
 
