@@ -1,6 +1,6 @@
 require 'rake'
 require 'rake/tasklib'
-require 'stove'
+require_relative '../stove'
 
 module Stove
   class RakeTask < Rake::TaskLib

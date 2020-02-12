@@ -1,5 +1,5 @@
 require 'optparse'
-require 'stove'
+require_relative '../stove'
 
 module Stove
   class Cli
