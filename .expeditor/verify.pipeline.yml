@@ -1,20 +1,15 @@
+---
+expeditor:
+  cached_folders:
+    - vendor
+  defaults:
+    buildkite:
+      retry:
+        automatic:
+          limit: 1
+      timeout_in_minutes: 30
+
 steps:
-
-- label: run-specs-ruby-2.3
-  command:
-    - .expeditor/run_linux_tests.sh "rake"
-  expeditor:
-    executor:
-      docker:
-        image: ruby:2.3
-
-- label: run-specs-ruby-2.4
-  command:
-    - .expeditor/run_linux_tests.sh "rake"
-  expeditor:
-    executor:
-      docker:
-        image: ruby:2.4-buster
 
 - label: run-specs-ruby-2.5
   command:
@@ -31,3 +26,11 @@ steps:
     executor:
       docker:
         image: ruby:2.6-buster
+
+- label: run-specs-ruby-2.7
+  command:
+    - .expeditor/run_linux_tests.sh "rake"
+  expeditor:
+    executor:
+      docker:
+        image: ruby:2.7-buster
