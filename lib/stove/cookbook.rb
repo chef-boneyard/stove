@@ -1,10 +1,10 @@
-require 'fileutils'
-require 'tempfile'
-require 'time'
+require "fileutils"
+require "tempfile"
+require "time"
 
 module Stove
   class Cookbook
-    require_relative 'cookbook/metadata'
+    require_relative "cookbook/metadata"
 
     #
     # The path to this cookbook on disk.
@@ -97,22 +97,23 @@ module Stove
     end
 
     private
-      # Load the metadata and set the @metadata instance variable.
-      #
-      # @raise [ArgumentError]
-      #   if there is no metadata.rb
-      #
-      # @return [String]
-      #   the path to the metadata file
-      def load_metadata!
-        metadata_path = File.join(path, 'metadata.rb')
 
-        @metadata = Stove::Cookbook::Metadata.from_file(metadata_path)
-        @name     = @metadata.name
-        @version  = @metadata.version
+    # Load the metadata and set the @metadata instance variable.
+    #
+    # @raise [ArgumentError]
+    #   if there is no metadata.rb
+    #
+    # @return [String]
+    #   the path to the metadata file
+    def load_metadata!
+      metadata_path = File.join(path, "metadata.rb")
 
-        metadata_path
-      end
-      alias_method :reload_metadata!, :load_metadata!
+      @metadata = Stove::Cookbook::Metadata.from_file(metadata_path)
+      @name     = @metadata.name
+      @version  = @metadata.version
+
+      metadata_path
+    end
+    alias_method :reload_metadata!, :load_metadata!
   end
 end

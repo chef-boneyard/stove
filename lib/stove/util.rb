@@ -15,7 +15,7 @@ module Stove
     def version_for_url(version)
       version
         .to_s
-        .gsub('.', '_')
+        .gsub(".", "_")
     end
 
     #
@@ -30,10 +30,10 @@ module Stove
     def underscore(string)
       string
         .to_s
-        .gsub(/::/, '/')
-        .gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
-        .gsub(/([a-z\d])([A-Z])/,'\1_\2')
-        .tr('-', '_')
+        .gsub(/::/, "/")
+        .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+        .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+        .tr("-", "_")
         .downcase
     end
 
@@ -48,8 +48,8 @@ module Stove
     def camelize(string)
       string
         .to_s
-        .split('_')
-        .map { |e| e.capitalize }
+        .split("_")
+        .map(&:capitalize)
         .join
     end
   end

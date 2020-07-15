@@ -1,5 +1,5 @@
-source 'https://rubygems.org'
-gemspec name: 'stove'
+source "https://rubygems.org"
+gemspec name: "stove"
 
 # testing compatibility
-gem 'rack', '< 2'
+gem "rack", "< 2"

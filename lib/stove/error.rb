@@ -1,4 +1,4 @@
-require 'erb'
+require "erb"
 
 module Stove
   module Error
@@ -31,9 +31,9 @@ module Stove
       private
 
       def template
-        class_name = self.class.to_s.split('::').last
+        class_name = self.class.to_s.split("::").last
         filename   = @filename || Util.underscore(class_name)
-        Stove.root.join('templates', 'errors', "#{filename}.erb")
+        Stove.root.join("templates", "errors", "#{filename}.erb")
       end
     end
 

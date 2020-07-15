@@ -1,4 +1,4 @@
-require 'net/http'
+require "net/http"
 
 module Stove
   class Artifactory
@@ -17,7 +17,7 @@ module Stove
       response = request(:get, "api/v1/cookbooks/#{cookbook.name}/versions/#{cookbook.version}")
       # Artifactory's version of the cookbook_version endpoint returns an
       # empty 200 on an unknown version.
-      unless response.code == '404' || (response.code == '200' && response.body.to_s == '')
+      unless response.code == "404" || (response.code == "200" && response.body.to_s == "")
         raise Error::CookbookAlreadyExists.new(cookbook: cookbook)
       end
 
@@ -25,9 +25,9 @@ module Stove
       response = request(:post, "api/v1/cookbooks/#{cookbook.name}.tgz") do |req|
         req.body_stream = cookbook.tarball(extended_metadata)
         req.content_length = req.body_stream.size
-        req['Content-Type'] = 'application/x-binary'
+        req["Content-Type"] = "application/x-binary"
       end
-      response.error! unless response.code == '201'
+      response.error! unless response.code == "201"
     end
 
     private
@@ -42,10 +42,10 @@ module Stove
         uri = URI(Config.artifactory.strip)
         # Open the HTTP connection to artifactory.
         http = Net::HTTP.new(uri.host, uri.port)
-        if uri.scheme == 'https'
+        if uri.scheme == "https"
           http.use_ssl = true
           # Mimic the behavior of the Cookbook uploader for SSL verification.
-          if ENV['STOVE_NO_SSL_VERIFY'] || !Config.ssl_verify
+          if ENV["STOVE_NO_SSL_VERIFY"] || !Config.ssl_verify
             http.verify_mode = OpenSSL::SSL::VERIFY_NONE
           end
         end
@@ -70,11 +70,11 @@ module Stove
     def request(method, path, &block)
       uri_string = Config.artifactory.strip
       # Make sure we end up with the right number of separators.
-      uri_string << '/' unless uri_string.end_with?('/')
+      uri_string << "/" unless uri_string.end_with?("/")
       uri_string << path
       uri = URI(uri_string)
       request = Net::HTTP.const_get(method.to_s.capitalize).new(uri)
-      request['X-Jfrog-Art-Api'] = Config.artifactory_key.strip
+      request["X-Jfrog-Art-Api"] = Config.artifactory_key.strip
       block.call(request) if block
       connection.request(request)
     end

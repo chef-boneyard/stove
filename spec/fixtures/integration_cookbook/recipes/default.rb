@@ -1,1 +1,1 @@
-log 'this is a test recipe'
+log "this is a test recipe"

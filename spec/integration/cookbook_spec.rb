@@ -1,10 +1,10 @@
-require 'spec_helper'
+require "spec_helper"
 
 module Stove
   describe Cookbook do
-    describe '#tarball' do
-      let(:path) { generate_cookbook('basic', 'basic-cookbook') }
-      it 'contains a directory with the same name as the cookbook' do
+    describe "#tarball" do
+      let(:path) { generate_cookbook("basic", "basic-cookbook") }
+      it "contains a directory with the same name as the cookbook" do
         tarball = Cookbook.new(path).tarball
 
         structure = []
@@ -15,7 +15,7 @@ module Stove
           end
         end
 
-        expect(structure).to eq(%w(
+        expect(structure).to eq(%w{
           basic/.foodcritic
           basic/CHANGELOG.md
           basic/README.md
@@ -37,7 +37,7 @@ module Stove
           basic/templates/default/.env.erb
           basic/templates/default/another.text.erb
           basic/templates/default/example.erb
-        ))
+        })
       end
     end
   end

@@ -1,38 +1,38 @@
-require 'pathname'
+require "pathname"
 
 module Stove
-  autoload :Artifactory, 'stove/artifactory'
-  autoload :Supermarket, 'stove/supermarket'
-  autoload :Config,      'stove/config'
-  autoload :Cookbook,    'stove/cookbook'
-  autoload :Cli,         'stove/cli'
-  autoload :Error,       'stove/error'
-  autoload :Filter,      'stove/filter'
-  autoload :Mash,        'stove/mash'
-  autoload :Packager,    'stove/packager'
-  autoload :Runner,      'stove/runner'
-  autoload :Util,        'stove/util'
-  autoload :Validator,   'stove/validator'
-  autoload :VERSION,     'stove/version'
-  autoload :Log,         'stove/log'
+  autoload :Artifactory, "stove/artifactory"
+  autoload :Supermarket, "stove/supermarket"
+  autoload :Config,      "stove/config"
+  autoload :Cookbook,    "stove/cookbook"
+  autoload :Cli,         "stove/cli"
+  autoload :Error,       "stove/error"
+  autoload :Filter,      "stove/filter"
+  autoload :Mash,        "stove/mash"
+  autoload :Packager,    "stove/packager"
+  autoload :Runner,      "stove/runner"
+  autoload :Util,        "stove/util"
+  autoload :Validator,   "stove/validator"
+  autoload :VERSION,     "stove/version"
+  autoload :Log,         "stove/log"
 
   module Middleware
-    autoload :ChefAuthentication, 'stove/middlewares/chef_authentication'
-    autoload :Exceptions,         'stove/middlewares/exceptions'
+    autoload :ChefAuthentication, "stove/middlewares/chef_authentication"
+    autoload :Exceptions,         "stove/middlewares/exceptions"
   end
 
   module Mixin
-    autoload :Insideable,   'stove/mixins/insideable'
-    autoload :Instanceable, 'stove/mixins/instanceable'
-    autoload :Optionable,   'stove/mixins/optionable'
-    autoload :Validatable,  'stove/mixins/validatable'
+    autoload :Insideable,   "stove/mixins/insideable"
+    autoload :Instanceable, "stove/mixins/instanceable"
+    autoload :Optionable,   "stove/mixins/optionable"
+    autoload :Validatable,  "stove/mixins/validatable"
   end
 
   module Plugin
-    autoload :Artifactory, 'stove/plugins/artifactory'
-    autoload :Base,        'stove/plugins/base'
-    autoload :Supermarket, 'stove/plugins/supermarket'
-    autoload :Git,         'stove/plugins/git'
+    autoload :Artifactory, "stove/plugins/artifactory"
+    autoload :Base,        "stove/plugins/base"
+    autoload :Supermarket, "stove/plugins/supermarket"
+    autoload :Git,         "stove/plugins/git"
   end
 
   #
@@ -49,7 +49,7 @@ module Stove
   #
   # @return [String]
   #
-  USER_AGENT = "Stove #{VERSION}"
+  USER_AGENT = "Stove #{VERSION}".freeze
 
   class << self
     #
@@ -59,7 +59,7 @@ module Stove
     # @return [Pathname]
     #
     def root
-      @root ||= Pathname.new(File.expand_path('../../', __FILE__))
+      @root ||= Pathname.new(File.expand_path("../../", __FILE__))
     end
 
     #

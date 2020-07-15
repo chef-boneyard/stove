@@ -1,31 +1,31 @@
-require 'rubygems/package'
-require 'fileutils'
-require 'tempfile'
-require 'zlib'
+require "rubygems/package"
+require "fileutils"
+require "tempfile"
+require "zlib"
 
 module Stove
   class Packager
     ACCEPTABLE_FILES = [
-      '.foodcritic',
-      'README.*',
-      'CHANGELOG.*',
-      'CONTRIBUTING.md',
-      'MAINTAINERS.md',
-      'metadata.{json,rb}',
-      'attributes/*.rb',
-      'definitions/*.rb',
-      'files/**/*',
-      'libraries/**/*.rb',
-      'providers/**/*.rb',
-      'recipes/*.rb',
-      'resources/**/*.rb',
-      'templates/**/*',
+      ".foodcritic",
+      "README.*",
+      "CHANGELOG.*",
+      "CONTRIBUTING.md",
+      "MAINTAINERS.md",
+      "metadata.{json,rb}",
+      "attributes/*.rb",
+      "definitions/*.rb",
+      "files/**/*",
+      "libraries/**/*.rb",
+      "providers/**/*.rb",
+      "recipes/*.rb",
+      "resources/**/*.rb",
+      "templates/**/*",
     ].freeze
 
-    ACCEPTABLE_FILES_LIST = ACCEPTABLE_FILES.join(',').freeze
+    ACCEPTABLE_FILES_LIST = ACCEPTABLE_FILES.join(",").freeze
 
     TMP_FILES = [
-      /^(?:.*[\\\/])?\.[^\\\/]+\.sw[p-z]$/,
+      %r{^(?:.*[\\/])?\.[^\\/]+\.sw[p-z]$},
       /~$/,
     ].freeze
 
@@ -67,25 +67,25 @@ module Stove
       path = File.join(root, "{#{ACCEPTABLE_FILES_LIST}}")
 
       Dir.glob(path, File::FNM_DOTMATCH)
-        .reject { |path| %w(. ..).include?(File.basename(path)) }
+        .reject { |path| %w{. ..}.include?(File.basename(path)) }
         .reject { |path| TMP_FILES.any? { |regex| path.match(regex) } }
         .map    { |path| [path, path.sub(/^#{Regexp.escape(root)}/, cookbook.name)] }
         .reduce({}) do |map, (cookbook_file, tarball_file)|
           map[cookbook_file] = tarball_file
-        map
-      end
+          map
+        end
     end
 
     def tarball
       # Generate the metadata.json on the fly
-      metadata_json = File.join(cookbook.path, 'metadata.json')
+      metadata_json = File.join(cookbook.path, "metadata.json")
       json = JSON.fast_generate(cookbook.metadata.to_hash(extended_metadata))
-      File.open(metadata_json, 'wb') { |f| f.write(json) }
+      File.open(metadata_json, "wb") { |f| f.write(json) }
 
       io  = tar(File.dirname(cookbook.path), packaging_slip)
       tgz = gzip(io)
 
-      tempfile = Tempfile.new([cookbook.name, '.tar.gz'], Dir.tmpdir)
+      tempfile = Tempfile.new([cookbook.name, ".tar.gz"], Dir.tmpdir)
       tempfile.binmode
 
       while buffer = tgz.read(1024)
@@ -95,7 +95,7 @@ module Stove
       tempfile.rewind
       tempfile
     ensure
-      if defined?(metadata_json) && File.exist?(File.join(cookbook.path, 'metadata.rb'))
+      if defined?(metadata_json) && File.exist?(File.join(cookbook.path, "metadata.rb"))
         File.delete(metadata_json)
       end
     end
@@ -112,7 +112,7 @@ module Stove
     #   the io object that contains the tarball contents
     #
     def tar(root, slip)
-      io = StringIO.new('', 'r+b')
+      io = StringIO.new("", "r+b")
       Gem::Package::TarWriter.new(io) do |tar|
         slip.each do |original_file, tarball_file|
           mode = File.stat(original_file).mode
@@ -121,7 +121,7 @@ module Stove
             tar.mkdir(tarball_file, mode)
           else
             tar.add_file(tarball_file, mode) do |tf|
-              File.open(original_file, 'rb') { |f| tf.write(f.read) }
+              File.open(original_file, "rb") { |f| tf.write(f.read) }
             end
           end
         end
@@ -141,7 +141,7 @@ module Stove
     #   the gzipped IO object
     #
     def gzip(io)
-      gz = StringIO.new('')
+      gz = StringIO.new("")
       z = Zlib::GzipWriter.new(gz)
       z.write(io.string)
       z.close

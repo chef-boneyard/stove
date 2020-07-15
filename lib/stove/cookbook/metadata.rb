@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 module Stove
   class Cookbook
@@ -74,14 +74,14 @@ module Stove
         end
       end
 
-      DEFAULT_VERSION = '>= 0.0.0'.freeze
+      DEFAULT_VERSION = ">= 0.0.0".freeze
 
-      COMPARISON_FIELDS = [
-        :name, :description, :long_description, :maintainer,
-        :maintainer_email, :license, :platforms, :dependencies,
-        :recommendations, :suggestions, :conflicting, :providing,
-        :replacing, :attributes, :groupings, :recipes, :version
-      ]
+      COMPARISON_FIELDS = %i{
+        name description long_description maintainer
+        maintainer_email license platforms dependencies
+        recommendations suggestions conflicting providing
+        replacing attributes groupings recipes version
+      }.freeze
 
       def_attribute :name
       def_attribute :maintainer
@@ -125,10 +125,10 @@ module Stove
       attr_reader :recipes
       attr_reader :version
 
-      def initialize(cookbook = nil, maintainer = 'YOUR_COMPANY_NAME', maintainer_email = 'YOUR_EMAIL', license = 'none')
+      def initialize(cookbook = nil, maintainer = "YOUR_COMPANY_NAME", maintainer_email = "YOUR_EMAIL", license = "none")
         @cookbook         = cookbook
-        @name             = cookbook ? cookbook.name : ''
-        @long_description = ''
+        @name             = cookbook ? cookbook.name : ""
+        @long_description = ""
         @source_url       = Stove::Mash.new
         @issues_url       = Stove::Mash.new
         @gems             = []
@@ -148,14 +148,14 @@ module Stove
         self.maintainer(maintainer)
         self.maintainer_email(maintainer_email)
         self.license(license)
-        self.description('A fabulous new cookbook')
-        self.version('0.0.0')
+        description("A fabulous new cookbook")
+        version("0.0.0")
 
         if cookbook
           @recipes = cookbook.fully_qualified_recipe_names.inject({}) do |r, e|
-            e = self.name if e =~ /::default$/
+            e = name if e =~ /::default$/
             r[e] = ""
-            self.provides e
+            provides e
             r
           end
         end
@@ -163,10 +163,10 @@ module Stove
 
       def from_file(path)
         path = path.to_s
-        path_json = File.join(File.dirname(path), 'metadata.json')
+        path_json = File.join(File.dirname(path), "metadata.json")
 
         if File.exist?(path) && File.readable?(path)
-          self.instance_eval(IO.read(path), path, 1)
+          instance_eval(IO.read(path), path, 1)
           self
         elsif File.exist?(path_json) && File.readable?(path_json)
           metadata_from_json(path_json)
@@ -191,34 +191,34 @@ module Stove
 
       def to_hash(extended_metadata = false)
         hash = {
-          'name'             => self.name,
-          'version'          => self.version,
-          'description'      => self.description,
-          'long_description' => self.long_description,
-          'maintainer'       => self.maintainer,
-          'maintainer_email' => self.maintainer_email,
-          'license'          => self.license,
-          'platforms'        => self.platforms,
-          'dependencies'     => self.dependencies,
-          'recommendations'  => self.recommendations,
-          'suggestions'      => self.suggestions,
-          'conflicting'      => self.conflicting,
-          'providing'        => self.providing,
-          'replacing'        => self.replacing,
-          'attributes'       => self.attributes,
-          'groupings'        => self.groupings,
-          'recipes'          => self.recipes,
+          "name"             => name,
+          "version"          => version,
+          "description"      => description,
+          "long_description" => long_description,
+          "maintainer"       => maintainer,
+          "maintainer_email" => maintainer_email,
+          "license"          => license,
+          "platforms"        => platforms,
+          "dependencies"     => dependencies,
+          "recommendations"  => recommendations,
+          "suggestions"      => suggestions,
+          "conflicting"      => conflicting,
+          "providing"        => providing,
+          "replacing"        => replacing,
+          "attributes"       => attributes,
+          "groupings"        => groupings,
+          "recipes"          => recipes,
         }
 
         if extended_metadata
-          hash['source_url']   = self.source_url unless self.source_url.empty?
-          hash['issues_url']   = self.issues_url unless self.issues_url.empty?
-          hash['gems']         = self.gems unless self.gems.empty?
-          hash['chef_version'] = self.chef_version.map(&:sort)
-          hash['ohai_version'] = self.ohai_version.map(&:sort)
+          hash["source_url"]   = source_url unless source_url.empty?
+          hash["issues_url"]   = issues_url unless issues_url.empty?
+          hash["gems"]         = gems unless gems.empty?
+          hash["chef_version"] = chef_version.map(&:sort)
+          hash["ohai_version"] = ohai_version.map(&:sort)
         end
 
-        return hash
+        hash
       end
 
       private
@@ -234,10 +234,10 @@ module Stove
       def set_or_return(symbol, arg)
         iv_symbol = "@#{symbol.to_s}".to_sym
 
-        if arg.nil? && self.instance_variable_defined?(iv_symbol)
-          self.instance_variable_get(iv_symbol)
+        if arg.nil? && instance_variable_defined?(iv_symbol)
+          instance_variable_get(iv_symbol)
         else
-          self.instance_variable_set(iv_symbol, arg)
+          instance_variable_set(iv_symbol, arg)
         end
       end
     end

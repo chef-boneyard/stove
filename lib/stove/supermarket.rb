@@ -1,4 +1,4 @@
-require 'chef-api'
+require "chef-api"
 
 module Stove
   class Supermarket
@@ -10,7 +10,7 @@ module Stove
     #
     # @return [String]
     #
-    DEFAULT_ENDPOINT = 'https://supermarket.chef.io/api/v1'
+    DEFAULT_ENDPOINT = "https://supermarket.chef.io/api/v1".freeze
 
     #
     # Get and cache a community cookbook's JSON response from the given name
@@ -51,14 +51,14 @@ module Stove
     #   the cookbook to upload
     #
     def upload(cookbook, extended_metadata = false)
-      connection.post('cookbooks', {
-        'tarball'  => cookbook.tarball(extended_metadata),
+      connection.post("cookbooks", {
+        "tarball"  => cookbook.tarball(extended_metadata),
 
         # This is for legacy, backwards-compatability reasons. The new
         # Supermarket site does not require a category, but many of the testing
         # tools still assume a cookbook category is present. We just hardcode
         # "Other" here.
-        'cookbook' => JSON.fast_generate(category: 'Other'),
+        "cookbook" => JSON.fast_generate(category: "Other"),
       })
     end
 
@@ -69,10 +69,10 @@ module Stove
     #
     def connection
       @connection ||= ChefAPI::Connection.new do |conn|
-        conn.endpoint   = ENV['STOVE_ENDPOINT']      || Config.endpoint || DEFAULT_ENDPOINT
-        conn.client     = ENV['STOVE_USERNAME']      || Config.username
-        conn.key        = ENV['STOVE_KEY']           || Config.key
-        conn.ssl_verify = ENV['STOVE_NO_SSL_VERIFY'] || Config.ssl_verify
+        conn.endpoint   = ENV["STOVE_ENDPOINT"]      || Config.endpoint || DEFAULT_ENDPOINT
+        conn.client     = ENV["STOVE_USERNAME"]      || Config.username
+        conn.key        = ENV["STOVE_KEY"]           || Config.key
+        conn.ssl_verify = ENV["STOVE_NO_SSL_VERIFY"] || Config.ssl_verify
       end
     end
   end

@@ -1,9 +1,9 @@
-require 'optparse'
-require 'stove'
+require "optparse"
+require "stove"
 
 module Stove
   class Cli
-    def initialize(argv, stdin=STDIN, stdout=STDOUT, stderr=STDERR, kernel=Kernel)
+    def initialize(argv, stdin = STDIN, stdout = STDOUT, stderr = STDERR, kernel = Kernel)
       @argv, @stdin, @stdout, @stderr, @kernel = argv, stdin, stdout, stderr, kernel
     end
 
@@ -14,7 +14,7 @@ module Stove
       option_parser.parse!(@argv)
 
       # Login command
-      if @argv.first == 'login'
+      if @argv.first == "login"
         if options[:username].nil? || options[:username].to_s.strip.empty?
           raise "Missing argument `--username'!"
         end
@@ -61,7 +61,7 @@ module Stove
       @kernel.exit(0)
     rescue => e
       Stove::Log.init($stderr)
-      Stove::Log.error('Stove experienced an error!')
+      Stove::Log.error("Stove experienced an error!")
       Stove::Log.error(e.class.name)
       Stove::Log.error(e.message)
       Stove::Log.error(e.backtrace.join("\n"))
@@ -80,87 +80,87 @@ module Stove
     #
     def option_parser
       @option_parser ||= OptionParser.new do |opts|
-        opts.banner = 'Usage: stove [OPTIONS]'
+        opts.banner = "Usage: stove [OPTIONS]"
 
-        opts.separator ''
-        opts.separator 'Plugins:'
+        opts.separator ""
+        opts.separator "Plugins:"
 
-        opts.on('--no-git', 'Do not use the git plugin. Skips tagging if specified.') do
+        opts.on("--no-git", "Do not use the git plugin. Skips tagging if specified.") do
           options[:no_git] = true
         end
 
-        opts.separator ''
-        opts.separator 'Upload Options:'
+        opts.separator ""
+        opts.separator "Upload Options:"
 
-        opts.on('--endpoint [URL]', 'Supermarket endpoint') do |v|
+        opts.on("--endpoint [URL]", "Supermarket endpoint") do |v|
           options[:endpoint] = v
         end
 
-        opts.on('--username [USERNAME]', 'Username to authenticate with') do |v|
+        opts.on("--username [USERNAME]", "Username to authenticate with") do |v|
           options[:username] = v
         end
 
-        opts.on('--key [PATH]', 'Path to the private key on disk') do |v|
+        opts.on("--key [PATH]", "Path to the private key on disk") do |v|
           options[:key] = v
         end
 
-        opts.on('--[no-]extended-metadata', 'Include non-backwards compatible metadata keys such as `issues_url`') do |v|
+        opts.on("--[no-]extended-metadata", "Include non-backwards compatible metadata keys such as `issues_url`") do |v|
           options[:extended_metadata] = v
         end
 
-        opts.on('--no-ssl-verify', 'Turn off ssl verify') do
+        opts.on("--no-ssl-verify", "Turn off ssl verify") do
           options[:ssl_verify] = false
         end
 
-        opts.separator ''
-        opts.separator 'Git Options:'
+        opts.separator ""
+        opts.separator "Git Options:"
 
-        opts.on('--remote [REMOTE]', 'Name of the git remote') do |v|
+        opts.on("--remote [REMOTE]", "Name of the git remote") do |v|
           options[:remote] = v
         end
 
-        opts.on('--branch [BRANCH]', 'Name of the git branch') do |v|
+        opts.on("--branch [BRANCH]", "Name of the git branch") do |v|
           options[:branch] = v
         end
 
-        opts.on('--sign', 'Sign git tags') do
+        opts.on("--sign", "Sign git tags") do
           options[:sign] = true
         end
 
-        opts.separator ''
-        opts.separator 'Artifactory Options:'
+        opts.separator ""
+        opts.separator "Artifactory Options:"
 
-        opts.on('--artifactory [URL]', 'URL for the Artifactory repository') do |v|
+        opts.on("--artifactory [URL]", "URL for the Artifactory repository") do |v|
           options[:artifactory] = v
         end
 
-        opts.on('--artifactory-key [KEY]', 'Artifactory API key to use') do |v|
-          options[:artifactory_key] = if v[0] == '@'
-            # If passed a key looking like @foo, read it as a file. This allows
-            # passing in the key securely.
-            IO.read(File.expand_path(v[1..-1]))
-          else
-            v
-          end
+        opts.on("--artifactory-key [KEY]", "Artifactory API key to use") do |v|
+          options[:artifactory_key] = if v[0] == "@"
+                                        # If passed a key looking like @foo, read it as a file. This allows
+                                        # passing in the key securely.
+                                        IO.read(File.expand_path(v[1..-1]))
+                                      else
+                                        v
+                                      end
         end
 
-        opts.separator ''
-        opts.separator 'Global Options:'
+        opts.separator ""
+        opts.separator "Global Options:"
 
-        opts.on('--log-level [LEVEL]', 'Set the log verbosity') do |v|
+        opts.on("--log-level [LEVEL]", "Set the log verbosity") do |v|
           options[:log_level] = v
         end
 
-        opts.on('--path [PATH]', 'Change the path to a cookbook') do |v|
+        opts.on("--path [PATH]", "Change the path to a cookbook") do |v|
           options[:path] = v
         end
 
-        opts.on_tail('-h', '--help', 'Show this message') do
+        opts.on_tail("-h", "--help", "Show this message") do
           puts opts
           exit
         end
 
-        opts.on_tail('-v', '--version', 'Show version') do
+        opts.on_tail("-v", "--version", "Show version") do
           puts Stove::VERSION
           exit(0)
         end
@@ -174,24 +174,24 @@ module Stove
     def options
       @options ||= {
         # Upload options
-        :endpoint          => nil,
-        :username          => Config.username,
-        :key               => Config.key,
-        :extended_metadata => true,
-        :ssl_verify        => true,
+        endpoint: nil,
+        username: Config.username,
+        key: Config.key,
+        extended_metadata: true,
+        ssl_verify: true,
 
         # Git options
-        :remote => 'origin',
-        :branch => 'master',
-        :sign   => false,
+        remote: "origin",
+        branch: "master",
+        sign: false,
 
         # Artifactory options
-        :artifactory     => false,
-        :artifactory_key => ENV['ARTIFACTORY_API_KEY'],
+        artifactory: false,
+        artifactory_key: ENV["ARTIFACTORY_API_KEY"],
 
         # Global options
-        :log_level => :warn,
-        :path      => Dir.pwd,
+        log_level: :warn,
+        path: Dir.pwd,
       }
     end
   end

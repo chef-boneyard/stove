@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-require 'mixlib/log'
+require "mixlib/log"
 
 module Stove
   class Log

@@ -1,13 +1,13 @@
-require 'fileutils'
-require 'json'
+require "fileutils"
+require "json"
 
 module Stove
   class Config
     include Mixin::Instanceable
 
     def method_missing(m, *args, &block)
-      if m.to_s.end_with?('=')
-        __set__(m.to_s.chomp('='), args.first)
+      if m.to_s.end_with?("=")
+        __set__(m.to_s.chomp("="), args.first)
       else
         __get__(m)
       end
@@ -19,7 +19,7 @@ module Stove
 
     def save
       FileUtils.mkdir_p(File.dirname(__path__))
-      File.open(__path__, 'w') do |f|
+      File.open(__path__, "w") do |f|
         f.write(JSON.fast_generate(__raw__))
       end
     end
@@ -49,7 +49,7 @@ module Stove
     end
 
     def __path__
-      @path ||= File.expand_path(ENV['STOVE_CONFIG'] || '~/.stove')
+      @path ||= File.expand_path(ENV["STOVE_CONFIG"] || "~/.stove")
     end
 
     def __raw__
@@ -61,8 +61,8 @@ module Stove
         $stderr.puts "Detected old Stove configuration file, converting..."
 
         @__raw__ = {
-          :username => @__raw__[:community][:username],
-          :key      => @__raw__[:community][:key],
+          username: @__raw__[:community][:username],
+          key: @__raw__[:community][:key],
         }
       end
 

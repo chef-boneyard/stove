@@ -1,1 +1,1 @@
-default['key'] = 'value'
+default["key"] = "value"

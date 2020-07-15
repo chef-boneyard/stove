@@ -1,4 +1,4 @@
-require 'singleton'
+require "singleton"
 
 module Stove
   module Mixin::Instanceable
@@ -14,6 +14,7 @@ module Stove
 
     module ClassMethods
       def to_s; instance.to_s; end
+
       def inspect; instance.inspect; end
 
       def method_missing(m, *args, &block)

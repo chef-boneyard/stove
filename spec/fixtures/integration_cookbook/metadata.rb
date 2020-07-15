@@ -1,2 +1,2 @@
-name 'stove_integration_test'
-version '1.0.0'
+name "stove_integration_test"
+version "1.0.0"

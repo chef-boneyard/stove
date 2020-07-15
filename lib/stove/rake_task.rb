@@ -1,6 +1,6 @@
-require 'rake'
-require 'rake/tasklib'
-require 'stove'
+require "rake"
+require "rake/tasklib"
+require "stove"
 
 module Stove
   class RakeTask < Rake::TaskLib
@@ -9,7 +9,7 @@ module Stove
     def initialize(name = nil)
       yield self if block_given?
 
-      desc 'Publish this cookbook' unless ::Rake.application.last_description
+      desc "Publish this cookbook" unless ::Rake.application.last_description
       task(name || :publish) do |t, args|
         Cli.new(stove_opts || []).execute!
       end
