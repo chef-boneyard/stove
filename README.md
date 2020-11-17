@@ -7,6 +7,10 @@ A utility for releasing and managing Chef Infra Cookbooks. Stove will:
 - Tag and push a new release to git
 - Upload the cookbook to a private or public Supermarket
 
+## DEPRECATED
+
+Stove is no longer maintained. It *may* continue to work for users, but we recommend using `knife supermarket share` as that now respects the chefignore to build minimal build artifacts for Supermarket upload.
+
 ## Why?
 
 Existing tools to package cookbooks (such as [Knife Community](https://github.com/miketheman/knife-community) and `knife supermarket share`) require a dependency on Chef Infra Client. Because of their dependency on Chef Infra Client, they enforce the use of a "cookbook repo". Especially with the evolution of [Berkshelf](https://github.com/berkshelf/berkshelf), cookbooks are individualized artifacts and are often contained in their own repositories. [stove](https://github.com/chef/stove) is **cookbook-centric, rather than Chef-centric**.
