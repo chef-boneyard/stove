@@ -2,6 +2,7 @@ require 'rubygems/package'
 require 'fileutils'
 require 'tempfile'
 require 'zlib'
+require 'stringio'
 
 module Stove
   class Packager
