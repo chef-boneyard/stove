@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   = 'stove'
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.3'
+  spec.required_ruby_version = '>= 2.7'
 
   # Runtime dependencies
   spec.add_dependency 'chef-api', '~> 0.5'
